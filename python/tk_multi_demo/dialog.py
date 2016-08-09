@@ -189,6 +189,7 @@ class DemoWidget(QtGui.QSplitter):
 
         :param event: A ``QtCore.QEvent.CloseEvent`` instance
         """
+
         # gracefully close down threadpool
         self.bg_task_manager.shut_down()
 

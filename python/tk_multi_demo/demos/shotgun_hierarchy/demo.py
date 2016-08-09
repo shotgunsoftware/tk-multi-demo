@@ -11,6 +11,22 @@
 import sgtk
 from sgtk.platform.qt import QtCore, QtGui
 
+# import the overlay module from the qtwidgets framework
+overlay = sgtk.platform.import_framework(
+    "tk-framework-qtwidgets", "overlay_widget")
+
+# import the shotgun fields module from qtwidgets.
+shotgun_fields = sgtk.platform.import_framework(
+    "tk-framework-qtwidgets", "shotgun_fields")
+
+# import the shotgun model module from shotgunutils framework
+shotgun_model = sgtk.platform.import_framework(
+    "tk-framework-shotgunutils", "shotgun_model")
+
+# import the views module from qtwidgets framework
+views = sgtk.platform.import_framework(
+    "tk-framework-qtwidgets", "views")
+
 
 class ShotgunHierarchyDemo(QtGui.QFrame):
     """
@@ -25,54 +41,58 @@ class ShotgunHierarchyDemo(QtGui.QFrame):
 
         super(ShotgunHierarchyDemo, self).__init__(parent)
 
+        self._bg_task_manager = parent.bg_task_manager
+
         doc_lbl = QtGui.QLabel(
             "Browse the hierarchy on the left to find <tt>Version</tt> "
             "entities."
         )
 
-        # import the views module from qtwidgets framework
-        views = sgtk.platform.import_framework(
-            "tk-framework-qtwidgets", "views")
-
-        # import the shotgun fields module from qtwidgets.
-        shotgun_fields = sgtk.platform.import_framework(
-            "tk-framework-qtwidgets", "shotgun_fields")
-
-
         # the field manager handles retrieving widgets for shotgun field types
         fields_manager = shotgun_fields.ShotgunFieldManager(
             self,
-            bg_task_manager=parent.bg_task_manager,
+            bg_task_manager=self._bg_task_manager,
         )
 
         # construct the view and set the model
-        self._hierarchy_view = views.ShotgunHierarchyView(self)
+        self._hierarchy_view = QtGui.QTreeView()
+        self._hierarchy_view.setIndentation(16)
+        self._hierarchy_view.setUniformRowHeights(True)
 
         # this view will display versions for selected entites on the left
         self._version_view = views.ShotgunTableView(fields_manager)
+        self._version_view.horizontalHeader().setStretchLastSection(True)
+
+        # add an overlay to the version view to show messages while querying
+        self._overlay_widget = overlay.ShotgunOverlayWidget(self._version_view)
+        self._overlay_widget.show_message(
+            "Select items in the hierarchy to show Versions here!"
+        )
+
+        # layout the widgets for display
+        splitter = QtGui.QSplitter()
+        splitter.addWidget(self._hierarchy_view)
+        splitter.addWidget(self._version_view)
+
+        # version view stretch twice the rate of hierarchy
+        splitter.setStretchFactor(1, 2)
+
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(doc_lbl)
+        layout.addWidget(splitter)
+
+        # splitter should dominate vertically
+        layout.setStretchFactor(splitter, 10)
 
         # the fields manager needs time to initialize itself. once that's done,
         # the widgets can begin to be populated.
         fields_manager.initialized.connect(self._populate_ui)
         fields_manager.initialize()
 
-        # layout the widgets for display
-        browse_layout = QtGui.QHBoxLayout()
-        browse_layout.addWidget(self._hierarchy_view)
-        browse_layout.addWidget(self._version_view)
-
-        layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(doc_lbl)
-        layout.addLayout(browse_layout)
-
     def _populate_ui(self):
         """
         Populate the UI with the data.
         """
-
-        # import the shotgun model module from shotgunutils framework
-        shotgun_model = sgtk.platform.import_framework(
-            "tk-framework-shotgunutils", "shotgun_model")
 
         # construct a hierarchy model then load some data.
         # the "/" url means "show the hierarchies for all projects"
@@ -80,13 +100,26 @@ class ShotgunHierarchyDemo(QtGui.QFrame):
         # entities that are linked via the Version.entity field.
         self._hierarchy_model = shotgun_model.SimpleShotgunHierarchyModel(self)
         self._hierarchy_model.load_data("/", "Version.entity")
-
         self._hierarchy_view.setModel(self._hierarchy_model)
 
+        # create a simple shotgun model for querying the versions
+        self._version_model = shotgun_model.SimpleShotgunModel(
+            self, bg_task_manager=self._bg_task_manager
+        )
+
+        # --- connect some signals
+
+        # as hierarchy view selection changes, query versions
         selection_model = self._hierarchy_view.selectionModel()
         selection_model.selectionChanged.connect(
             self._on_hierarchy_selection_changed
         )
+
+        # show the overlay on the versions as they're being queried
+        self._version_model.data_refreshing.connect(
+            lambda: self._overlay_widget.start_spin()
+        )
+        self._version_model.data_refreshed.connect(self._on_data_refreshed)
 
     def _on_hierarchy_selection_changed(self, selected, deselected):
         """
@@ -101,4 +134,42 @@ class ShotgunHierarchyDemo(QtGui.QFrame):
         # get the item directly. Note: if you have a proxy model in between
         # the view and the model, you'll likely need to call `mapToSource`.
         selected_item = self._hierarchy_model.itemFromIndex(indexes[0])
+
+        # the item will be a ShotgunHierarchyItem. Access the data necessary
+        # to load data for the shotgun model
+        target_entities = selected_item.target_entities()
+
+        if not target_entities:
+            return
+
+        # if we're here we have a hierarchy item. query the versions under
+        # the selected point in the SG hierarchy. the shotgun model will handle
+        # caching as the user clicks a previously selected item in the hierarchy
+        self._version_model.load_data(
+            target_entities.get("type"),
+            additional_filter_presets=target_entities.get("additional_filter_presets"),
+            limit=50,           # limit results to 50 Versions max
+            columns=[           # a few columns to display in the model
+                "created_at",
+                "created_by",
+                "sg_task",
+            ],
+        )
+
+        # delay setting the view model until the first query
+        if not self._version_view.model():
+            self._version_view.setModel(self._version_model)
+
+    def _on_data_refreshed(self):
+        """
+        Update the display when the data has been refreshed.
+        """
+        self._overlay_widget.hide()
+
+        # if the row count of the model is 0, there are no versions to show.
+        # show a message instead
+        if self._version_model.rowCount() == 0:
+            self._overlay_widget.show_message("No Versions under selection.")
+        else:
+            self._version_view.resizeColumnsToContents()
 
