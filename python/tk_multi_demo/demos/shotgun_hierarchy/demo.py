@@ -140,6 +140,7 @@ class ShotgunHierarchyDemo(QtGui.QFrame):
         target_entities = selected_item.target_entities()
 
         if not target_entities:
+            self._overlay_widget.show_message("No Versions under selection.")
             return
 
         # if we're here we have a hierarchy item. query the versions under
