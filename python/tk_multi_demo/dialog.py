@@ -13,6 +13,7 @@ import os
 
 import sgtk
 from sgtk.platform.qt import QtCore, QtGui
+from sgtk.platform import constants
 
 # for reading each demo's info.yml file
 from tank_vendor import yaml
@@ -233,6 +234,8 @@ class DemoWidget(QtGui.QSplitter):
         if demo_name not in self._demo_stack_lookup:
             try:
                 widget = demo_class(parent=self)
+                demo_dir = os.path.dirname(inspect.getfile(demo_class))
+                self._apply_external_styleshet(widget, demo_dir)
             except Exception, e:
                 import traceback
                 tb = traceback.format_exc()
@@ -487,3 +490,50 @@ class DemoWidget(QtGui.QSplitter):
         Displays the default demo.
         """
         self.set_demo(self._default_demo_info)
+
+    def _apply_external_styleshet(self, widget, demo_dir):
+        """
+        Apply an std external stylesheet, associated with the demo.
+
+        :param bundle: app/engine/framework instance to load style sheet from
+        :param widget: widget to apply stylesheet to
+        """
+        qss_file = os.path.join(demo_dir, constants.BUNDLE_STYLESHEET_FILE)
+        try:
+            f = open(qss_file, "rt")
+            try:
+                # Read css file
+                self.app.log_debug(
+                    "Detected std style sheet file '%s' - applying to widget %s"
+                    % (qss_file, widget)
+                )
+                qss_data = f.read()
+                # resolve tokens
+                qss_data = self._resolve_sg_stylesheet_tokens(qss_data)
+                # apply to widget (and all its children)
+                widget.setStyleSheet(qss_data)
+            except Exception, e:
+                # catch-all and issue a warning and continue.
+                self.app.log_warning(
+                    "Could not apply stylesheet '%s': %s" % (qss_file, e))
+            finally:
+                f.close()
+        except IOError:
+            # The file didn't exist, so nothing to do.
+            pass
+
+    def _resolve_sg_stylesheet_tokens(self, style_sheet):
+        """
+        Given a string containing a qt style sheet,
+        perform replacements of key toolkit tokens.
+
+        For example, "{{SG_HIGHLIGHT_COLOR}}" is converted to "#30A7E3"
+
+        :param style_sheet: Stylesheet string to process
+        :returns: Stylesheet string with replacements applied
+        """
+        processed_style_sheet = style_sheet
+        for (token, value) in constants.SG_STYLESHEET_CONSTANTS.iteritems():
+            processed_style_sheet = processed_style_sheet.replace(
+                "{{%s}}" % token, value)
+        return processed_style_sheet

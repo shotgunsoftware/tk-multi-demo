@@ -10,7 +10,6 @@ For more info about QT stylesheets, please see http://doc.qt.io/qt-4.8/styleshee
 
 ********************************************************************************************/
 
-
 QPlainTextEdit#demo_code_edit {
     font-family: "Courier";
     font-size: 12px;
