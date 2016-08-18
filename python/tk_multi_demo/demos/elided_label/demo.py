@@ -16,7 +16,7 @@ elided_label = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "elided_label")
 
 
-class ElidedLabelDemo(QtGui.QFrame):
+class ElidedLabelDemo(QtGui.QWidget):
     """
     Demonstrates the use of the the ElidedLabel class available in the
     tk-frameworks-qtwidgets framework.
@@ -70,11 +70,3 @@ class ElidedLabelDemo(QtGui.QFrame):
         layout.addWidget(slider)
         layout.addWidget(doc)
         layout.addStretch()
-
-        # add a border around the widget
-        self.setObjectName("demo_widget")
-        self.setStyleSheet(
-            "QFrame#demo_widget {"
-            "   border: 1px solid palette(base);"
-            "}"
-        )

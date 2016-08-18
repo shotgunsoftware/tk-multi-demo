@@ -15,13 +15,13 @@ import sgtk
 from sgtk.platform.qt import QtCore, QtGui
 from sgtk.platform import constants
 
-# for reading each demo's info.yml file
+# for reading each demo's demo.yml file
 from tank_vendor import yaml
 
 # ensure the resources are available
-from ui import resources_rc
+from .ui import resources_rc
 
-from demos import DEMO_DEFAULT, DEMOS_LIST
+from .demos import DEMO_DEFAULT, DEMOS_LIST
 
 # TODO: file copied from python console.
 #       maybe entire python console widget set should live in qtwidgets?
@@ -204,7 +204,7 @@ class DemoWidget(QtGui.QSplitter):
         :param dict demo_info: A dict of info about the demo to display
 
         The ``demo_info`` holds the information parsed from the demo's
-        ``info.yml`` file. It has one additional field called ``widget_class``
+        ``demo.yml`` file. It has one additional field called ``widget_class``
         which stores the class for the demo widget itself.
         """
 
@@ -400,7 +400,7 @@ class DemoWidget(QtGui.QSplitter):
                 demo_class = d
                 demo_info = self._get_demo_info(demo_class)
 
-                # oops, likely no `info.yml` for this demo
+                # oops, likely no `demo.yml` for this demo
                 if not demo_info:
                     continue
 
@@ -427,18 +427,18 @@ class DemoWidget(QtGui.QSplitter):
 
     def _get_demo_info(self, demo_class):
         """
-        Given a demo class, parse the ``info.yml`` file for more info.
+        Given a demo class, parse the ``demo.yml`` file for more info.
 
         :param demo_class: The demo ``QtGui.QWidget`` subclass
 
         :returns: A dict of info about the demo class.
         """
 
-        # read the info.yml file from the demo_class's directory
+        # read the demo.yml file from the demo_class's directory
         demo_dir = os.path.dirname(inspect.getfile(demo_class))
 
         # construct the full path to the manifest
-        manifest = os.path.join(demo_dir, "info.yml")
+        manifest = os.path.join(demo_dir, "demo.yml")
 
         if not os.path.exists:
             # no path fo the manifest

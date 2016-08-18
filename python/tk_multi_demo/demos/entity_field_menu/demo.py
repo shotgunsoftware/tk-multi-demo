@@ -20,7 +20,7 @@ shotgun_fields = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "shotgun_fields")
 
 
-class EntityFieldMenuDemo(QtGui.QFrame):
+class EntityFieldMenuDemo(QtGui.QWidget):
     """
     Demonstrates the use of the the EntityFieldMenu class available in the
     tk-frameworks-qtwidgets framework.
@@ -72,6 +72,7 @@ class EntityFieldMenuDemo(QtGui.QFrame):
         # a button to trigger the menu
         entity_field_menu_button = QtGui.QPushButton(
             "EntityFieldMenu (%s)" % (entity_type,))
+        entity_field_menu_button.setObjectName("entity_field_menu_button")
 
         # show the menu when the button is clicked
         entity_field_menu_button.clicked.connect(
@@ -90,14 +91,3 @@ class EntityFieldMenuDemo(QtGui.QFrame):
         layout.addStretch()
 
         layout.setAlignment(entity_field_menu_button, QtCore.Qt.AlignCenter)
-
-        # add a border around the demo and set the font family of the button
-        self.setObjectName("demo_widget")
-        self.setStyleSheet(
-            "QFrame#demo_widget {"
-            "   border: 1px solid palette(base);"
-            "}"
-            "QPushButton {"
-            '    font-family: "Courier";'
-            "}"
-        )

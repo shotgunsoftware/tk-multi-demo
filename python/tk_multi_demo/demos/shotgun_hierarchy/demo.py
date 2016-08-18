@@ -28,7 +28,7 @@ views = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "views")
 
 
-class ShotgunHierarchyDemo(QtGui.QFrame):
+class ShotgunHierarchyDemo(QtGui.QWidget):
     """
     Demonstrates the use of the ``ShotgunHierarchyModel`` to display a hierarchy
     as defined by project's tracking settings in Shotgun.

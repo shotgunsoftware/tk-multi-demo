@@ -19,7 +19,7 @@ overlay = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "overlay_widget")
 
 
-class OverlayDemo(QtGui.QFrame):
+class OverlayDemo(QtGui.QWidget):
     """
     Demonstrates the use of the the overlay widget available in the
     tk-frameworks-qtwidgets framework.
@@ -51,11 +51,11 @@ class OverlayDemo(QtGui.QFrame):
 
         # shows the overlay widget and starts the spinner. typically this would
         # be called just before starting a long/blocking process
-        start_spin = QtGui.QPushButton("start_spin()")
+        start_spin = OverlayButton("start_spin()")
         start_spin.clicked.connect(overlay_widget.start_spin)
 
         # shows a given message in the overlay
-        show_message = QtGui.QPushButton("show_message()")
+        show_message = OverlayButton("show_message()")
         show_message.clicked.connect(
             lambda: overlay_widget.show_message(
                 "Showing this message in the overlay widget.\n"
@@ -64,15 +64,15 @@ class OverlayDemo(QtGui.QFrame):
         )
 
         # shows a pixmap in the overlay
-        show_message_pixmap = QtGui.QPushButton("show_message_pixmap()")
+        show_message_pixmap = OverlayButton("show_message_pixmap()")
         show_message_pixmap.clicked.connect(
             lambda: overlay_widget.show_message_pixmap(
-                QtGui.QPixmap(":/tk_multi_demo/demos/overlay/toolkit_icon.png")
+                QtGui.QPixmap(":/tk_multi_demo_overlay/toolkit_icon.png")
             )
         )
 
         # shows a given error message in the overlay
-        show_error_message = QtGui.QPushButton("show_error_message()")
+        show_error_message = OverlayButton("show_error_message()")
         show_error_message.clicked.connect(
             lambda: overlay_widget.show_error_message(
                 (
@@ -84,7 +84,7 @@ class OverlayDemo(QtGui.QFrame):
         )
 
         # hides the overlay
-        hide = QtGui.QPushButton("hide()")
+        hide = OverlayButton("hide()")
         hide.clicked.connect(overlay_widget.hide)
 
         # lay out and align the widgets
@@ -99,8 +99,6 @@ class OverlayDemo(QtGui.QFrame):
         layout.addWidget(my_label)
         layout.addLayout(button_layout)
 
-        self.setStyleSheet(
-            "QPushButton {"
-            '    font-family: "Courier";'
-            "}"
-        )
+class OverlayButton(QtGui.QPushButton):
+    # a styled wrapper class
+    pass

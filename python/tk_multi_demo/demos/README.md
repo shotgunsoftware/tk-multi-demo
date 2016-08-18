@@ -9,8 +9,8 @@ contains one demo with the following contents:
 demo to display to the user.
 * An `__init__.py` file which typically just imports the demo widget into the
 demo's module namespace
-* An `info.yml` file which is *exactly* like the bundle manifest for a regular
-toolkit app
+* A `demo.yml` file which provides information about the demo such as
+    `display_name`, `description`, and `documentation_url`.
 
 You can optionally include `resources` and `ui` sub directories if your demo
 requires images or was constructed using **Designer**.

@@ -8,15 +8,6 @@
 # agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
-# Metadata defining the behaviour and requirements for this app
-
-
-# expected fields in the configuration file for this app
-configuration: {}
-
-# the Shotgun fields that this app needs in order to operate correctly
-requires_shotgun_fields:
-
 # More verbose description of this item
 display_name: "Help With this App"
 
@@ -26,12 +17,3 @@ description:
 
 documentation_url: "https://github.com/shotgunsoftware/tk-multi-demo"
 
-# Required minimum versions for this item to run
-requires_shotgun_version:
-requires_core_version: "v0.14.0"
-requires_engine_version:
-
-frameworks:
-
-# the engines that this app can operate in:
-supported_engines:

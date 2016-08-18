@@ -32,17 +32,17 @@ class HelpDemo(QtGui.QWidget):
 
         summary_lbl = QtGui.QLabel()
         summary_lbl.setPixmap(
-            QtGui.QPixmap(":/tk_multi_demo/demos/help/summary_help.png")
+            QtGui.QPixmap(":/tk_multi_demo_help/summary_help.png")
         )
 
         select_lbl = QtGui.QLabel()
         select_lbl.setPixmap(
-            QtGui.QPixmap(":/tk_multi_demo/demos/help/select_help.png")
+            QtGui.QPixmap(":/tk_multi_demo_help/select_help.png")
         )
 
         tabs_lbl = QtGui.QLabel()
         tabs_lbl.setPixmap(
-            QtGui.QPixmap(":/tk_multi_demo/demos/help/tabs_help.png")
+            QtGui.QPixmap(":/tk_multi_demo_help/tabs_help.png")
         )
 
         # lay out the widgets in the UI

@@ -16,7 +16,7 @@ shotgun_menus = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "shotgun_menus")
 
 
-class ShotgunMenuDemo(QtGui.QFrame):
+class ShotgunMenuDemo(QtGui.QWidget):
     """
     Demonstrates the use of the the ShotgunMenu class available in the
     tk-frameworks-qtwidgets framework.
@@ -53,6 +53,7 @@ class ShotgunMenuDemo(QtGui.QFrame):
         sg_menu_button.clicked.connect(
             lambda: sg_menu.exec_(QtGui.QCursor.pos())
         )
+        sg_menu_button.setObjectName("sg_menu_button")
 
         # help label
         doc = QtGui.QLabel("Click the button to show the menu.")
@@ -66,13 +67,3 @@ class ShotgunMenuDemo(QtGui.QFrame):
         layout.addStretch()
 
         layout.setAlignment(sg_menu_button, QtCore.Qt.AlignCenter)
-
-        self.setObjectName("demo_widget")
-        self.setStyleSheet(
-            "QFrame#demo_widget {"
-            "   border: 1px solid palette(base);"
-            "}"
-            "QPushButton {"
-            '    font-family: "Courier";'
-            "}"
-        )

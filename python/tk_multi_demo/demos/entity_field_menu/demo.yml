@@ -10,13 +10,6 @@
 
 # Metadata defining the behaviour and requirements for this app
 
-
-# expected fields in the configuration file for this app
-configuration: {}
-
-# the Shotgun fields that this app needs in order to operate correctly
-requires_shotgun_fields:
-
 # More verbose description of this item
 display_name: "Entity Field Menu"
 
@@ -27,14 +20,3 @@ description:
 
 documentation_url: "http://developer.shotgunsoftware.com/tk-framework-qtwidgets/shotgun_menus.html#entity-field-menu"
 
-# Required minimum versions for this item to run
-requires_shotgun_version:
-requires_core_version: "v0.14.0"
-requires_engine_version:
-
-frameworks:
-    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}
-    - {"name": "tk-framework-shotgunutils", "version": "v4.x.x"}
-
-# the engines that this app can operate in:
-supported_engines:
