@@ -23,3 +23,6 @@ description:
 
 documentation_url: "http://developer.shotgunsoftware.com/tk-framework-shotgunutils"
 
+frameworks:
+    - {"name": "tk-framework-shotgunutils", "version": "v4.x.x"}
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}

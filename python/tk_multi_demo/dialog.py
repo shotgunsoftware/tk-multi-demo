@@ -27,10 +27,6 @@ from .demos import DEMO_DEFAULT, DEMOS_LIST
 #       maybe entire python console widget set should live in qtwidgets?
 from syntax_highlighter import PythonSyntaxHighlighter
 
-# import framework modules
-task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
-
 overlay = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "overlay_widget")
 
@@ -61,14 +57,12 @@ class DemoWidget(QtGui.QSplitter):
         Initialize the main demo widget.
         """
 
+        self._current_demo_info = None
+
         super(DemoWidget, self).__init__()
 
         # easy access to the app instance
         self.app = sgtk.platform.current_bundle()
-
-        # provide a bg task manager that demos can use via the parent widget
-        self.bg_task_manager = task_manager.BackgroundTaskManager(
-            parent=self, start_processing=True)
 
         # the default class/info to use at startup
         self._default_demo_info = None
@@ -81,6 +75,10 @@ class DemoWidget(QtGui.QSplitter):
 
         # quick lookup of previously created file models via demo names
         self._demo_file_model_lookup = {}
+
+        # keep a reference to all demo widgets created. this will prevent issues
+        # with garbage collection
+        self.__all_demos = []
 
         # construct the model based on the hierarchy defined in the
         # demos module
@@ -101,6 +99,16 @@ class DemoWidget(QtGui.QSplitter):
         self._demo_name = QtGui.QLabel(self)
         self._demo_name.setObjectName("demo_name")
         self._demo_name.setMinimumHeight(30)
+
+        # demo to app btn
+        self._demo_to_app = QtGui.QPushButton(self)
+        self._demo_to_app.setText("Export Demo to New Toolkit App >")
+        self._demo_to_app.setToolTip(
+            "Use this demo as the start of a new toolkit app."
+        )
+        self._demo_to_app.setObjectName("demo_to_app")
+        self._demo_to_app.setFocusPolicy(QtCore.Qt.NoFocus)
+        self._demo_to_app.clicked.connect(self._on_demo_to_app_clicked)
 
         # shows the description of the demo
         self._demo_desc = QtGui.QLabel(self)
@@ -148,12 +156,19 @@ class DemoWidget(QtGui.QSplitter):
         self._demo_tabs.addTab(self._demo_widget_tab, "Interactive Demo")
         self._demo_tabs.addTab(demo_code_widget, "Code")
 
+        self._demo_tabs.setCornerWidget(self._demo_to_app)
+
         # an overlay of the tabs for displaying errors, etc.
         self._overlay = overlay.ShotgunOverlayWidget(self._demo_tabs)
 
+        demo_header_layout = QtGui.QHBoxLayout()
+        demo_header_layout.addWidget(self._demo_name)
+        demo_header_layout.addStretch()
+        #demo_header_layout.addWidget(self._demo_to_app)
+
         # layout the demo display widgets
         demo_layout = QtGui.QVBoxLayout()
-        demo_layout.addWidget(self._demo_name)
+        demo_layout.addLayout(demo_header_layout)
         demo_layout.addWidget(self._demo_desc)
         demo_layout.addWidget(self._demo_tabs)
 
@@ -182,20 +197,16 @@ class DemoWidget(QtGui.QSplitter):
         # set the default demo
         self._set_default_demo()
 
-    def closeEvent(self, event):
+        QtCore.QCoreApplication.instance().aboutToQuit.connect(self.destroy)
+
+    def destroy(self):
+        """Manually call destroy on the created demos.
+
+        This allows them to do their own cleanup.
         """
-        Handles shutting down the bg task manager and other cleanup tasks.
 
-        Overridden from ``QtGui.QWidget.closeEvent``
-
-        :param event: A ``QtCore.QEvent.CloseEvent`` instance
-        """
-
-        # gracefully close down threadpool
-        self.bg_task_manager.shut_down()
-
-        # okay to close dialog
-        event.accept()
+        for demo in self.__all_demos:
+            demo.destroy()
 
     def set_demo(self, demo_info):
         """
@@ -207,6 +218,8 @@ class DemoWidget(QtGui.QSplitter):
         ``demo.yml`` file. It has one additional field called ``widget_class``
         which stores the class for the demo widget itself.
         """
+
+        self._current_demo_info = demo_info
 
         # grab the necessary info about the demo to display
         demo_name = demo_info["display_name"]
@@ -244,6 +257,10 @@ class DemoWidget(QtGui.QSplitter):
                     "\n\n%s\n%s" % (e, tb)
                 )
                 return
+
+            # keep a reference to all created widgets to avoid problems with
+            # garbage collection
+            self.__all_demos.append(widget)
 
             stack_pos = self._demo_widget_tab.addWidget(widget)
             self._demo_stack_lookup[demo_name] = stack_pos
@@ -479,11 +496,308 @@ class DemoWidget(QtGui.QSplitter):
                 )
                 return None
 
-        # add the class in there as well so that we have stop shopping for all
-        # the demo information
+        # add the directory and class in there as well so that we have one stop
+        # shopping for all the demo information
         demo_info["widget_class"] = demo_class
+        demo_info["directory"] = demo_dir
 
         return demo_info
+
+    def _on_demo_to_app_clicked(self):
+        """
+        Prompt the user for a location and export the current demo to a working
+        toolkit app.
+        """
+
+        # prompt the user for a location on disk
+        # XXX finder returning wrong path unless you actually click something!
+        # XXX make a custom form dialog with more fields to fill out:
+        # XXX destination folder
+        # XXX app name (defaults to tk-multi-myapp)
+        # XXX app title
+
+        dir_browser = QtGui.QFileDialog(
+            parent=self,
+            caption="Select a destination folder for the Toolkit App",
+        )
+
+        dir_browser.setFileMode(QtGui.QFileDialog.Directory)
+        dir_browser.setOptions(
+        QtGui.QFileDialog.ShowDirsOnly |
+            QtGui.QFileDialog.DontResolveSymlinks
+        )
+        dir_browser.setViewMode(QtGui.QFileDialog.Detail)
+
+        if not dir_browser.exec_():
+            return
+
+        dest_dir = str(dir_browser.selectedFiles()[0])
+
+        # TODO: also prompt for app name?
+        # generate a unique app folder
+        instance = 0
+        app_name = "tk-multi-myapp"
+        app_dir = os.path.join(dest_dir, app_name)
+        while os.path.exists(app_dir):
+            instance += 1
+            app_dir = os.path.join(dest_dir, "%s_%s" % (app_name, instance))
+
+        self._export_demo_to_app(app_dir)
+
+    # XXX move to a separate file
+    def _export_demo_to_app(self, app_dir):
+        """
+        Copies the app scaffold to the destination app directory and sets it
+        up for use based on the current demo.
+
+        :param app_dir:
+        """
+
+        demo_info = self._current_demo_info
+        demo_dir = demo_info["directory"]
+
+        # the directory where the app scaffolding lives
+        app_scaffold_dir = os.path.join(
+            os.path.dirname(__file__), "app_scaffold")
+
+        # copy the app_scaffold directory to the destination folder
+        if not self._copy_demo_folder(app_scaffold_dir, app_dir):
+            return
+
+        # XXX move out of method
+        # a list of files to exclude form the demo dir
+        exclude_files = [
+            "__MACOSX",
+            ".DS_Store",
+            ".git",
+            "__init__.py",   # will be replaced by the scaffolding
+        ]
+
+        # XXX move out of method
+        # combine with above, use wildcards/regex?
+        exclude_extensions = [
+            ".pyc",
+        ]
+
+        # get a list of all the files we care about in the demo_dir
+        # XXX simplify
+        all_demo_files = os.listdir(demo_dir)
+        demo_files = {}
+        for demo_file in all_demo_files:
+            if demo_file in exclude_files:
+                continue
+            for ext in exclude_extensions:
+                if not demo_file.endswith(ext):
+                    demo_files[demo_file] = os.path.join(demo_dir, demo_file)
+
+        # XXX don't copy demo.yml over
+        required_files = [
+            "demo.yml",
+            "demo.py"
+        ]
+
+        for required_file in required_files:
+            if not required_file in demo_files:
+                # XXX display a legit error message
+                print "REQUIRED FILE MISSING: %s" % (required_file,)
+                return
+
+        # XXX promote
+        reserved_files = [
+            "dialog.py"
+        ]
+
+        for reserved_file in reserved_files:
+            if reserved_file in demo_files:
+                # XXX display a legit error message
+                print "RESERVED FILE IN USE: %s" % (reserved_file,)
+                return
+
+        # ---- special case files/folders
+
+        # XXX make a generic method for this
+        # resources directory
+        if "resources" in demo_files and os.path.isdir(demo_files["resources"]):
+            rsc_dir = demo_files["resources"]
+            app_rsc = os.path.join(app_dir, "resources")
+            if not self._copy_demo_folder(rsc_dir, app_rsc):
+                return
+
+            # remove it from the list since we've processed it
+            del demo_files["resources"]
+
+        # XXX use generic method
+        # ui directory
+        if "ui" in demo_files and os.path.isdir(demo_files["ui"]):
+            ui_dir = demo_files["ui"]
+            app_ui = os.path.join(app_dir, "python", "app", "ui")
+            if not self._copy_demo_folder(ui_dir, app_ui):
+                return
+
+            # remove it from the list since we've processed it
+            del demo_files["ui"]
+
+        # XXX make a generic method for this
+        # style.qss
+        if "style.qss" in demo_files:
+            demo_style = demo_files["style.qss"]
+            app_style = os.path.join(app_dir, "style.qss")
+            if os.path.exists(app_style):
+                sgtk.util.filesystem.safe_delete_file(app_style)
+            if not self._copy_demo_file(demo_style, app_style):
+                # XXX
+                print "Unable to copy demo style sheet!"
+
+        # XXX use generic method
+        # icon_256.png
+        if "icon_256.png" in demo_files:
+            demo_icon = demo_files["icon_256.png"]
+            app_icon = os.path.join(app_dir, "icon_256.png")
+            if os.path.exists(app_icon):
+                sgtk.util.filesystem.safe_delete_file(app_icon)
+            if not self._copy_demo_file(demo_icon, app_icon):
+                # XXX
+                print "Unable to copy demo icon!"
+
+        # XXX don't copy demo.yml
+        # copy the remaining files
+        for demo_file in demo_files:
+            demo_path = demo_files[demo_file]
+            dest_path = os.path.join(app_dir, "python", "app", demo_file)
+            if os.path.isdir(demo_path):
+                if not self._copy_demo_folder(demo_path, dest_path):
+                    return
+            else:
+                if not self._copy_demo_file(demo_path, dest_path):
+                    return
+
+        # get some info to use in the manifest and for token replacement
+        demo_class_name = demo_info["widget_class"].__name__
+
+        # XXX what to display?
+        # TODO: maybe a better values here?
+        app_title = "My Toolkit App"
+        app_command_name = "Launch My Toolkit App"
+
+        # XXX move to separate method
+        # XXX need to preserve formatting!
+        # now populate the info.yml file
+        manifest = os.path.join(app_dir, "info.yml")
+        try:
+            fh = open(manifest, "r")
+        except Exception, e:
+            logger.error(
+                "Could not open exported app manifest file '%s'.\n"
+                " Error reported: '%s'" % (manifest, e)
+            )
+            return
+
+        # now try to parse it
+        try:
+            app_info = yaml.load(fh)
+        except Exception, e:
+            logger.error(
+                "Could not parse exported app manifest file '%s'.\n"
+                " Error reported: '%s'" % (manifest, e)
+            )
+            return
+        finally:
+            fh.close()
+        # XXX
+
+        # now update the values in the manifest
+        app_info["display_name"] = app_title
+        app_info["description"] = "Please enter a description of this app."
+
+        if "frameworks" in demo_info:
+            app_info["frameworks"] = demo_info["frameworks"]
+
+        # XXX move to separate method
+        # now write out the app info
+        try:
+            fh = open(manifest, "w")
+        except Exception, e:
+            logger.error(
+                "Could not open exported app manifest file '%s'.\n"
+                " Error reported: '%s'" % (manifest, e)
+            )
+            return
+
+        try:
+            yaml.dump(app_info, fh)
+        except Exception, e:
+            logger.error(
+                "Could not write exported app manifest file '%s'.\n"
+                " Error reported: '%s'" % (manifest, e)
+            )
+            return
+        finally:
+            fh.close()
+        # XXX
+
+        # XXX replace in all .py and .yml files in the app?
+        # XXX make it more future proof
+        # replace tokens
+        token_files = [
+            os.path.join(app_dir, "app.py"),
+            os.path.join(app_dir, "python", "app", "dialog.py"),
+        ]
+
+        # XXX document these in the class
+        # tokens
+        token_replacements = [
+            ("{{WIDGET_CLASS_NAME}}", demo_class_name),
+            ("{{APP_TITLE}}", app_title),
+            ("{{APP_COMMAND_NAME}}", app_command_name),
+        ]
+
+        for token_file in token_files:
+
+            # XXX move to separate method
+            try:
+                fh = open(token_file, "r+")
+                contents = fh.read()
+                fh.seek(0)
+                for token_replacement in token_replacements:
+                    contents = contents.replace(*token_replacement)
+                fh.write(contents)
+                fh.truncate()
+            except Exception, e:
+                logger.error(
+                    "Could not open exported app file '%s'.\n"
+                    " Error reported: '%s'" % (token_file, e)
+                )
+                return
+            finally:
+                fh.close()
+            # XXX
+
+        # XXX still need to ensure UI_PYTHON_PATH is fixed in build_resources
+
+    def _copy_demo_file(self, src, dest):
+        """Wraps the toolkit copy_file utility."""
+
+        try:
+            sgtk.util.filesystem.copy_file(src, dest)
+        except IOError, e:
+            # XXX display reasonable error message!
+            # XXX write a method for the error message display
+            print "ERROR: " + str(e)
+            return False
+
+        return True
+
+    def _copy_demo_folder(self, src, dest):
+        """Wraps the toolkit copy_folder utility."""
+
+        try:
+            sgtk.util.filesystem.copy_folder(src, dest)
+        except IOError, e:
+            # XXX display reasonable error message!
+            print "ERROR: " + str(e)
+            return False
+
+        return True
 
     def _set_default_demo(self):
         """

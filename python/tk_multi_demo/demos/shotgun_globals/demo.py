@@ -15,6 +15,7 @@ from sgtk.platform.qt import QtCore, QtGui
 shotgun_globals = sgtk.platform.import_framework(
     "tk-framework-shotgunutils", "shotgun_globals")
 
+# The default entity and field name to display
 DEFAULT_ENTITY_TYPE = "HumanUser"
 DEFAULT_FIELD_NAME = "name"
 
@@ -23,7 +24,7 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
     Show off the features of the shotgun_globals module in shotgunutils fw.
     """
 
-    def __init__(self, parent):
+    def __init__(self, parent=None):
         """
         Initialize the widget.
         """
@@ -32,7 +33,7 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         super(ShotgunGlobalsDemo, self).__init__(parent)
 
         # the app (current bundle) from the parent widget
-        self._app = parent.app
+        self._app = sgtk.platform.current_bundle()
 
         # --- query some data
 

@@ -61,6 +61,7 @@ class ShotgunMenuDemo(QtGui.QWidget):
 
         # lay out and align the widgets
         layout = QtGui.QVBoxLayout(self)
+        layout.addStretch()
         layout.addWidget(doc)
         layout.addSpacing(8)
         layout.addWidget(sg_menu_button)

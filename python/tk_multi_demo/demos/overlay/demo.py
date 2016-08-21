@@ -25,7 +25,7 @@ class OverlayDemo(QtGui.QWidget):
     tk-frameworks-qtwidgets framework.
     """
 
-    def __init__(self, parent):
+    def __init__(self, parent=None):
         """
         Initialize the demo widget.
         """

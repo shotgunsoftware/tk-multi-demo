@@ -20,7 +20,7 @@ class HelpDemo(QtGui.QWidget):
     The default demo used to help users identify the components of the app.
     """
 
-    def __init__(self, parent):
+    def __init__(self, parent=None):
         """
         Initialize the widget.
         """

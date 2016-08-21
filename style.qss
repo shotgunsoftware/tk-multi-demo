@@ -17,6 +17,13 @@ QPlainTextEdit#demo_code_edit {
     border-radius: 0px;
 }
 
+QPushButton#demo_to_app {
+    border: none;
+    background: none;
+    padding-top: 4px;
+    padding-right: 8px;
+}
+
 QComboBox#demo_file_combo {
     font-family: "Courier";
 }

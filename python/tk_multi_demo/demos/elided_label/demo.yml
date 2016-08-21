@@ -17,3 +17,6 @@ description:
 
 documentation_url: "http://developer.shotgunsoftware.com/tk-framework-qtwidgets/elided_label.html"
 
+frameworks:
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}
+

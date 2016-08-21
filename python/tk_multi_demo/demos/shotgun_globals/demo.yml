@@ -18,3 +18,5 @@ description:
 
 documentation_url: "http://developer.shotgunsoftware.com/tk-framework-shotgunutils/shotgun_globals.html"
 
+frameworks:
+    - {"name": "tk-framework-shotgunutils", "version": "v4.x.x"}
