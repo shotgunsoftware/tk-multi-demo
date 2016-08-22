@@ -39,7 +39,6 @@ class EntityFieldMenuDemo(QtGui.QWidget):
         super(EntityFieldMenuDemo, self).__init__(parent)
 
         # create a background task manager for each of our components to use
-        # for threading
         self._bg_task_manager = task_manager.BackgroundTaskManager(self)
 
         # --- build an entity field menu
