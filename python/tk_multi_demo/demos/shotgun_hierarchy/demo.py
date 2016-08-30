@@ -99,7 +99,6 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         """
         self._hierarchy_model.destroy()
         self._bg_task_manager.shut_down()
-        super(ShotgunHierarchyDemo, self).destroy()
 
     def _populate_ui(self):
         """

@@ -58,7 +58,6 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
         Clean up the object when deleted.
         """
         self._bg_task_manager.shut_down()
-        super(FieldWidgetsFormDemo, self).destroy()
 
     def _populate_ui(self):
         """
@@ -113,7 +112,7 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
             # user entity so that the data is populated. by default, this will
             # return an "EDITABLE" widget.
             editable_field_widget = self._fields_manager.create_widget(
-                entity_type, field, entity=current_user)
+                entity_type, field, entity=current_user, parent=self)
 
             # give the image field widget a minimum size
             if field == "image":

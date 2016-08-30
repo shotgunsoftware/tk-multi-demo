@@ -90,7 +90,6 @@ class EntityFieldMenuDemo(QtGui.QWidget):
         Clean up the object when deleted.
         """
         self._bg_task_manager.shut_down()
-        super(EntityFieldMenuDemo, self).destroy()
 
     def _populate_ui(self):
 
