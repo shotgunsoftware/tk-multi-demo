@@ -69,9 +69,16 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
 
         # add an overlay to the version view to show messages while querying
         self._overlay_widget = overlay.ShotgunOverlayWidget(self._version_view)
-        self._overlay_widget.show_message(
-            "Select items in the hierarchy to show Versions here!"
-        )
+
+        sg_connection = sgtk.platform.current_engine().shotgun
+        if shotgun_model.hierarchy_is_supported(sg_connection):
+            self._overlay_widget.show_message(
+                "Select items in the hierarchy to show Versions here!"
+            )
+        else:
+            self._overlay_widget.show_message(
+                "Hierarchy Model is not supported with this version of Shotgun."
+            )
 
         # layout the widgets for display
         splitter = QtGui.QSplitter()
@@ -97,8 +104,12 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         """
         Destroy the model as required by the API.
         """
-        self._hierarchy_model.destroy()
-        self._bg_task_manager.shut_down()
+        try:
+            self._hierarchy_model.destroy()
+            self._bg_task_manager.shut_down()
+        except Exception, e:
+            # log exception
+            pass
 
     def _populate_ui(self):
         """
@@ -106,12 +117,14 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         """
 
         # construct a hierarchy model then load some data.
-        # the "/" url means "show the hierarchies for all projects"
-        # the "Version.entity" seed means build a hierarchy that leads to
+        # "Version.entity" seed means build a hierarchy that leads to
         # entities that are linked via the Version.entity field.
+        # by default the model will be built for the current project.
+        # if no project can be determined from the current context,
+        # the model will be built with top-level items for each project.
         self._hierarchy_model = shotgun_model.SimpleShotgunHierarchyModel(
             self, bg_task_manager=self._bg_task_manager)
-        self._hierarchy_model.load_data("/", "Version.entity")
+        self._hierarchy_model.load_data("Version.entity")
         self._hierarchy_view.setModel(self._hierarchy_model)
 
         # create a simple shotgun model for querying the versions
@@ -148,7 +161,11 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
 
         # the item will be a ShotgunHierarchyItem. Access the data necessary
         # to load data for the shotgun model
-        target_entities = selected_item.target_entities()
+        try:
+            target_entities = selected_item.target_entities()
+        except AttributeError, e:
+            # item doesn't have target entities
+            return
 
         if not target_entities:
             self._overlay_widget.show_message("No Versions under selection.")
