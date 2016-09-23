@@ -71,13 +71,14 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         self._overlay_widget = overlay.ShotgunOverlayWidget(self._version_view)
 
         sg_connection = sgtk.platform.current_engine().shotgun
-        if shotgun_model.hierarchy_is_supported(sg_connection):
+        (supported, reason) = shotgun_model.hierarchy_is_supported(sg_connection)
+        if supported:
             self._overlay_widget.show_message(
                 "Select items in the hierarchy to show Versions here!"
             )
         else:
             self._overlay_widget.show_message(
-                "Hierarchy Model is not supported with this version of Shotgun."
+                "Hierarchy Model is not supported.\n%s" % (reason,)
             )
 
         # layout the widgets for display

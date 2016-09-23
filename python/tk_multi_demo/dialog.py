@@ -31,7 +31,13 @@ overlay = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "overlay_widget")
 
 # logger for this module
-logger = sgtk.platform.get_logger(__name__)
+try:
+    # core 18
+    logger = sgtk.platform.get_logger(__name__)
+except:
+    # older cores
+    import logging
+    logger = logging.getLogger(__name__)
 
 
 def show_dialog(app_instance):
