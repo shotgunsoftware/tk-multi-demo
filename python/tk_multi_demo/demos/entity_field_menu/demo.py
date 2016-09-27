@@ -44,7 +44,7 @@ class EntityFieldMenuDemo(QtGui.QWidget):
         # --- build an entity field menu
 
         # build a menu to display Project entity fields
-        self._entity_type = "Project"
+        self._entity_type = "HumanUser"
         self._entity_field_menu = shotgun_menus.EntityFieldMenu(
             self._entity_type,
             self,
