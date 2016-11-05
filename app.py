@@ -27,4 +27,8 @@ class FrameworkDemos(sgtk.platform.Application):
         def callback():
             payload.dialog.show_dialog(self)
 
-        self.engine.register_command("Toolkit Building Block Demos", callback)
+        self.engine.register_command(
+            "Toolkit Building Block Demos",
+            callback,
+            {"short_name": "demos"}
+        )
