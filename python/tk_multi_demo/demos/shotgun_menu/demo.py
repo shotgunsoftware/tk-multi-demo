@@ -33,7 +33,8 @@ class ShotgunMenuDemo(QtGui.QWidget):
         # --- build a shotgun menu
 
         sg_menu = shotgun_menus.ShotgunMenu(self)
-        submenu = shotgun_menus.ShotgunMenu("Submenu", self)
+        submenu = shotgun_menus.ShotgunMenu(self)
+        submenu.setTitle("Submenu")
 
         # create some dummy actions
         action1 = QtGui.QAction("Action 1", self)

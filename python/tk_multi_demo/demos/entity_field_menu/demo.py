@@ -96,9 +96,8 @@ class EntityFieldMenuDemo(QtGui.QWidget):
         # ---- define a few simple filter methods for use by the menu
 
         def field_filter(field):
-            # display fields that are displayable by the shotgun field widgets
-            return bool(self._fields_manager.supported_fields(
-                self._entity_type, [field]))
+            # Include all fields
+            return True
 
         def checked_filter(field):
             # none of the fields are checked

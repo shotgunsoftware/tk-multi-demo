@@ -15,6 +15,14 @@ from sgtk.platform.qt import QtCore, QtGui
 shotgun_globals = sgtk.platform.import_framework(
     "tk-framework-shotgunutils", "shotgun_globals")
 
+# import the shotgun_fields module from the framework
+shotgun_fields = sgtk.platform.import_framework(
+    "tk-framework-qtwidgets", "shotgun_fields")
+
+# import the task manager from shotgunutils framework
+task_manager = sgtk.platform.import_framework(
+    "tk-framework-shotgunutils", "task_manager")
+
 # The default entity and field name to display
 DEFAULT_ENTITY_TYPE = "HumanUser"
 DEFAULT_FIELD_NAME = "name"
@@ -34,6 +42,21 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
 
         # the app (current bundle) from the parent widget
         self._app = sgtk.platform.current_bundle()
+
+        # create a background task manager for each of our components to use
+        self._bg_task_manager = task_manager.BackgroundTaskManager(self)
+
+        # the fields manager is used to query which fields are supported
+        # for display. it can also be used to find out which fields are
+        # visible to the user and editable by the user. the fields manager
+        # needs time to initialize itself. once that's done, the widgets can
+        # begin to be populated.
+        self._fields_manager = shotgun_fields.ShotgunFieldManager(
+            self, bg_task_manager=self._bg_task_manager)
+        self._fields_manager.initialized.connect(self._populate_ui)
+        self._fields_manager.initialize()
+
+    def _populate_ui(self):
 
         # --- query some data
 
@@ -160,6 +183,12 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         if field_name_index > -1:
             self._field_name_combo.setCurrentIndex(field_name_index)
             self._on_field_name_combo_activated(DEFAULT_FIELD_NAME)
+
+    def destroy(self):
+        """
+        Clean up the object when deleted.
+        """
+        self._bg_task_manager.shut_down()
 
     def _on_entity_type_combo_activated(self, entity_type):
         """
