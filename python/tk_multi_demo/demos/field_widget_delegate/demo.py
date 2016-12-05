@@ -8,8 +8,12 @@
 # agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
+import os
+
 import sgtk
 from sgtk.platform.qt import QtCore, QtGui
+
+from .ui import resources_rc
 
 # import the shotgun_fields module from the framework
 shotgun_fields = sgtk.platform.import_framework(
@@ -140,18 +144,35 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
         self._standard_model = QtGui.QStandardItemModel(3, 3, self)
         self._standard_model.setHorizontalHeaderLabels(
             ["Thumbnail", "Name", "Description"])
+
+        thumbnail_item = QtGui.QStandardItem()
+        thumbnail_item.setData(
+            QtGui.QPixmap( ":/tk_multi_demo_field_widget_delegate/project_1.png"),
+            image_delegate.data_role
+        )
+
         self._standard_model.insertRow(
             0,
             [
-                QtGui.QStandardItem(""),
+                thumbnail_item,
                 QtGui.QStandardItem("New Project"),
                 QtGui.QStandardItem("This is a project that could be created."),
+            ]
+        )
+        self._standard_model.insertRow(
+            1,
+            [
+                QtGui.QStandardItem(
+                    os.path.join(os.path.dirname(__file__), "resources", "project_2.png")
+                ),
+                QtGui.QStandardItem("New Project2"),
+                QtGui.QStandardItem("Another project example description."),
             ]
         )
         self._manual_delegate_table.setModel(self._standard_model)
 
         help_lbl = QtGui.QLabel(
-            "* Double click fields to modify values (changes will not be saved)."
+            "* Double click fields to modify values <strong>(changes will not be saved)</strong>"
         )
 
         # and layout the dialog
