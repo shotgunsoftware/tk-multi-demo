@@ -10,6 +10,7 @@
 
 # import the demos to display here. They won't be added to the menu until
 from elided_label import ElidedLabelDemo
+from engine_show_busy import EngineShowBusyDemo
 from entity_field_menu import EntityFieldMenuDemo
 from field_widget_delegate import FieldWidgetDelegateDemo
 from field_widgets_form import FieldWidgetsFormDemo
@@ -39,7 +40,8 @@ DEMOS_LIST = [
     "Model Demos",
         ShotgunHierarchyDemo,
         FieldWidgetDelegateDemo,
-
+    "Engine Demos",
+        EngineShowBusyDemo,
     "Help Demos",
         HelpDemo,
 ]
