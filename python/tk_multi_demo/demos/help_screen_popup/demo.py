@@ -56,6 +56,7 @@ class HelpScreenPopupDemo(QtGui.QWidget):
         layout.addWidget(show_lbl)
         layout.addWidget(show_btn)
         layout.addStretch()
+        layout.setAlignment(QtCore.Qt.AlignCenter)
 
     def _on_show_btn_clicked(self):
         "Show the help screen popup."

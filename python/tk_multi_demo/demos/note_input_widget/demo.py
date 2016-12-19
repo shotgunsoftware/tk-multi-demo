@@ -58,14 +58,15 @@ class NoteInputWidgetDemo(QtGui.QWidget):
         info_lbl = QtGui.QLabel(
             "<strong>LIVE DEMO</strong>: If you click the checkmark to submit "
             "the input, you will attach a new Note to yourself in Shotgun. "
-            "Just a heads up in case you want to delete it afterward."
+            "Just a heads up in case you want to delete it afterward.<br><br>"
+            "It is worth pointing out that Note input on the "
+            "<tt>HumanUser</tt> entity in Shotgun is typically not exposed."
         )
         info_lbl.setWordWrap(True)
 
         # layout the UI
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(info_lbl)
-        layout.addStretch()
         layout.addWidget(self._note_input)
         layout.addStretch()
 
@@ -73,7 +74,7 @@ class NoteInputWidgetDemo(QtGui.QWidget):
         """
         Clean up the object when deleted.
         """
-        self._bg_task_manager.shut_down()
         self._note_input.destroy()
+        #self._bg_task_manager.shut_down()
 
 

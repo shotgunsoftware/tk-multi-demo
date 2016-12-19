@@ -9,6 +9,8 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # import the demos to display here. They won't be added to the menu until
+# they're included in the DEMO_LIST below.
+from activity_stream_widget import ActivityStreamWidgetDemo
 from elided_label import ElidedLabelDemo
 from engine_show_busy import EngineShowBusyDemo
 from entity_field_menu import EntityFieldMenuDemo
@@ -31,6 +33,7 @@ DEMO_DEFAULT = HelpDemo
 # in multiple groups. only one instance of a demo will be created however.
 DEMOS_LIST = [
     "Widget Demos",
+        ActivityStreamWidgetDemo,
         ElidedLabelDemo,
         EntityFieldMenuDemo,
         FieldWidgetDelegateDemo,

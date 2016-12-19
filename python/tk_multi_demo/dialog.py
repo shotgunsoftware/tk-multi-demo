@@ -47,7 +47,7 @@ def show_dialog(app_instance):
     :param app_instance: The ``sgtk.platform.Application`` instance.
     """
     app_instance.engine.show_dialog(
-        "Toolkit Building Block Demos",
+        "Shotgun Toolkit Demos",
         app_instance,
         DemoWidget
     )
