@@ -15,6 +15,7 @@ from entity_field_menu import EntityFieldMenuDemo
 from field_widget_delegate import FieldWidgetDelegateDemo
 from field_widgets_form import FieldWidgetsFormDemo
 from help import HelpDemo
+from help_screen_popup import HelpScreenPopupDemo
 from note_input_widget import NoteInputWidgetDemo
 from overlay import OverlayDemo
 from screen_capture_widget import ScreenCaptureWidgetDemo
@@ -34,6 +35,7 @@ DEMOS_LIST = [
         EntityFieldMenuDemo,
         FieldWidgetDelegateDemo,
         FieldWidgetsFormDemo,
+        HelpScreenPopupDemo,
         NoteInputWidgetDemo,
         OverlayDemo,
         ScreenCaptureWidgetDemo,
