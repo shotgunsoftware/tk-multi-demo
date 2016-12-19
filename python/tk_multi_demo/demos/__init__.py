@@ -15,7 +15,9 @@ from entity_field_menu import EntityFieldMenuDemo
 from field_widget_delegate import FieldWidgetDelegateDemo
 from field_widgets_form import FieldWidgetsFormDemo
 from help import HelpDemo
+from note_input_widget import NoteInputWidgetDemo
 from overlay import OverlayDemo
+from screen_capture_widget import ScreenCaptureWidgetDemo
 from shotgun_menu import ShotgunMenuDemo
 from shotgun_hierarchy import ShotgunHierarchyDemo
 from shotgun_globals import ShotgunGlobalsDemo
@@ -32,8 +34,10 @@ DEMOS_LIST = [
         EntityFieldMenuDemo,
         FieldWidgetDelegateDemo,
         FieldWidgetsFormDemo,
-        ShotgunHierarchyDemo,
+        NoteInputWidgetDemo,
         OverlayDemo,
+        ScreenCaptureWidgetDemo,
+        ShotgunHierarchyDemo,
         ShotgunMenuDemo,
     "Utils Demo",
         ShotgunGlobalsDemo,
