@@ -34,6 +34,9 @@ class NoteInputWidgetDemo(QtGui.QWidget):
         # call the base class init
         super(NoteInputWidgetDemo, self).__init__(parent)
 
+        # get a handle on the current toolkit bundle (the demo app).
+        self._app = sgtk.platform.current_bundle()
+
         # create a background task manager for the widget to use
         self._bg_task_manager = task_manager.BackgroundTaskManager(self)
 
@@ -49,11 +52,11 @@ class NoteInputWidgetDemo(QtGui.QWidget):
         if not demo_entity:
             raise Exception("Could not find suitable entity for this demo!")
 
-        # tell the activity stream to load the entity
-        self._activity_stream.load_data(demo_entity)
-
         # tell the input widget which SG entity to attach a note to
         self._note_input.set_current_entity(demo_entity["type"], demo_entity["id"])
+
+        # start the editor open instead of requiring the user to click it
+        self._note_input.open_editor()
 
         # since the widget doesn't work without an entity, make sure the user is
         # aware that this will actually update SG.

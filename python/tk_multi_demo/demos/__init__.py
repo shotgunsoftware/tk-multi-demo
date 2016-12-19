@@ -32,26 +32,34 @@ DEMO_DEFAULT = HelpDemo
 # display. each string starts a new grouping of demos. demo classes can show up
 # in multiple groups. only one instance of a demo will be created however.
 DEMOS_LIST = [
-    "Widget Demos",
+    "Qt Widgets Framework",
         ActivityStreamWidgetDemo,
         ElidedLabelDemo,
-        EntityFieldMenuDemo,
-        FieldWidgetDelegateDemo,
-        FieldWidgetsFormDemo,
+        # TODO: global search completer & widget
         HelpScreenPopupDemo,
+        # TODO: model related classes
+        # TODO: Navigation widgets
         NoteInputWidgetDemo,
         OverlayDemo,
+        # TODO: Playback label widget
         ScreenCaptureWidgetDemo,
-        ShotgunHierarchyDemo,
-        ShotgunMenuDemo,
-    "Utils Demo",
-        ShotgunGlobalsDemo,
-    "Model Demos",
-        ShotgunHierarchyDemo,
         FieldWidgetDelegateDemo,
-    "Engine Demos",
+        FieldWidgetsFormDemo,
+        # TODO: more field widget demos
+        EntityFieldMenuDemo,
+        ShotgunMenuDemo,
+        # TODO: spinner widget
+        # TODO: view related classes
+    "Shotgun Utils Framework",
+        # TODO: SG model
+        ShotgunHierarchyDemo,
+        # TODO: data retriever
+        # TODO: bg task manager
+        # TODO: settings
+        ShotgunGlobalsDemo,
+    "Toolkit Core",
         EngineShowBusyDemo,
-    "Help Demos",
+    "Other",
         HelpDemo,
 ]
 
