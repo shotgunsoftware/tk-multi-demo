@@ -45,18 +45,12 @@ class ActivityStreamWidgetDemo(QtGui.QWidget):
         self._activity_stream = activity_stream.ActivityStreamWidget(self)
         self._activity_stream.set_bg_task_manager(self._bg_task_manager)
 
-        # get the currently authenticated HumanUser entity
-        engine = sgtk.platform.current_engine()
-        user = get_current_user(engine.sgtk)
-
-        if not user:
-            # just in case we can't get a user, raise an exception.
-            raise Exception("Could not determine the current user.")
-
         # this call is specific to the demo app. it tries to return an entity
         # to best illustrate the features of these widgets (i.e. an instance of
         # the supplied entity type that has some activity).
         demo_entity = self._app.get_demo_entity("Project")
+        if not demo_entity:
+            raise Exception("Could not find suitable entity for this demo!")
 
         # tell the activity stream to load the entity
         self._activity_stream.load_data(demo_entity)

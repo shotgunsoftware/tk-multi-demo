@@ -42,16 +42,18 @@ class NoteInputWidgetDemo(QtGui.QWidget):
         self._note_input = note_input_widget.NoteInputWidget(self)
         self._note_input.set_bg_task_manager(self._bg_task_manager)
 
-        # get the currently authenticated HumanUser entity
-        engine = sgtk.platform.current_engine()
-        user = get_current_user(engine.sgtk)
+        # this call is specific to the demo app. it tries to return an entity
+        # to best illustrate the features of these widgets (i.e. an instance of
+        # the supplied entity type that has some activity).
+        demo_entity = self._app.get_demo_entity("HumanUser")
+        if not demo_entity:
+            raise Exception("Could not find suitable entity for this demo!")
 
-        if not user:
-            # just in case we can't get a user, raise an exception.
-            raise Exception("Could not determine the current user.")
+        # tell the activity stream to load the entity
+        self._activity_stream.load_data(demo_entity)
 
         # tell the input widget which SG entity to attach a note to
-        self._note_input.set_current_entity(user["type"], user["id"])
+        self._note_input.set_current_entity(demo_entity["type"], demo_entity["id"])
 
         # since the widget doesn't work without an entity, make sure the user is
         # aware that this will actually update SG.
