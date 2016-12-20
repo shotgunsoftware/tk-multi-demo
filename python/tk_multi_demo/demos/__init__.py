@@ -16,6 +16,7 @@ from engine_show_busy import EngineShowBusyDemo
 from entity_field_menu import EntityFieldMenuDemo
 from field_widget_delegate import FieldWidgetDelegateDemo
 from field_widgets_form import FieldWidgetsFormDemo
+from global_search_widget import GlobalSearchWidgetDemo
 from help import HelpDemo
 from help_screen_popup import HelpScreenPopupDemo
 from note_input_widget import NoteInputWidgetDemo
@@ -35,7 +36,7 @@ DEMOS_LIST = [
     "Qt Widgets Framework",
         ActivityStreamWidgetDemo,
         ElidedLabelDemo,
-        # TODO: global search completer & widget
+        GlobalSearchWidgetDemo,
         HelpScreenPopupDemo,
         # TODO: model related classes
         # TODO: Navigation widgets
