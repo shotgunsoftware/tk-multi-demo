@@ -19,6 +19,7 @@ from field_widgets_form import FieldWidgetsFormDemo
 from global_search_widget import GlobalSearchWidgetDemo
 from help import HelpDemo
 from help_screen_popup import HelpScreenPopupDemo
+from navigation import NavigationDemo
 from note_input_widget import NoteInputWidgetDemo
 from overlay import OverlayDemo
 from screen_capture_widget import ScreenCaptureWidgetDemo
@@ -39,7 +40,7 @@ DEMOS_LIST = [
         GlobalSearchWidgetDemo,
         HelpScreenPopupDemo,
         # TODO: model related classes
-        # TODO: Navigation widgets
+        NavigationDemo,
         NoteInputWidgetDemo,
         OverlayDemo,
         # TODO: Playback label widget
