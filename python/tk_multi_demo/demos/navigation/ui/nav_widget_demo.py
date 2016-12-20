@@ -53,7 +53,7 @@ class Ui_NavigationWidgetDemoUI(object):
         self.info_lbl.setObjectName("info_lbl")
         self.tree_view_layout.addWidget(self.info_lbl)
         self.tree_view_layout.setStretch(0, 1)
-        self.tree_view_layout.setStretch(1, 2)
+        self.tree_view_layout.setStretch(1, 1)
         self.verticalLayout.addLayout(self.tree_view_layout)
 
         self.retranslateUi(NavigationWidgetDemoUI)

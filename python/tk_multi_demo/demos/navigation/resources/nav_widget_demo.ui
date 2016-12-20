@@ -74,7 +74,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="tree_view_layout" stretch="1,2">
+    <layout class="QHBoxLayout" name="tree_view_layout" stretch="1,1">
      <item>
       <widget class="QTreeView" name="tree_view"/>
      </item>
