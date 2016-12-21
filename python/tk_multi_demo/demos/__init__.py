@@ -24,6 +24,7 @@ from navigation import NavigationDemo
 from note_input_widget import NoteInputWidgetDemo
 from overlay import OverlayDemo
 from screen_capture_widget import ScreenCaptureWidgetDemo
+from playback_label import PlaybackLabelDemo
 from shotgun_menu import ShotgunMenuDemo
 from shotgun_hierarchy import ShotgunHierarchyDemo
 from shotgun_globals import ShotgunGlobalsDemo
@@ -51,6 +52,7 @@ DEMOS_LIST = [
         CustomFieldWidgetDemo,
         # TODO: more field widget demos
         EntityFieldMenuDemo,
+	PlaybackLabelDemo,
         ShotgunMenuDemo,
         # TODO: spinner widget
         # TODO: view related classes
