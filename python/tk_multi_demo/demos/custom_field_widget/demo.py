@@ -34,6 +34,10 @@ views = sgtk.platform.import_framework(
 # ensure our icon resources are imported
 from .ui import resources_rc
 
+# importing this will register the class with the fields manager
+from .favorite_widget import MyProjectFavoritesWidget
+
+
 class CustomFieldWidgetDemo(QtGui.QWidget):
     """
     Demonstrates how to override one of the default Shotgun field widgets.
@@ -120,29 +124,3 @@ class CustomFieldWidgetDemo(QtGui.QWidget):
         self._bg_task_manager.shut_down()
         shotgun_globals.unregister_bg_task_manager(self._bg_task_manager)
 
-
-class MyProjectFavoritesWidget(shotgun_fields.checkbox_widget.CheckBoxWidget):
-    """
-    A custom display widget for the Project entity's "favorite" field.
-
-    Shotgun also displays this field in a custom way (a star).
-
-    The "favorite" field is a boolean, so we'll use this widget for both
-    display and editing just like a regular checkbox.
-    """
-
-    # defining the meta class will register this class for use by the
-    # field manager widget factory
-    __metaclass__ = shotgun_fields.ShotgunFieldMeta
-
-    # make this class usable as both an editor and display widget for fields
-    # of type "checkbox"
-    _DISPLAY_TYPE = "checkbox"
-    _EDITOR_TYPE = "checkbox"
-
-    # define which specific entities & fields this widget should be used for
-    _ENTITY_FIELDS = [("Project", "current_user_favorite")]
-
-    # NOTE: Here we are subclassing the default shotgun fields check box
-    # widget and applying a different style to it (see the demo's style.qss
-    # file).
