@@ -28,6 +28,7 @@ from playback_label import PlaybackLabelDemo
 from shotgun_menu import ShotgunMenuDemo
 from shotgun_hierarchy import ShotgunHierarchyDemo
 from shotgun_globals import ShotgunGlobalsDemo
+from spinner_widget import SpinnerWidgetDemo
 
 # the default demo to display when the app starts up.
 DEMO_DEFAULT = HelpDemo
@@ -54,7 +55,7 @@ DEMOS_LIST = [
         EntityFieldMenuDemo,
 	PlaybackLabelDemo,
         ShotgunMenuDemo,
-        # TODO: spinner widget
+        SpinnerWidgetDemo,
         # TODO: view related classes
     "Shotgun Utils Framework",
         # TODO: SG model
