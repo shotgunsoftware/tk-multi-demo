@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Show Busy Dialog"
+display_name: "Busy Dialog"
 
 description:
   This is a demonstration of a method that is available on all toolkit engine

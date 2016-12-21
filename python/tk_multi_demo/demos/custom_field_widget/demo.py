@@ -105,7 +105,7 @@ class CustomFieldWidgetDemo(QtGui.QWidget):
             "<tt>QCheckBox</tt> that uses images as the check indicator. This "
             "is a simple example of how you can override a field widget for "
             "a specific field on a specific entity.<br><br>"
-            "Double click a cell in the <strong>Favorite</tt> to make the "
+            "Double click a cell in the <strong>Favorite</strong> to make the "
             "entry editable. Then click on the icon to toggle the favorite "
             "value. Note, this is not a live demo. SG will not be updated."
         )

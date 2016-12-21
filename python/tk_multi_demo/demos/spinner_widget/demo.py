@@ -32,15 +32,16 @@ class SpinnerWidgetDemo(QtGui.QWidget):
 
         # create the spinner
         spinner = spinner_widget.SpinnerWidget(self)
+        spinner.hide()
 
         # add some geometry so it will show up
         spinner.setFixedSize(QtCore.QSize(100, 100))
 
         # create some buttons to demo the methods
-        start_spinner = OverlayButton("show spinner")
+        start_spinner = QtGui.QPushButton("spinner.show()")
         start_spinner.clicked.connect(spinner.show)
 
-        stop_spinner = OverlayButton("hide spinner")
+        stop_spinner = QtGui.QPushButton("spinner.hide()")
         stop_spinner.clicked.connect(spinner.hide)
 
         # ---- layout section ----
@@ -49,22 +50,19 @@ class SpinnerWidgetDemo(QtGui.QWidget):
         spinner_layout = QtGui.QHBoxLayout()
         spinner_layout.addStretch()
         spinner_layout.addWidget(spinner)
-        spinner.hide()
         spinner_layout.addStretch()
 
         # set up a horizontal layout for the buttons
         button_layout = QtGui.QHBoxLayout()
+        button_layout.addStretch()
         button_layout.addWidget(start_spinner)
         button_layout.addWidget(stop_spinner)
+        button_layout.addStretch()
 
         # lay out the widgets
         layout = QtGui.QVBoxLayout(self)
+        layout.setSpacing(20)
         layout.addLayout(button_layout)
-        layout.addSpacing(8)
         layout.addLayout(spinner_layout)
-        layout.addSpacing(8)
         layout.addStretch()
 
-class OverlayButton(QtGui.QPushButton):
-    # a styled wrapper class
-    pass

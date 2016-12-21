@@ -11,7 +11,7 @@
 # Metadata defining the behaviour and requirements for this app
 
 # More verbose description of this item
-display_name: "Activity Stream Widget"
+display_name: "Activity Stream"
 
 description:
     The activity stream widget is a QT widget that renders the activity stream

@@ -45,7 +45,8 @@ class PlaybackLabelDemo(QtGui.QWidget):
         #  - sg_uploaded_movie: which ShotgunPlayBackLabel uses to determine if 
         #    the entity is playable
         fields = ['id', 'code', 'image', 'sg_uploaded_movie']
-        filters = [['image','is_not', None]]
+        #filters = [['image','is_not', None]]
+        filters = [['id','is', 6711]]
         version_data = self._app.shotgun.find_one('Version', filters, fields)
 
         # download the thumbnail for the version

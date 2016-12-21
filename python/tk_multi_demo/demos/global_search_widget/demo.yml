@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Global Search Widget"
+display_name: "Global Search"
 
 description:
     The global search widget is similar to the search found in Shotgun. It

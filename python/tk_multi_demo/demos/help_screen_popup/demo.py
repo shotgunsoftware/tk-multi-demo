@@ -41,22 +41,25 @@ class HelpScreenPopupDemo(QtGui.QWidget):
         show_lbl = QtGui.QLabel(
             "Click the button below to call the <tt>show_help_screen()</tt> "
             "method. This method accepts a list of <tt>650x400</tt> "
-            "<tt>QtGui.QPixmap</tt>s to display in a series of slides."
+            "<tt>QPixmap</tt>s to display in a series of slides."
         )
         show_lbl.setWordWrap(True)
 
         # a button to trigger the help screen popup
         show_btn = QtGui.QPushButton("show_help_screen()")
-        show_btn.setFixedWidth(200)
         show_btn.clicked.connect(self._on_show_btn_clicked)
+
+        btn_layout = QtGui.QHBoxLayout()
+        btn_layout.addStretch()
+        btn_layout.addWidget(show_btn)
+        btn_layout.addStretch()
 
         # lay out the widgets
         layout = QtGui.QVBoxLayout(self)
         layout.addStretch()
         layout.addWidget(show_lbl)
-        layout.addWidget(show_btn)
+        layout.addLayout(btn_layout)
         layout.addStretch()
-        layout.setAlignment(QtCore.Qt.AlignCenter)
 
     def _on_show_btn_clicked(self):
         "Show the help screen popup."

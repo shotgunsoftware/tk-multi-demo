@@ -21,6 +21,7 @@ class Ui_NavigationWidgetDemoUI(object):
         self.nav_widget_lbl = QtGui.QLabel(NavigationWidgetDemoUI)
         self.nav_widget_lbl.setStyleSheet("QLabel {\n"
 "    color: #999999;\n"
+"    font-family: \"Courier\";\n"
 "}")
         self.nav_widget_lbl.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.nav_widget_lbl.setObjectName("nav_widget_lbl")
@@ -33,6 +34,7 @@ class Ui_NavigationWidgetDemoUI(object):
         self.breadcrumb_widget_lbl = QtGui.QLabel(NavigationWidgetDemoUI)
         self.breadcrumb_widget_lbl.setStyleSheet("QLabel {\n"
 "    color: #999999;\n"
+"    font-family: \"Courier\";\n"
 "}")
         self.breadcrumb_widget_lbl.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.breadcrumb_widget_lbl.setObjectName("breadcrumb_widget_lbl")

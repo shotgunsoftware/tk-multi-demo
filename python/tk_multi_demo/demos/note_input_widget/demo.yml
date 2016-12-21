@@ -11,7 +11,7 @@
 # Metadata defining the behaviour and requirements for this app
 
 # More verbose description of this item
-display_name: "Note Input Widget"
+display_name: "Note Editor"
 
 description:
     The note editor widget makes it easy to attach Notes to SG entities. You can

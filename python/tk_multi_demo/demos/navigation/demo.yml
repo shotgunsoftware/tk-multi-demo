@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Navigation Widgets"
+display_name: "Navigation"
 
 description:
     The navigation module contains standard widgets that can be used to track

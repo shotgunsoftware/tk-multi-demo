@@ -27,6 +27,7 @@
        <property name="styleSheet">
         <string notr="true">QLabel {
     color: #999999;
+	font-family: &quot;Courier&quot;;
 }</string>
        </property>
        <property name="text">
@@ -58,6 +59,7 @@
        <property name="styleSheet">
         <string notr="true">QLabel {
     color: #999999;
+	font-family: &quot;Courier&quot;;
 }</string>
        </property>
        <property name="text">

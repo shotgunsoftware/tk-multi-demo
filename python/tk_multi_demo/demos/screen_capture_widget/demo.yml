@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Screen Capture Widget"
+display_name: "Screen Capture"
 
 description:
   The screen capture widgets makes it easy to take screenshots. The widget

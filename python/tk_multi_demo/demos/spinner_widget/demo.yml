@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Spinner Widget"
+display_name: "Spinner"
 
 description:
     A simple animated progress spinner that can be used to indicate that something is loading.
