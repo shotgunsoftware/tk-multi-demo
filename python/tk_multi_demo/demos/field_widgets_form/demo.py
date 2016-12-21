@@ -16,11 +16,11 @@ from sgtk.platform.constants import SG_STYLESHEET_CONSTANTS
 shotgun_fields = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "shotgun_fields")
 
-# import the shotgun_globals module from shotgunutils framework
+# import the task_manager module from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
     "tk-framework-shotgunutils", "task_manager")
 
-# import the task_manager module from shotgunutils framework
+# import the shotgun_globals module from shotgunutils framework
 shotgun_globals = sgtk.platform.import_framework(
     "tk-framework-shotgunutils", "shotgun_globals")
 
@@ -58,6 +58,7 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
         Clean up the object when deleted.
         """
         self._bg_task_manager.shut_down()
+        shotgun_globals.unregister_bg_task_manager(self._bg_task_manager)
 
     def _populate_ui(self):
         """

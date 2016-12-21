@@ -47,7 +47,7 @@ def show_dialog(app_instance):
     :param app_instance: The ``sgtk.platform.Application`` instance.
     """
     app_instance.engine.show_dialog(
-        "Toolkit Building Block Demos",
+        "Shotgun Toolkit Demos",
         app_instance,
         DemoWidget
     )
@@ -302,7 +302,7 @@ class DemoWidget(QtGui.QSplitter):
             for file_path in files:
 
                 # we only display the python files for now
-                if file_path.endswith(".py"):
+                if file_path.endswith(".py") or file_path.endswith(".qss"):
 
                     # display a path relative to the demo directory
                     display = os.path.join(root[len(demo_dir)+1:], file_path)
