@@ -302,7 +302,7 @@ class DemoWidget(QtGui.QSplitter):
             for file_path in files:
 
                 # we only display the python files for now
-                if file_path.endswith(".py"):
+                if file_path.endswith(".py") or file_path.endswith(".qss"):
 
                     # display a path relative to the demo directory
                     display = os.path.join(root[len(demo_dir)+1:], file_path)

@@ -11,6 +11,7 @@
 # import the demos to display here. They won't be added to the menu until
 # they're included in the DEMO_LIST below.
 from activity_stream_widget import ActivityStreamWidgetDemo
+from custom_field_widget import CustomFieldWidgetDemo
 from elided_label import ElidedLabelDemo
 from engine_show_busy import EngineShowBusyDemo
 from entity_field_menu import EntityFieldMenuDemo
@@ -47,6 +48,7 @@ DEMOS_LIST = [
         ScreenCaptureWidgetDemo,
         FieldWidgetDelegateDemo,
         FieldWidgetsFormDemo,
+        CustomFieldWidgetDemo,
         # TODO: more field widget demos
         EntityFieldMenuDemo,
         ShotgunMenuDemo,
