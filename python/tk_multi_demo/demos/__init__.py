@@ -23,6 +23,7 @@ from help_screen_popup import HelpScreenPopupDemo
 from navigation import NavigationDemo
 from note_input_widget import NoteInputWidgetDemo
 from overlay import OverlayDemo
+from search_widget import SearchWidgetDemo
 from screen_capture_widget import ScreenCaptureWidgetDemo
 from playback_label import PlaybackLabelDemo
 from shotgun_menu import ShotgunMenuDemo
@@ -42,18 +43,16 @@ DEMOS_LIST = [
         ElidedLabelDemo,
         GlobalSearchWidgetDemo,
         HelpScreenPopupDemo,
-        # TODO: model related classes
         NavigationDemo,
         NoteInputWidgetDemo,
         OverlayDemo,
-        # TODO: Playback label widget
+        PlaybackLabelDemo,
         ScreenCaptureWidgetDemo,
+        SearchWidgetDemo,
         FieldWidgetDelegateDemo,
         FieldWidgetsFormDemo,
         CustomFieldWidgetDemo,
-        # TODO: more field widget demos
         EntityFieldMenuDemo,
-	PlaybackLabelDemo,
         ShotgunMenuDemo,
         SpinnerWidgetDemo,
         # TODO: view related classes
