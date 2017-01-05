@@ -49,7 +49,7 @@ DEMOS_LIST = [
         #PlaybackLabelDemo,         # TODO: turn back on when we have a good lookup for Version with media
         ScreenCaptureWidgetDemo,
         SearchWidgetDemo,
-        #FieldWidgetDelegateDemo,   # TODO: turn back on when field widget delegates work without SG model
+        FieldWidgetDelegateDemo,
         FieldWidgetsFormDemo,
         CustomFieldWidgetDemo,
         EntityFieldMenuDemo,

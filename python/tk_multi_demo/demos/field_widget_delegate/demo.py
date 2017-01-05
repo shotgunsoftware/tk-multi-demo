@@ -123,11 +123,11 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
         self._manual_delegate_table.horizontalHeader().setStretchLastSection(True)
 
         # get delegates for each of the columns to display
-        image_delegate = self._fields_manager.create_delegate(
+        image_delegate = self._fields_manager.create_generic_delegate(
             entity_type, "image", self._manual_delegate_table)
-        name_delegate = self._fields_manager.create_delegate(
+        name_delegate = self._fields_manager.create_generic_delegate(
             entity_type, "name", self._manual_delegate_table)
-        desc_delegate = self._fields_manager.create_delegate(
+        desc_delegate = self._fields_manager.create_generic_delegate(
             entity_type, "sg_description", self._manual_delegate_table)
 
         # tell the delegates to get/set data via the display role rather than
