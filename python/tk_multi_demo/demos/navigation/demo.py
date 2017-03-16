@@ -58,8 +58,19 @@ class NavigationDemo(QtGui.QWidget):
 
         # create a hierarchy model to display data an attach it to the view
         self._hierarchy_model = shotgun_model.SimpleShotgunHierarchyModel(self)
-        self.ui.tree_view.setModel(self._hierarchy_model)
+
+        # create a proxy model to sort the hierarchy
+        self._hierarchy_proxy_model = QtGui.QSortFilterProxyModel(self)
+        self._hierarchy_proxy_model.setDynamicSortFilter(True)
+
+        # set the proxy model's source to the hierarchy model
+        self._hierarchy_proxy_model.setSourceModel(self._hierarchy_model)
+
+        # set the proxy model as the data source for the view
+        self.ui.tree_view.setModel(self._hierarchy_proxy_model)
         self.ui.tree_view.header().hide()
+        self.ui.tree_view.setSortingEnabled(True)
+        self.ui.tree_view.sortByColumn(0, QtCore.Qt.AscendingOrder)
 
         # build a hierarchy for the current project targeting entities linked
         # to the "entity" field on "Version" entities
@@ -89,9 +100,11 @@ class NavigationDemo(QtGui.QWidget):
         if not indexes:
             return
 
-        # get the item directly. Note: if you have a proxy model in between
-        # the view and the model, you'll likely need to call `mapToSource`.
-        selected_item = self._hierarchy_model.itemFromIndex(indexes[0])
+        # get the item from the source model
+        selected_item = self._hierarchy_model.itemFromIndex(
+            # get the source hierarchy model index
+            self._hierarchy_proxy_model.mapToSource(indexes[0])
+        )
 
         # get a label to display this item in the nav history
         label = _get_item_label(selected_item)
@@ -120,7 +133,8 @@ class NavigationDemo(QtGui.QWidget):
 
         # select the item in the tree
         self._navigating = True
-        self.ui.tree_view.selectionModel().select(item.index(),
+        proxy_index = self._hierarchy_proxy_model.mapFromSource(item.index())
+        self.ui.tree_view.selectionModel().select(proxy_index,
             QtGui.QItemSelectionModel.ClearAndSelect)
         self._navigating = False
 
