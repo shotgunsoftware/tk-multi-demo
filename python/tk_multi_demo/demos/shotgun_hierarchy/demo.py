@@ -62,6 +62,8 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         self._hierarchy_view = QtGui.QTreeView()
         self._hierarchy_view.setIndentation(16)
         self._hierarchy_view.setUniformRowHeights(True)
+        self._hierarchy_view.setSortingEnabled(True)
+        self._hierarchy_view.sortByColumn(0, QtCore.Qt.AscendingOrder)
 
         # this view will display versions for selected entites on the left
         self._version_view = views.ShotgunTableView(self._fields_manager)
@@ -115,7 +117,16 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         self._hierarchy_model = shotgun_model.SimpleShotgunHierarchyModel(
             self, bg_task_manager=self._bg_task_manager)
         self._hierarchy_model.load_data("Version.entity")
-        self._hierarchy_view.setModel(self._hierarchy_model)
+
+        # create a proxy model to sort the hierarchy
+        self._hierarchy_proxy_model = QtGui.QSortFilterProxyModel(self)
+        self._hierarchy_proxy_model.setDynamicSortFilter(True)
+
+        # set the proxy model's source to the hierarchy model
+        self._hierarchy_proxy_model.setSourceModel(self._hierarchy_model)
+
+        # set the proxy model as the data source for the view
+        self._hierarchy_view.setModel(self._hierarchy_proxy_model)
 
         # create a simple shotgun model for querying the versions
         self._version_model = shotgun_model.SimpleShotgunModel(
@@ -145,9 +156,11 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         if not indexes:
             return
 
-        # get the item directly. Note: if you have a proxy model in between
-        # the view and the model, you'll likely need to call `mapToSource`.
-        selected_item = self._hierarchy_model.itemFromIndex(indexes[0])
+        # get the item from the source model
+        selected_item = self._hierarchy_model.itemFromIndex(
+            # get the source hierarchy model index
+            self._hierarchy_proxy_model.mapToSource(indexes[0])
+        )
 
         # the item will be a ShotgunHierarchyItem. Access the data necessary
         # to load data for the shotgun model
