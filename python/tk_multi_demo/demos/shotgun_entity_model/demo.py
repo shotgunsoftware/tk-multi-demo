@@ -28,6 +28,14 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
 
         super(ShotgunEntityModelDemo, self).__init__(parent)
 
+        # see if we can determine the current project. if we can, only show the
+        # assets for this project.
+        self._app = sgtk.platform.current_bundle()
+        if self._app.context.project:
+            filters = ["project", "is", self._app.context.project]
+        else:
+            filters = []
+
         # construct the view and set the model
         self._entity_view = QtGui.QTreeView()
         self._entity_view.setIndentation(16)
@@ -38,7 +46,7 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         # construct an entity model then load some data.
         self._entity_model = shotgun_model.ShotgunEntityModel(
             "Asset",                                            # entity type
-            [],                                                 # filters
+            [filters],                                          # filters
             ["project.Project.name", "sg_asset_type", "code"],  # hierarchy
             ["description", "id", "project", "sg_asset_type"],  # fields
             self,
@@ -57,7 +65,13 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         # set the proxy model as the data source for the view
         self._entity_view.setModel(self._entity_proxy_model)
 
+        info_lbl = QtGui.QLabel(
+            "This demo shows how to use the <tt>ShotgunEntityModel</tt> to "
+            "display a hierarchy of <b>Asset</b> entities."
+        )
+
         layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(info_lbl)
         layout.addWidget(self._entity_view)
 
     def destroy(self):

@@ -12,13 +12,12 @@
 display_name: "Shotgun Entity Model"
 
 description:
-    Another convenience wrapper around the ShotgunModel. This model is useful
-    when you want to represent a tree view of Sequences, Shots or Assets. By
-    default, the model will associate standard dark-style Shotgun entity type
-    icons to items in the list.
+    A convenience wrapper around the ShotgunModel. This model is useful when you
+    want to represent a tree view of Sequences, Shots or Assets. By default, the
+    model will associate standard dark-style Shotgun entity type icons to items
+    in the list.
 
 documentation_url: "http://developer.shotgunsoftware.com/tk-framework-shotgunutils/shotgun_model.html#shotgunentitymodel"
 
 frameworks:
     - {"name": "tk-framework-shotgunutils", "version": "v4.x.x"}
-    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}
