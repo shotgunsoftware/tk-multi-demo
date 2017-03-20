@@ -27,6 +27,7 @@ from search_widget import SearchWidgetDemo
 from screen_capture_widget import ScreenCaptureWidgetDemo
 from playback_label import PlaybackLabelDemo
 from shotgun_menu import ShotgunMenuDemo
+from shotgun_entity_model import ShotgunEntityModelDemo
 from shotgun_hierarchy import ShotgunHierarchyDemo
 from shotgun_globals import ShotgunGlobalsDemo
 from spinner_widget import SpinnerWidgetDemo
@@ -58,6 +59,7 @@ DEMOS_LIST = [
         # TODO: view related classes
     "Shotgun Utils Framework",
         # TODO: SG model
+        ShotgunEntityModelDemo,
         ShotgunHierarchyDemo,
         # TODO: data retriever
         # TODO: bg task manager
