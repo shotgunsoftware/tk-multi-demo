@@ -12,7 +12,7 @@ import sgtk
 from sgtk.platform.qt import QtGui
 
 # import the global_search_widget module from the qtwidgets framework
-global_search_widget = sgtk.platform.import_framework(
+hierarchical_search_widget = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "hierarchical_search_widget")
 
 # import the task manager from shotgunutils framework
@@ -22,7 +22,7 @@ task_manager = sgtk.platform.import_framework(
 
 class HierarchicalSearchWidgetDemo(QtGui.QWidget):
     """
-    Demonstrates the use of the the HierarchicalSearchWidget class available in the
+    Demonstrates the use of the the GlobalSearchWidget class available in the
     tk-frameworks-qtwidgets framework.
     """
 
@@ -36,6 +36,29 @@ class HierarchicalSearchWidgetDemo(QtGui.QWidget):
 
         # create a bg task manager for pulling data from SG
         self._bg_task_manager = task_manager.BackgroundTaskManager(self)
+
+        # create the widget
+        search_widget = hierarchical_search_widget.HierarchicalSearchWidget(self)
+
+        # give the search widget a handle on the task manager
+        search_widget.set_bg_task_manager(self._bg_task_manager)
+
+        # # set the entity types to search through (this is also the default dict)
+        # search_widget.set_searchable_entity_types(
+        #     {
+        #         "Asset": [],
+        #         "Shot": [],
+        #         "Task": [],
+        #         # only active users
+        #         "HumanUser": [["sg_status_list", "is", "act"]],
+        #         "Group": [],
+        #         # only active users
+        #         "ClientUser": [["sg_status_list", "is", "act"]],
+        #         "ApiUser": [],
+        #         "Version": [],
+        #         "PublishedFile": [],
+        #     }
+        # )
 
         # display some instructions
         info_lbl = QtGui.QLabel(
@@ -59,12 +82,12 @@ class HierarchicalSearchWidgetDemo(QtGui.QWidget):
         layout.setSpacing(16)
         layout.addStretch()
         layout.addWidget(info_lbl)
-        # layout.addWidget(search_widget)
+        layout.addWidget(search_widget)
         layout.addWidget(self._activated_label)
         layout.addStretch()
 
         # connect the entity activated singal
-        # search_widget.entity_activated.connect(self._on_entity_activated)
+        search_widget.entity_activated.connect(self._on_entity_activated)
 
     def destroy(self):
         """Clean up the object when deleted."""
