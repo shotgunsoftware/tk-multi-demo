@@ -18,6 +18,7 @@ from entity_field_menu import EntityFieldMenuDemo
 from field_widget_delegate import FieldWidgetDelegateDemo
 from field_widgets_form import FieldWidgetsFormDemo
 from global_search_widget import GlobalSearchWidgetDemo
+# from hierarchical_search_widget import HierarchicalSearchWidgetDemo
 from help import HelpDemo
 from help_screen_popup import HelpScreenPopupDemo
 from navigation import NavigationDemo
@@ -43,6 +44,7 @@ DEMOS_LIST = [
         ActivityStreamWidgetDemo,
         ElidedLabelDemo,
         GlobalSearchWidgetDemo,
+#            HierarchicalSearchWidgetDemo,
         HelpScreenPopupDemo,
         NavigationDemo,
         NoteInputWidgetDemo,
