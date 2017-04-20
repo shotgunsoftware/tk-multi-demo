@@ -44,7 +44,7 @@ DEMOS_LIST = [
         ActivityStreamWidgetDemo,
         ElidedLabelDemo,
         GlobalSearchWidgetDemo,
-            HierarchicalSearchWidgetDemo,
+        HierarchicalSearchWidgetDemo,
         HelpScreenPopupDemo,
         NavigationDemo,
         NoteInputWidgetDemo,
