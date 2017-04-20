@@ -18,8 +18,8 @@ description:
     The breadth of the search can be limited by specifying entity types and
     filters to search against.
 
-documentation_url: http://developer.shotgunsoftware.com/tk-framework-qtwidgets/global_search_widget.html
+documentation_url: http://developer.shotgunsoftware.com/tk-framework-qtwidgets/shotgun_search_widget.html
 
 frameworks:
     - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}
-    - {"name": "tk-framework-shotgunutils", "version": "v4.x.x"}
+    - {"name": "tk-framework-shotgunutils", "version": "v5.x.x"}
