@@ -43,9 +43,13 @@ class HierarchicalSearchWidgetDemo(QtGui.QWidget):
         # give the search widget a handle on the task manager
         self._search_widget.set_bg_task_manager(self._bg_task_manager)
 
-        checkbox = QtGui.QCheckBox("Search in current project only")
-        checkbox.setChecked(True)
-        checkbox.toggled.connect(self._on_checkbox_clicked)
+        projectCheckbox = QtGui.QCheckBox("Search in current project only")
+        projectCheckbox.setChecked(True)
+        projectCheckbox.toggled.connect(self._on_project_checkbox_clicked)
+
+        entitiesCheckbox = QtGui.QCheckBox("Only show entities")
+        entitiesCheckbox.setChecked(True)
+        entitiesCheckbox.toggled.connect(self._on_entities_checkbox_clicked)
 
         # display some instructions
         info_lbl = QtGui.QLabel(
@@ -69,7 +73,8 @@ class HierarchicalSearchWidgetDemo(QtGui.QWidget):
         layout.setSpacing(16)
         layout.addStretch()
         layout.addWidget(info_lbl)
-        layout.addWidget(checkbox)
+        layout.addWidget(projectCheckbox)
+        layout.addWidget(entitiesCheckbox)
         layout.addWidget(self._search_widget)
         layout.addWidget(self._activated_label)
         layout.addStretch()
@@ -87,7 +92,6 @@ class HierarchicalSearchWidgetDemo(QtGui.QWidget):
         """
         Handle node activated.
         """
-        print entity_type, entity_id, name, path_label, incremental_path
         if entity_type and entity_id:
             self._activated_label.setText(
                 "<strong>%s</strong> '%s' with id <tt>%s</tt> at '%s' activated" % (
@@ -98,11 +102,17 @@ class HierarchicalSearchWidgetDemo(QtGui.QWidget):
                 "<strong>Folder</strong> '%s' activated" % (name,)
             )
 
-    def _on_checkbox_clicked(self, is_checked):
+    def _on_project_checkbox_clicked(self, is_checked):
         """
         Toggles the search from site level to project level searches.
         """
         if is_checked:
-            self._search_widget.set_search_root(sgtk.platform.current_bundle().context.project)
+            self._search_widget.search_root = sgtk.platform.current_bundle().context.project
         else:
-            self._search_widget.set_search_root(None)
+            self._search_widget.search_root = None
+
+    def _on_entities_checkbox_clicked(self, is_checked):
+        """
+        Toggles entities being displayed or not from the result.
+        """
+        self._search_widget.show_entities_only = is_checked
