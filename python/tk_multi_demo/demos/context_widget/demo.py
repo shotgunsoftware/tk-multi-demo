@@ -65,17 +65,24 @@ class ContextWidgetDemo(QtGui.QWidget):
             "the Shotgun entity being acted upon.</p>"
         )
 
+        # connect the signal emitted by the selector widget when a context is
+        # selected. The connected callable should accept a context object.
         self._context_widget.context_changed.connect(
             self._on_item_context_change)
 
+        # just a label to display the selected context as text
         self._context_lbl = QtGui.QLabel()
 
-        # a button to toggle editing
+        # a button to toggle editing. the widget's editing capabilities can be
+        # turned on/off. you can set the text to display in either state by
+        # supplying it as an argument to the `enable_editing` method on the
+        # widget. See the connected callable (self._enable_editing) for an
+        # example.
         self._enable_editing(True)
-        _enable_editing_btn = QtGui.QPushButton("Toggle Editing")
+        _enable_editing_btn = QtGui.QPushButton("Click to Toggle Editing")
         _enable_editing_btn.setCheckable(True)
         _enable_editing_btn.setChecked(True)
-        _enable_editing_btn.setFixedWidth(100)
+        _enable_editing_btn.setFixedWidth(150)
         _enable_editing_btn.toggled.connect(self._enable_editing)
 
         # lay out the widgets
@@ -88,8 +95,9 @@ class ContextWidgetDemo(QtGui.QWidget):
         layout.addWidget(self._context_lbl)
         layout.addStretch()
 
-        # you can set a default context using the `set_context()` method
-        self._context_widget.set_context(None)
+        # you can set a context using the `set_context()` method. Here we set it
+        # to the current bundle's context
+        self._context_widget.set_context(sgtk.platform.current_bundle().context)
 
     def closeEvent(self, event):
         """
@@ -114,15 +122,30 @@ class ContextWidgetDemo(QtGui.QWidget):
 
     def _on_item_context_change(self, context):
         """
-        Handles context change...
+        This method is connected above to the `context_changed` signal emitted
+        by the context selector widget.
+
+        For demo purposes, we simply display the context in a label.
         """
         self._context_lbl.setText("Context set to: %s" % (context,))
 
     def _enable_editing(self, checked):
+        """
+        This method is connected above to the toggle button to show switching
+        between enabling and disabling editing of the context.
+        """
 
         self._context_lbl.setText("")
 
         if checked:
-            self._context_widget.enable_editing(True, "Editing is now enabled.")
+            # enable editing and show a message to the user
+            self._context_widget.enable_editing(
+                True,
+                "Editing is now enabled."
+            )
         else:
-            self._context_widget.enable_editing(False, "Editing is now disabled.")
+            # disable editing and show a message to the user
+            self._context_widget.enable_editing(
+                False,
+                "Editing is now disabled."
+            )
