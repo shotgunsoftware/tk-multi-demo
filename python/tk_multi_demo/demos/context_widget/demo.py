@@ -129,6 +129,12 @@ class ContextWidgetDemo(QtGui.QWidget):
         """
         self._context_lbl.setText("Context set to: %s" % (context,))
 
+        # typically the context would be set by some external process. for now,
+        # we'll just re-set the context based on what was selected. this will
+        # have the added effect of populating the "recent" items in the drop
+        # down list
+        self._context_widget.set_context(context)
+
     def _enable_editing(self, checked):
         """
         This method is connected above to the toggle button to show switching
