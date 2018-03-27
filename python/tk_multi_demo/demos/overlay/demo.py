@@ -33,19 +33,10 @@ class OverlayDemo(QtGui.QWidget):
         # call the base class init
         super(OverlayDemo, self).__init__(parent)
 
-        # setup a dummy widget to cover with the overlay
-        my_label = QtGui.QLabel(
-            "This is a label widget with an <tt>OverlayWidget</tt> "
-            "parented to it. When shown,<br>the overlay will cover this label "
-            "and display a message, error, or pixmap.<br><br><b>Click the "
-            "buttons below to simulate calling the overlay's methods.<b>"
-        )
-        my_label.setWordWrap(True)
-        my_label.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignVCenter)
-        my_label.setStyleSheet("border: 1px solid palette(base);")
+        parent_widget = self._create_overlay_parent_widget()
 
         # create the overlay and parent it to the widget it should sit on top of
-        overlay_widget = overlay.ShotgunOverlayWidget(my_label)
+        overlay_widget = overlay.ShotgunOverlayWidget(parent_widget)
 
         # ---- create some buttons to demo the methods
 
@@ -59,7 +50,8 @@ class OverlayDemo(QtGui.QWidget):
         show_message.clicked.connect(
             lambda: overlay_widget.show_message(
                 "Showing this message in the overlay widget.\n"
-                "The underlying label is now covered by the overlay."
+                "The underlying label is now covered by the overlay.\n\n"
+                "You can even use <a href='https://www.shotgunsoftware.com'>hyperlinks</a>!"
             )
         )
 
@@ -75,11 +67,10 @@ class OverlayDemo(QtGui.QWidget):
         show_error_message = OverlayButton("show_error_message()")
         show_error_message.clicked.connect(
             lambda: overlay_widget.show_error_message(
-                (
-                 "Showing this error message in the overlay widget.\nNote the "
-                 "show_message() and show_message_pixmap() calls won't work "
-                 "when this is displayed."
-                )
+                "Showing this error message in the overlay widget.\nNote the "
+                "show_message() and show_message_pixmap() calls won't work "
+                "when this is displayed.\n\n"
+                "You can even use <a href='https://www.shotgunsoftware.com'>hyperlinks</a>!"
             )
         )
 
@@ -96,8 +87,45 @@ class OverlayDemo(QtGui.QWidget):
         button_layout.addWidget(hide)
 
         layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(my_label)
+        layout.addWidget(parent_widget)
         layout.addLayout(button_layout)
+
+    def _create_overlay_parent_widget(self):
+        """
+        Creates a wiget with text, button and line edit to explain how the overlay works
+        and showing how the overlay doesn't impact UI interaction when hidden.
+
+        :returns: The widget who will own the overlay.
+        """
+
+        # setup a dummy widget to cover with the overlay
+        my_label = QtGui.QLabel(
+            "This is a label widget with an <tt>OverlayWidget</tt> "
+            "parented to it. When shown,<br>the overlay will cover this label "
+            "and display a message, error, or pixmap.<br><br><b>Click the "
+            "buttons below to simulate calling the overlay's methods.<b>"
+        )
+        my_label.setWordWrap(True)
+        my_label.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignVCenter)
+        my_label.setStyleSheet("border: 1px solid palette(base);")
+
+        layout = QtGui.QVBoxLayout()
+        layout.addWidget(my_label)
+
+        layout.addWidget(
+            QtGui.QPushButton("When the overlay widget is hidden, you should be able to click this button.")
+        )
+
+        edit = QtGui.QLineEdit()
+        if edit.setPlaceholderText:
+            edit.setPlaceholderText("When the overlay widget is hidden, you should be able to enter text.")
+        layout.addWidget(edit)
+
+        parent_widget = QtGui.QWidget()
+        parent_widget.setLayout(layout)
+
+        return parent_widget
+
 
 class OverlayButton(QtGui.QPushButton):
     # a styled wrapper class
