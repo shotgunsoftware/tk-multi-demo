@@ -80,6 +80,6 @@ class NoteInputWidgetDemo(QtGui.QWidget):
         Clean up the object when deleted.
         """
         self._note_input.destroy()
-        #self._bg_task_manager.shut_down()
+        self._bg_task_manager.shut_down()
 
 

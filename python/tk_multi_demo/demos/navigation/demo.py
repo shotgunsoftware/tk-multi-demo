@@ -57,7 +57,10 @@ class NavigationDemo(QtGui.QWidget):
             raise Exception("Could not find suitable project for this demo!")
 
         # create a hierarchy model to display data an attach it to the view
-        self._hierarchy_model = shotgun_model.SimpleShotgunHierarchyModel(self)
+        self._hierarchy_model = shotgun_model.SimpleShotgunHierarchyModel(
+            self,
+            bg_task_manager=self._bg_task_manager
+        )
 
         # create a proxy model to sort the hierarchy
         self._hierarchy_proxy_model = QtGui.QSortFilterProxyModel(self)

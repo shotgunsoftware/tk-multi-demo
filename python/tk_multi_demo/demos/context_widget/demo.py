@@ -42,6 +42,7 @@ class ContextWidgetDemo(QtGui.QWidget):
 
         # create a background task manager for each of our components to use
         self._task_manager = task_manager.BackgroundTaskManager(self)
+        shotgun_globals.register_bg_task_manager(self._task_manager)
 
         self._context_widget = context_selector.ContextWidget(self)
         self._context_widget.set_up(self._task_manager)
@@ -99,7 +100,7 @@ class ContextWidgetDemo(QtGui.QWidget):
         # to the current bundle's context
         self._context_widget.set_context(sgtk.platform.current_bundle().context)
 
-    def closeEvent(self, event):
+    def destroy(self):
         """
         Executed when the main dialog is closed.
         All worker threads and other things which need a proper shutdown

@@ -31,6 +31,9 @@ shotgun_model = sgtk.platform.import_framework(
 views = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "views")
 
+task_manager = sgtk.platform.import_framework(
+    "tk-framework-shotgunutils", "task_manager")
+
 
 class FieldWidgetDelegateDemo(QtGui.QWidget):
     """
@@ -50,9 +53,17 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
         # visible to the user and editable by the user. the fields manager
         # needs time to initialize itself. once that's done, the widgets can
         # begin to be populated.
-        self._fields_manager = shotgun_fields.ShotgunFieldManager(self)
+        self._bg_task_manager = task_manager.BackgroundTaskManager(self, True)
+        shotgun_globals.register_bg_task_manager(self._bg_task_manager)
+        self._fields_manager = shotgun_fields.ShotgunFieldManager(self, self._bg_task_manager)
         self._fields_manager.initialized.connect(self._populate_ui)
         self._fields_manager.initialize()
+
+    def destroy(self):
+        """
+        Destructor. Ensures that all threads are properly joined before exit.
+        """
+        self._bg_task_manager.shut_down()
 
     def _populate_ui(self):
         """
@@ -101,7 +112,7 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
         self._auto_delegate_table.horizontalHeader().setStretchLastSection(True)
 
         # setup the model
-        self._sg_model = shotgun_model.SimpleShotgunModel(self)
+        self._sg_model = shotgun_model.SimpleShotgunModel(self, self._bg_task_manager)
         self._sg_model.load_data(entity_type, fields=fields, columns=columns,
                                  editable_columns=editable_columns)
         self._auto_delegate_table.setModel(self._sg_model)
