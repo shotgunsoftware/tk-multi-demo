@@ -80,6 +80,6 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         """
         try:
             self._entity_model.destroy()
-        except Exception, e:
+        except Exception as e:
             # log exception
             pass

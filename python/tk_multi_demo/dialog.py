@@ -242,7 +242,7 @@ class DemoWidget(QtGui.QSplitter):
                 widget = demo_class(parent=self)
                 demo_dir = os.path.dirname(inspect.getfile(demo_class))
                 self._apply_external_styleshet(widget, demo_dir)
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 tb = traceback.format_exc()
                 self._overlay.show_error_message(
@@ -461,7 +461,7 @@ class DemoWidget(QtGui.QSplitter):
         # attempt to read the manifest file
         try:
             fh = open(manifest, "r")
-        except Exception, e:
+        except Exception as e:
             logger.error(
                 "Could not open demo manifest file '%s'.\n"
                 " Error reported: '%s'" % (manifest, e)
@@ -471,7 +471,7 @@ class DemoWidget(QtGui.QSplitter):
         # now try to parse it
         try:
             demo_info = yaml.load(fh)
-        except Exception, e:
+        except Exception as e:
             logger.error(
                 "Could not parse demo manifest file '%s'.\n"
                 " Error reported: '%s'" % (manifest, e)
@@ -523,7 +523,7 @@ class DemoWidget(QtGui.QSplitter):
                 qss_data = self._resolve_sg_stylesheet_tokens(qss_data)
                 # apply to widget (and all its children)
                 widget.setStyleSheet(qss_data)
-            except Exception, e:
+            except Exception as e:
                 # catch-all and issue a warning and continue.
                 self.app.log_warning(
                     "Could not apply stylesheet '%s': %s" % (qss_file, e))

@@ -99,7 +99,7 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         try:
             self._hierarchy_model.destroy()
             self._bg_task_manager.shut_down()
-        except Exception, e:
+        except Exception as e:
             # log exception
             pass
 
@@ -166,7 +166,7 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         # to load data for the shotgun model
         try:
             target_entities = selected_item.target_entities()
-        except AttributeError, e:
+        except AttributeError as e:
             # item doesn't have target entities
             return
 
