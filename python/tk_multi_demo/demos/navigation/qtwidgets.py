@@ -16,9 +16,7 @@ easily from with Qt Designer
 import sgtk
 
 # import the navigation module from the qtwidgets framework
-navigation = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "navigation")
+navigation = sgtk.platform.import_framework("tk-framework-qtwidgets", "navigation")
 
 BreadcrumbWidget = navigation.BreadcrumbWidget
 NavigationWidget = navigation.NavigationWidget
-

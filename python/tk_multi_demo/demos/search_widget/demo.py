@@ -13,7 +13,8 @@ from sgtk.platform.qt import QtCore, QtGui
 
 # import the search_widget module from the qtwidgets framework
 search_widget = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "search_widget")
+    "tk-framework-qtwidgets", "search_widget"
+)
 
 
 class SearchWidgetDemo(QtGui.QWidget):

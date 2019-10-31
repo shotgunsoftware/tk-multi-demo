@@ -31,19 +31,13 @@ class HelpDemo(QtGui.QWidget):
         # --- add some helper labels with arrows and text...
 
         summary_lbl = QtGui.QLabel()
-        summary_lbl.setPixmap(
-            QtGui.QPixmap(":/tk_multi_demo_help/summary_help.png")
-        )
+        summary_lbl.setPixmap(QtGui.QPixmap(":/tk_multi_demo_help/summary_help.png"))
 
         select_lbl = QtGui.QLabel()
-        select_lbl.setPixmap(
-            QtGui.QPixmap(":/tk_multi_demo_help/select_help.png")
-        )
+        select_lbl.setPixmap(QtGui.QPixmap(":/tk_multi_demo_help/select_help.png"))
 
         tabs_lbl = QtGui.QLabel()
-        tabs_lbl.setPixmap(
-            QtGui.QPixmap(":/tk_multi_demo_help/tabs_help.png")
-        )
+        tabs_lbl.setPixmap(QtGui.QPixmap(":/tk_multi_demo_help/tabs_help.png"))
 
         # lay out the widgets in the UI
         layout = QtGui.QVBoxLayout(self)
@@ -58,4 +52,3 @@ class HelpDemo(QtGui.QWidget):
         layout.setAlignment(summary_lbl, QtCore.Qt.AlignCenter | QtCore.Qt.AlignTop)
         layout.setAlignment(select_lbl, QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         layout.setAlignment(tabs_lbl, QtCore.Qt.AlignLeft | QtCore.Qt.AlignBottom)
-

@@ -12,8 +12,7 @@ import sgtk
 from sgtk.platform.qt import QtCore, QtGui
 
 # import the elided_label module from the qtwidgets framework
-elided_label = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "elided_label")
+elided_label = sgtk.platform.import_framework("tk-framework-qtwidgets", "elided_label")
 
 
 class ElidedLabelDemo(QtGui.QWidget):
@@ -41,10 +40,7 @@ class ElidedLabelDemo(QtGui.QWidget):
         label.setText(start_text)
 
         # a little style to help highlight the label boundaries
-        label.setStyleSheet(
-            "background: palette(base);"
-            "padding: 4px;"
-        )
+        label.setStyleSheet("background: palette(base);" "padding: 4px;")
 
         # ---- add a slider to adjust the width of the label
 

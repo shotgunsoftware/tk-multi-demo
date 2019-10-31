@@ -17,22 +17,25 @@ from .ui import resources_rc
 
 # import the shotgun_fields module from the framework
 shotgun_fields = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "shotgun_fields")
+    "tk-framework-qtwidgets", "shotgun_fields"
+)
 
 # import the shotgun_globals module from shotgunutils framework
 shotgun_globals = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "shotgun_globals")
+    "tk-framework-shotgunutils", "shotgun_globals"
+)
 
 # import the shotgun_model module from shotgunutils framework
 shotgun_model = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "shotgun_model")
+    "tk-framework-shotgunutils", "shotgun_model"
+)
 
 # import the views module from qtwidgets framework
-views = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "views")
+views = sgtk.platform.import_framework("tk-framework-qtwidgets", "views")
 
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
 
 
 class FieldWidgetDelegateDemo(QtGui.QWidget):
@@ -55,7 +58,9 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
         # begin to be populated.
         self._bg_task_manager = task_manager.BackgroundTaskManager(self, True)
         shotgun_globals.register_bg_task_manager(self._bg_task_manager)
-        self._fields_manager = shotgun_fields.ShotgunFieldManager(self, self._bg_task_manager)
+        self._fields_manager = shotgun_fields.ShotgunFieldManager(
+            self, self._bg_task_manager
+        )
         self._fields_manager.initialized.connect(self._populate_ui)
         self._fields_manager.initialize()
 
@@ -77,15 +82,12 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
         # get a list of fields for the entity type
         fields = shotgun_globals.get_entity_fields(entity_type)
 
-        fields = [
-            "image",
-            "name",
-            "sg_description",
-        ]
+        fields = ["image", "name", "sg_description"]
 
         # make sure the fields list only includes editable fields
-        fields = [f for f in fields
-                  if shotgun_globals.field_is_editable(entity_type, f)]
+        fields = [
+            f for f in fields if shotgun_globals.field_is_editable(entity_type, f)
+        ]
 
         # make sure the fields are supported by the fields manager
         fields = self._fields_manager.supported_fields(entity_type, fields)
@@ -107,14 +109,19 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
         )
 
         # create the table view
-        self._auto_delegate_table = views.ShotgunTableView(self._fields_manager,
-            parent=self)
+        self._auto_delegate_table = views.ShotgunTableView(
+            self._fields_manager, parent=self
+        )
         self._auto_delegate_table.horizontalHeader().setStretchLastSection(True)
 
         # setup the model
         self._sg_model = shotgun_model.SimpleShotgunModel(self, self._bg_task_manager)
-        self._sg_model.load_data(entity_type, fields=fields, columns=columns,
-                                 editable_columns=editable_columns)
+        self._sg_model.load_data(
+            entity_type,
+            fields=fields,
+            columns=columns,
+            editable_columns=editable_columns,
+        )
         self._auto_delegate_table.setModel(self._sg_model)
 
         # the sg model's first column always includes the entity code and
@@ -135,11 +142,14 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
 
         # get delegates for each of the columns to display
         image_delegate = self._fields_manager.create_generic_delegate(
-            entity_type, "image", self._manual_delegate_table)
+            entity_type, "image", self._manual_delegate_table
+        )
         name_delegate = self._fields_manager.create_generic_delegate(
-            entity_type, "name", self._manual_delegate_table)
+            entity_type, "name", self._manual_delegate_table
+        )
         desc_delegate = self._fields_manager.create_generic_delegate(
-            entity_type, "sg_description", self._manual_delegate_table)
+            entity_type, "sg_description", self._manual_delegate_table
+        )
 
         # tell the delegates to get/set data via the display role rather than
         # the default SG model's associated data role. This allows the delegate
@@ -154,12 +164,13 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
 
         self._standard_model = QtGui.QStandardItemModel(3, 3, self)
         self._standard_model.setHorizontalHeaderLabels(
-            ["Thumbnail", "Name", "Description"])
+            ["Thumbnail", "Name", "Description"]
+        )
 
         thumbnail_item = QtGui.QStandardItem()
         thumbnail_item.setData(
-            QtGui.QPixmap( ":/tk_multi_demo_field_widget_delegate/project_1.png"),
-            image_delegate.data_role
+            QtGui.QPixmap(":/tk_multi_demo_field_widget_delegate/project_1.png"),
+            image_delegate.data_role,
         )
 
         self._standard_model.insertRow(
@@ -168,17 +179,19 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
                 thumbnail_item,
                 QtGui.QStandardItem("New Project"),
                 QtGui.QStandardItem("This is a project that could be created."),
-            ]
+            ],
         )
         self._standard_model.insertRow(
             1,
             [
                 QtGui.QStandardItem(
-                    os.path.join(os.path.dirname(__file__), "resources", "project_2.png")
+                    os.path.join(
+                        os.path.dirname(__file__), "resources", "project_2.png"
+                    )
                 ),
                 QtGui.QStandardItem("New Project2"),
                 QtGui.QStandardItem("Another project example description."),
-            ]
+            ],
         )
         self._manual_delegate_table.setModel(self._standard_model)
 
@@ -194,4 +207,3 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
         layout.addWidget(self._manual_delegate_table)
         layout.addWidget(help_lbl)
         self.setLayout(layout)
-

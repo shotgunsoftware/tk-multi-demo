@@ -31,9 +31,7 @@ class FrameworkDemos(sgtk.platform.Application):
             payload.dialog.show_dialog(self)
 
         self.engine.register_command(
-            "Shotgun Toolkit Demos",
-            callback,
-            {"short_name": "demos"}
+            "Shotgun Toolkit Demos", callback, {"short_name": "demos"}
         )
 
     def get_demo_entity(self, entity_type=None):
@@ -60,8 +58,8 @@ class FrameworkDemos(sgtk.platform.Application):
             elif entity_type == "HumanUser":
                 entity = get_current_user(self.sgtk)
             else:
-                 # TODO: can we filter this at all?
-                 entity = self.shotgun.find_one(entity_type, [])
+                # TODO: can we filter this at all?
+                entity = self.shotgun.find_one(entity_type, [])
 
             if not entity:
                 return None
@@ -69,4 +67,3 @@ class FrameworkDemos(sgtk.platform.Application):
             self.__demo_entities[entity_type] = entity
 
         return self.__demo_entities[entity_type]
-

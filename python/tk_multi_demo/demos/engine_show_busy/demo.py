@@ -54,9 +54,9 @@ class EngineShowBusyDemo(QtGui.QWidget):
         # if you don't have a handle on the current engine.
         engine.show_busy(
             "Example: Something is Taking a Long Time...",
-            "Here is some description of why this is taking so long. " +
-            "Click the <tt>clear_busy()</tt> button or anywhere in this " +
-            "dialog to clear it."
+            "Here is some description of why this is taking so long. "
+            + "Click the <tt>clear_busy()</tt> button or anywhere in this "
+            + "dialog to clear it.",
         )
 
     def _on_clear_button_clicked(self):
@@ -67,5 +67,3 @@ class EngineShowBusyDemo(QtGui.QWidget):
         # get a handle on the current engine
         engine = sgtk.platform.current_engine()
         engine.clear_busy()
-
-

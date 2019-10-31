@@ -14,11 +14,13 @@ from sgtk.util import get_current_user
 
 # import the activity_stream module from the qtwidgets framework
 activity_stream = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "activity_stream")
+    "tk-framework-qtwidgets", "activity_stream"
+)
 
 # import the task manager from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
 
 
 class ActivityStreamWidgetDemo(QtGui.QWidget):
@@ -65,8 +67,7 @@ class ActivityStreamWidgetDemo(QtGui.QWidget):
         self._activity_stream.version_items_playable = True
 
         # connect signals
-        self._activity_stream.playback_requested.connect(
-            self._on_playback_requested)
+        self._activity_stream.playback_requested.connect(self._on_playback_requested)
 
         info_lbl = QtGui.QLabel(
             "<strong>LIVE DEMO</strong>: If you click the checkmark to submit "

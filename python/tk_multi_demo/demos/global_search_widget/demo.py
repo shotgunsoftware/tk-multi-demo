@@ -13,11 +13,13 @@ from sgtk.platform.qt import QtCore, QtGui
 
 # import the global_search_widget module from the qtwidgets framework
 global_search_widget = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "global_search_widget")
+    "tk-framework-qtwidgets", "global_search_widget"
+)
 
 # import the task manager from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
 
 
 class GlobalSearchWidgetDemo(QtGui.QWidget):
@@ -97,11 +99,6 @@ class GlobalSearchWidgetDemo(QtGui.QWidget):
         """Handle entity activated."""
 
         self._activated_label.setText(
-            "<strong>%s</strong> '%s' with id <tt>%s</tt> activated" % (
-                entity_type, entity_name, entity_id)
+            "<strong>%s</strong> '%s' with id <tt>%s</tt> activated"
+            % (entity_type, entity_name, entity_id)
         )
-
-
-
-
-

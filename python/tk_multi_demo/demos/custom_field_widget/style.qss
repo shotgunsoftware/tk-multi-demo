@@ -22,4 +22,3 @@ QCheckBox::indicator:checked {
 QCheckBox::indicator:unchecked {
     image: url(:/tk_custom_field_widget_demo/not_favorite.png);
 }
-

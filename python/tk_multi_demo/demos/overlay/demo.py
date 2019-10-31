@@ -15,8 +15,7 @@ from sgtk.platform.qt import QtCore, QtGui
 from .ui import resources_rc
 
 # import the overlay module from the qtwidgets framework
-overlay = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "overlay_widget")
+overlay = sgtk.platform.import_framework("tk-framework-qtwidgets", "overlay_widget")
 
 
 class OverlayDemo(QtGui.QWidget):
@@ -113,12 +112,16 @@ class OverlayDemo(QtGui.QWidget):
         layout.addWidget(my_label)
 
         layout.addWidget(
-            QtGui.QPushButton("When the overlay widget is hidden, you should be able to click this button.")
+            QtGui.QPushButton(
+                "When the overlay widget is hidden, you should be able to click this button."
+            )
         )
 
         edit = QtGui.QLineEdit()
         if edit.setPlaceholderText:
-            edit.setPlaceholderText("When the overlay widget is hidden, you should be able to enter text.")
+            edit.setPlaceholderText(
+                "When the overlay widget is hidden, you should be able to enter text."
+            )
         layout.addWidget(edit)
 
         parent_widget = QtGui.QWidget()

@@ -14,16 +14,18 @@ from sgtk.platform.qt import QtCore, QtGui
 from .ui.nav_widget_demo import Ui_NavigationWidgetDemoUI
 
 # import the navigation module from the qtwidgets framework
-navigation = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "navigation")
+navigation = sgtk.platform.import_framework("tk-framework-qtwidgets", "navigation")
 
 # import the shotgun_model module from the shotgunutils framework
 shotgun_model = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "shotgun_model")
+    "tk-framework-shotgunutils", "shotgun_model"
+)
 
 # import the task manager from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
+
 
 class NavigationDemo(QtGui.QWidget):
     """
@@ -58,8 +60,7 @@ class NavigationDemo(QtGui.QWidget):
 
         # create a hierarchy model to display data an attach it to the view
         self._hierarchy_model = shotgun_model.SimpleShotgunHierarchyModel(
-            self,
-            bg_task_manager=self._bg_task_manager
+            self, bg_task_manager=self._bg_task_manager
         )
 
         # create a proxy model to sort the hierarchy
@@ -87,9 +88,7 @@ class NavigationDemo(QtGui.QWidget):
 
         # now handle hierarchy selection
         selection_model = self.ui.tree_view.selectionModel()
-        selection_model.selectionChanged.connect(
-            self._on_hierarchy_selection_changed
-        )
+        selection_model.selectionChanged.connect(self._on_hierarchy_selection_changed)
 
     def destroy(self):
         """Clean up the object when deleted."""
@@ -137,8 +136,9 @@ class NavigationDemo(QtGui.QWidget):
         # select the item in the tree
         self._navigating = True
         proxy_index = self._hierarchy_proxy_model.mapFromSource(item.index())
-        self.ui.tree_view.selectionModel().select(proxy_index,
-            QtGui.QItemSelectionModel.ClearAndSelect)
+        self.ui.tree_view.selectionModel().select(
+            proxy_index, QtGui.QItemSelectionModel.ClearAndSelect
+        )
         self._navigating = False
 
     def _on_home_clicked(self):
@@ -149,6 +149,7 @@ class NavigationDemo(QtGui.QWidget):
 
         # clear the breadcrumbs
         self.ui.breadcrumb_widget.set([])
+
 
 class _HierarchyItemBreadcrumb(navigation.Breadcrumb):
     """A breadcrumb that holds a hierarchy item."""

@@ -13,15 +13,18 @@ from sgtk.platform.qt import QtCore, QtGui
 
 # import the context_selector module from the qtwidgets framework
 context_selector = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "context_selector")
+    "tk-framework-qtwidgets", "context_selector"
+)
 
 # import the task_manager module from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
 
 # import the shotgun_globals module from shotgunutils framework
 shotgun_globals = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "shotgun_globals")
+    "tk-framework-shotgunutils", "shotgun_globals"
+)
 
 logger = sgtk.platform.get_logger(__name__)
 
@@ -52,8 +55,7 @@ class ContextWidgetDemo(QtGui.QWidget):
         # the auto completer. In this case, we only show entity types that are
         # allowed for the PublishedFile.entity field. You can provide an
         # explicit list with the `restrict_entity_types()` method.
-        self._context_widget.restrict_entity_types_by_link(
-            "PublishedFile", "entity")
+        self._context_widget.restrict_entity_types_by_link("PublishedFile", "entity")
 
         # You can set the tooltip for each sub widget for context selection.
         # This helps describe to the user why they're choosing a task or link.
@@ -68,8 +70,7 @@ class ContextWidgetDemo(QtGui.QWidget):
 
         # connect the signal emitted by the selector widget when a context is
         # selected. The connected callable should accept a context object.
-        self._context_widget.context_changed.connect(
-            self._on_item_context_change)
+        self._context_widget.context_changed.connect(self._on_item_context_change)
 
         # just a label to display the selected context as text
         self._context_lbl = QtGui.QLabel()
@@ -146,13 +147,7 @@ class ContextWidgetDemo(QtGui.QWidget):
 
         if checked:
             # enable editing and show a message to the user
-            self._context_widget.enable_editing(
-                True,
-                "Editing is now enabled."
-            )
+            self._context_widget.enable_editing(True, "Editing is now enabled.")
         else:
             # disable editing and show a message to the user
-            self._context_widget.enable_editing(
-                False,
-                "Editing is now disabled."
-            )
+            self._context_widget.enable_editing(False, "Editing is now disabled.")

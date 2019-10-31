@@ -12,24 +12,25 @@ import sgtk
 from sgtk.platform.qt import QtCore, QtGui
 
 # import the overlay module from the qtwidgets framework
-overlay = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "overlay_widget")
+overlay = sgtk.platform.import_framework("tk-framework-qtwidgets", "overlay_widget")
 
 # import the shotgun fields module from qtwidgets.
 shotgun_fields = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "shotgun_fields")
+    "tk-framework-qtwidgets", "shotgun_fields"
+)
 
 # import the views module from qtwidgets framework
-views = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "views")
+views = sgtk.platform.import_framework("tk-framework-qtwidgets", "views")
 
 # import the shotgun model module from shotgunutils framework
 shotgun_model = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "shotgun_model")
+    "tk-framework-shotgunutils", "shotgun_model"
+)
 
 # import the task manager from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
 
 
 class ShotgunHierarchyDemo(QtGui.QWidget):
@@ -50,13 +51,13 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         self._bg_task_manager = task_manager.BackgroundTaskManager(self)
 
         doc_lbl = QtGui.QLabel(
-            "Browse the hierarchy on the left to find <tt>Version</tt> "
-            "entities."
+            "Browse the hierarchy on the left to find <tt>Version</tt> " "entities."
         )
 
         # the field manager handles retrieving widgets for shotgun field types
         self._fields_manager = shotgun_fields.ShotgunFieldManager(
-            self, bg_task_manager=self._bg_task_manager)
+            self, bg_task_manager=self._bg_task_manager
+        )
 
         # construct the view and set the model
         self._hierarchy_view = QtGui.QTreeView()
@@ -115,7 +116,8 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         # if no project can be determined from the current context,
         # the model will be built with top-level items for each project.
         self._hierarchy_model = shotgun_model.SimpleShotgunHierarchyModel(
-            self, bg_task_manager=self._bg_task_manager)
+            self, bg_task_manager=self._bg_task_manager
+        )
         self._hierarchy_model.load_data("Version.entity")
 
         # create a proxy model to sort the hierarchy
@@ -130,15 +132,14 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
 
         # create a simple shotgun model for querying the versions
         self._version_model = shotgun_model.SimpleShotgunModel(
-            self, bg_task_manager=self._bg_task_manager)
+            self, bg_task_manager=self._bg_task_manager
+        )
 
         # --- connect some signals
 
         # as hierarchy view selection changes, query versions
         selection_model = self._hierarchy_view.selectionModel()
-        selection_model.selectionChanged.connect(
-            self._on_hierarchy_selection_changed
-        )
+        selection_model.selectionChanged.connect(self._on_hierarchy_selection_changed)
 
         # show the overlay on the versions as they're being queried
         self._version_model.data_refreshing.connect(
@@ -180,8 +181,8 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         self._version_model.load_data(
             target_entities.get("type"),
             additional_filter_presets=target_entities.get("additional_filter_presets"),
-            limit=50,           # limit results to 50 Versions max
-            columns=[           # a few columns to display in the model
+            limit=50,  # limit results to 50 Versions max
+            columns=[  # a few columns to display in the model
                 "created_at",
                 "created_by",
                 "sg_task",
@@ -204,4 +205,3 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
             self._overlay_widget.show_message("No Versions under selection.")
         else:
             self._version_view.resizeColumnsToContents()
-

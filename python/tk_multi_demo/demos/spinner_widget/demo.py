@@ -13,7 +13,8 @@ from sgtk.platform.qt import QtCore, QtGui
 
 # import the spinner_widget module from the qtwidgets framework
 spinner_widget = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "spinner_widget")
+    "tk-framework-qtwidgets", "spinner_widget"
+)
 
 
 class SpinnerWidgetDemo(QtGui.QWidget):
@@ -65,4 +66,3 @@ class SpinnerWidgetDemo(QtGui.QWidget):
         layout.addLayout(button_layout)
         layout.addLayout(spinner_layout)
         layout.addStretch()
-
