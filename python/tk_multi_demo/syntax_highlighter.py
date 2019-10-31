@@ -8,7 +8,6 @@
 # agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
-import __builtin__
 import keyword as py_keywords
 
 from sgtk.platform.qt import QtCore, QtGui
@@ -38,7 +37,7 @@ class PythonSyntaxHighlighter(QtGui.QSyntaxHighlighter):
     keywords = py_keywords.kwlist
 
     # Python builtins
-    builtins = dir(__builtin__)
+    builtins = dir(__builtins__)
 
     # Python operators
     operators = [
