@@ -10,7 +10,8 @@
 
 # Styles the code properly
 # Exclude the UI files, as they are auto-generated.
-exclude: "ui\/.*py$"
+# The dialog is a template file, so it is not parsable.
+exclude: "(ui/.*py$)|(app_scaffold/python/app/dialog)"
 # List of super useful formatters.
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks

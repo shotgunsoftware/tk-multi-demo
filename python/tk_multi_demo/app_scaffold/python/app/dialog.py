@@ -12,7 +12,7 @@
 # We generated this app from the tk-multi-demo app. For simplicity, we're
 # importing that demo widget separately, but you could just as easily define
 # the widget in this file and use it directly.
-from .demo import WIDGET_CLASS_NAME
+from .demo import {{WIDGET_CLASS_NAME}}
 
 
 def show_dialog(app_instance):
