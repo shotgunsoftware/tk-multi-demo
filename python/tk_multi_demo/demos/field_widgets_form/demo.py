@@ -14,15 +14,18 @@ from sgtk.platform.constants import SG_STYLESHEET_CONSTANTS
 
 # import the shotgun_fields module from the framework
 shotgun_fields = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "shotgun_fields")
+    "tk-framework-qtwidgets", "shotgun_fields"
+)
 
 # import the task_manager module from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
 
 # import the shotgun_globals module from shotgunutils framework
 shotgun_globals = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "shotgun_globals")
+    "tk-framework-shotgunutils", "shotgun_globals"
+)
 
 
 class FieldWidgetsFormDemo(QtGui.QWidget):
@@ -49,7 +52,8 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
         # needs time to initialize itself. once that's done, the widgets can
         # begin to be populated.
         self._fields_manager = shotgun_fields.ShotgunFieldManager(
-            self, bg_task_manager=self._bg_task_manager)
+            self, bg_task_manager=self._bg_task_manager
+        )
         self._fields_manager.initialized.connect(self._populate_ui)
         self._fields_manager.initialize()
 
@@ -71,13 +75,15 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
 
         # only show visible, editable, supported fields
         human_user_fields = [
-            f for f in shotgun_globals.get_entity_fields(entity_type) if
-                shotgun_globals.field_is_visible(entity_type, f) and
-                shotgun_globals.field_is_editable(entity_type, f)
+            f
+            for f in shotgun_globals.get_entity_fields(entity_type)
+            if shotgun_globals.field_is_visible(entity_type, f)
+            and shotgun_globals.field_is_editable(entity_type, f)
         ]
 
         human_user_fields = sorted(
-            self._fields_manager.supported_fields(entity_type, human_user_fields))
+            self._fields_manager.supported_fields(entity_type, human_user_fields)
+        )
 
         # get some info about the current user
         current_user = self._bundle.context.user
@@ -93,9 +99,7 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
 
         # make sure we have all the fields we need for this user
         current_user = self._bundle.shotgun.find_one(
-            entity_type,
-            [["id", "is", current_user["id"]]],
-            fields=human_user_fields,
+            entity_type, [["id", "is", current_user["id"]]], fields=human_user_fields
         )
 
         form_layout = QtGui.QGridLayout()
@@ -107,13 +111,15 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
 
             # get the display name for this field
             field_display_name = shotgun_globals.get_field_display_name(
-                entity_type, field)
+                entity_type, field
+            )
 
             # get a widget for the entity type and field. supply the current
             # user entity so that the data is populated. by default, this will
             # return an "EDITABLE" widget.
             editable_field_widget = self._fields_manager.create_widget(
-                entity_type, field, entity=current_user, parent=self)
+                entity_type, field, entity=current_user, parent=self
+            )
 
             # give the image field widget a minimum size
             if field == "image":
@@ -124,19 +130,21 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
             form_layout.addWidget(lbl, row, column, QtCore.Qt.AlignRight)
 
             # add the widget
-            form_layout.addWidget(editable_field_widget, row, column+1,
-                QtCore.Qt.AlignLeft)
+            form_layout.addWidget(
+                editable_field_widget, row, column + 1, QtCore.Qt.AlignLeft
+            )
 
             # listen to the value_changed signal
             editable_field_widget.value_changed.connect(
-                lambda f=field_display_name, w=editable_field_widget:
-                    self._on_value_changed(f, w)
+                lambda f=field_display_name, w=editable_field_widget: self._on_value_changed(
+                    f, w
+                )
             )
 
             row += 1
 
         form_layout.setRowStretch(row, 10)
-        form_layout.setColumnStretch(column+1, 10)
+        form_layout.setColumnStretch(column + 1, 10)
 
         form_widget = QtGui.QWidget()
         form_widget.setLayout(form_layout)
@@ -170,10 +178,12 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
         """
         highlight_color = SG_STYLESHEET_CONSTANTS["SG_HIGHLIGHT_COLOR"]
         self._output_text.append(
-            "> <font color='%s'>%s</font> widget value changed to: <B>%s</B>" %
-            (highlight_color, field, widget.get_value())
+            "> <font color='%s'>%s</font> widget value changed to: <B>%s</B>"
+            % (highlight_color, field, widget.get_value())
         )
+
 
 class FieldLabel(QtGui.QLabel):
     """A simple wrapper to allow for easy styling."""
+
     pass

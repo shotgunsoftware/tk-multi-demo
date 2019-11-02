@@ -14,11 +14,13 @@ from sgtk.util import get_current_user
 
 # import the note_input_widget module from the qtwidgets framework
 note_input_widget = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "note_input_widget")
+    "tk-framework-qtwidgets", "note_input_widget"
+)
 
 # import the task manager from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
 
 
 class NoteInputWidgetDemo(QtGui.QWidget):
@@ -81,5 +83,3 @@ class NoteInputWidgetDemo(QtGui.QWidget):
         """
         self._note_input.destroy()
         self._bg_task_manager.shut_down()
-
-

@@ -13,23 +13,26 @@ from sgtk.platform.qt import QtCore, QtGui
 
 # import the shotgun_fields module from the qtwidgets framework
 shotgun_fields = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "shotgun_fields")
+    "tk-framework-qtwidgets", "shotgun_fields"
+)
 
 # import the shotgun_globals module from the qtwidgets framework
 shotgun_globals = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "shotgun_globals")
+    "tk-framework-shotgunutils", "shotgun_globals"
+)
 
 # import the shotgun_model module from the qtwidgets framework
 shotgun_model = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "shotgun_model")
+    "tk-framework-shotgunutils", "shotgun_model"
+)
 
 # import the task_manager module from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
 
 # import the shotgun_fields module from the qtwidgets framework
-views = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "views")
+views = sgtk.platform.import_framework("tk-framework-qtwidgets", "views")
 
 # ensure our icon resources are imported
 from .ui import resources_rc
@@ -60,7 +63,8 @@ class CustomFieldWidgetDemo(QtGui.QWidget):
         # needs time to initialize itself. once that's done, the widgets can
         # begin to be populated.
         self._fields_manager = shotgun_fields.ShotgunFieldManager(
-            self, bg_task_manager=self._bg_task_manager)
+            self, bg_task_manager=self._bg_task_manager
+        )
         self._fields_manager.initialized.connect(self._populate_ui)
         self._fields_manager.initialize()
 
@@ -68,20 +72,14 @@ class CustomFieldWidgetDemo(QtGui.QWidget):
         """Populate the ui after the fields manager has been initialized."""
 
         # create a SG model to retrieve our data
-        self._model = shotgun_model.SimpleShotgunModel(
-            self, self._bg_task_manager)
+        self._model = shotgun_model.SimpleShotgunModel(self, self._bg_task_manager)
 
         # and a table view to display our SG model
         table_view = views.ShotgunTableView(self._fields_manager, self)
         table_view.horizontalHeader().setStretchLastSection(True)
 
         # the fields to query
-        fields = [
-            "image",
-            "name",
-            "current_user_favorite",
-            "sg_description",
-        ]
+        fields = ["image", "name", "current_user_favorite", "sg_description"]
 
         # load the data into the model
         self._model.load_data(
@@ -89,7 +87,7 @@ class CustomFieldWidgetDemo(QtGui.QWidget):
             fields=fields,
             limit=10,
             columns=fields,
-            editable_columns=["current_user_favorite"]
+            editable_columns=["current_user_favorite"],
         )
 
         # now apply the model to the table view
@@ -123,4 +121,3 @@ class CustomFieldWidgetDemo(QtGui.QWidget):
         """
         self._bg_task_manager.shut_down()
         shotgun_globals.unregister_bg_task_manager(self._bg_task_manager)
-

@@ -13,15 +13,18 @@ from sgtk.platform.qt import QtCore, QtGui
 
 # import the shotgun_menus module from the framework
 shotgun_menus = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "shotgun_menus")
+    "tk-framework-qtwidgets", "shotgun_menus"
+)
 
 # import the shotgun_fields module from the framework
 shotgun_fields = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "shotgun_fields")
+    "tk-framework-qtwidgets", "shotgun_fields"
+)
 
 # import the task manager from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
 
 
 class EntityFieldMenuDemo(QtGui.QWidget):
@@ -46,14 +49,13 @@ class EntityFieldMenuDemo(QtGui.QWidget):
         # build a menu to display Project entity fields
         self._entity_type = "HumanUser"
         self._entity_field_menu = shotgun_menus.EntityFieldMenu(
-            self._entity_type,
-            self,
-            bg_task_manager=self._bg_task_manager
+            self._entity_type, self, bg_task_manager=self._bg_task_manager
         )
 
         # a button to trigger the menu
         entity_field_menu_button = QtGui.QPushButton(
-            "EntityFieldMenu (%s)" % (self._entity_type,))
+            "EntityFieldMenu (%s)" % (self._entity_type,)
+        )
         entity_field_menu_button.setObjectName("entity_field_menu_button")
 
         # show the menu when the button is clicked
@@ -81,7 +83,8 @@ class EntityFieldMenuDemo(QtGui.QWidget):
         # needs time to initialize itself. once that's done, the widgets can
         # begin to be populated.
         self._fields_manager = shotgun_fields.ShotgunFieldManager(
-            self, bg_task_manager=self._bg_task_manager)
+            self, bg_task_manager=self._bg_task_manager
+        )
         self._fields_manager.initialized.connect(self._populate_ui)
         self._fields_manager.initialize()
 

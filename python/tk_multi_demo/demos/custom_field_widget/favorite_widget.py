@@ -12,7 +12,8 @@ import sgtk
 
 # import the shotgun_fields module from the qtwidgets framework
 shotgun_fields = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "shotgun_fields")
+    "tk-framework-qtwidgets", "shotgun_fields"
+)
 
 # the default shotgun fields checkbox widget
 DefaultCheckBoxWidget = shotgun_fields.checkbox_widget.CheckBoxWidget

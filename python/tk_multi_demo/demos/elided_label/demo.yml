@@ -19,4 +19,3 @@ documentation_url: "http://developer.shotgunsoftware.com/tk-framework-qtwidgets/
 
 frameworks:
     - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}
-

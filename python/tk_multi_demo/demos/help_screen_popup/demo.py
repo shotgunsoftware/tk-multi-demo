@@ -15,8 +15,7 @@ from sgtk.platform.qt import QtCore, QtGui
 from .ui import resources_rc
 
 # import the help_screen module from the framework
-help_screen = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "help_screen")
+help_screen = sgtk.platform.import_framework("tk-framework-qtwidgets", "help_screen")
 
 
 class HelpScreenPopupDemo(QtGui.QWidget):
@@ -69,10 +68,8 @@ class HelpScreenPopupDemo(QtGui.QWidget):
             QtGui.QPixmap(":/tk_multi_demo_help_screen_popup/help_screen1.png"),
             QtGui.QPixmap(":/tk_multi_demo_help_screen_popup/help_screen2.png"),
             QtGui.QPixmap(":/tk_multi_demo_help_screen_popup/help_screen3.png"),
-            QtGui.QPixmap(":/tk_multi_demo_help_screen_popup/help_screen4.png")
+            QtGui.QPixmap(":/tk_multi_demo_help_screen_popup/help_screen4.png"),
         ]
 
         # show the help screen!
         help_screen.show_help_screen(self, self._app, help_pix)
-
-

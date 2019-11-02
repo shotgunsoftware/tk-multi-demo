@@ -13,19 +13,23 @@ from sgtk.platform.qt import QtCore, QtGui
 
 # import the shotgun model module from shotgunutils framework
 shotgun_globals = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "shotgun_globals")
+    "tk-framework-shotgunutils", "shotgun_globals"
+)
 
 # import the shotgun_fields module from the framework
 shotgun_fields = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "shotgun_fields")
+    "tk-framework-qtwidgets", "shotgun_fields"
+)
 
 # import the task manager from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "task_manager")
+    "tk-framework-shotgunutils", "task_manager"
+)
 
 # The default entity and field name to display
 DEFAULT_ENTITY_TYPE = "HumanUser"
 DEFAULT_FIELD_NAME = "name"
+
 
 class ShotgunGlobalsDemo(QtGui.QWidget):
     """
@@ -52,7 +56,8 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         # needs time to initialize itself. once that's done, the widgets can
         # begin to be populated.
         self._fields_manager = shotgun_fields.ShotgunFieldManager(
-            self, bg_task_manager=self._bg_task_manager)
+            self, bg_task_manager=self._bg_task_manager
+        )
         self._fields_manager.initialized.connect(self._populate_ui)
         self._fields_manager.initialize()
 
@@ -74,11 +79,10 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         field_lbl = QtGui.QLabel("Select a Field name from the list:")
 
         self._field_name_combo = QtGui.QComboBox(self)
-        self._field_name_combo.setSizeAdjustPolicy(
-            QtGui.QComboBox.AdjustToContents)
+        self._field_name_combo.setSizeAdjustPolicy(QtGui.QComboBox.AdjustToContents)
 
         # get_type_display_name
-        type_display_lbl= MethodLabel("get_type_display_name():")
+        type_display_lbl = MethodLabel("get_type_display_name():")
         self._type_display_lbl = ValueLabel()
 
         # get_field_display_name
@@ -143,8 +147,9 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         layout.addWidget(self._empty_phrase_lbl, row, 1, QtCore.Qt.AlignLeft)
         row += 1
 
-        layout.addWidget(valid_values_lbl, row, 0, QtCore.Qt.AlignRight |
-            QtCore.Qt.AlignTop)
+        layout.addWidget(
+            valid_values_lbl, row, 0, QtCore.Qt.AlignRight | QtCore.Qt.AlignTop
+        )
         layout.addWidget(self._valid_values_list, row, 1, QtCore.Qt.AlignLeft)
         row += 1
 
@@ -171,15 +176,13 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         # ---- populate the defaults
 
         # entity
-        entity_type_index = self._entity_type_combo.findText(
-            DEFAULT_ENTITY_TYPE)
+        entity_type_index = self._entity_type_combo.findText(DEFAULT_ENTITY_TYPE)
         if entity_type_index > -1:
             self._entity_type_combo.setCurrentIndex(entity_type_index)
             self._on_entity_type_combo_activated(DEFAULT_ENTITY_TYPE)
 
         # field
-        field_name_index = self._field_name_combo.findText(
-            DEFAULT_FIELD_NAME)
+        field_name_index = self._field_name_combo.findText(DEFAULT_FIELD_NAME)
         if field_name_index > -1:
             self._field_name_combo.setCurrentIndex(field_name_index)
             self._on_field_name_combo_activated(DEFAULT_FIELD_NAME)
@@ -197,9 +200,7 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
 
         # clear the field name combo and repopulate it with the new fields
         self._field_name_combo.clear()
-        self._field_name_combo.addItems(
-            sorted(self._schema[entity_type].keys())
-        )
+        self._field_name_combo.addItems(sorted(self._schema[entity_type].keys()))
         self._field_name_combo.adjustSize()
 
         # --- update the entity-specific method widgets
@@ -219,8 +220,7 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         type_icon_url = shotgun_globals.get_entity_type_icon_url(entity_type)
         self._entity_type_icon_url.setText(type_icon_url)
 
-        self._on_field_name_combo_activated(
-            self._field_name_combo.currentText())
+        self._on_field_name_combo_activated(self._field_name_combo.currentText())
 
     def _on_field_name_combo_activated(self, field_name):
         """
@@ -233,44 +233,43 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
 
         # field display
         field_display_name = shotgun_globals.get_field_display_name(
-            entity_type, field_name)
+            entity_type, field_name
+        )
         self._field_display_lbl.setText(field_display_name)
 
         # empty phrase
-        empty_phrase = shotgun_globals.get_empty_phrase(
-            entity_type, field_name)
+        empty_phrase = shotgun_globals.get_empty_phrase(entity_type, field_name)
         self._empty_phrase_lbl.setText(empty_phrase)
 
         # valid values
         self._valid_values_list.clear()
         try:
-            valid_values = shotgun_globals.get_valid_values(
-                entity_type, field_name)
+            valid_values = shotgun_globals.get_valid_values(entity_type, field_name)
         except ValueError:
             pass
         else:
             self._valid_values_list.addItems(valid_values)
 
         # editable
-        field_is_editable = shotgun_globals.field_is_editable(
-            entity_type, field_name
-        )
+        field_is_editable = shotgun_globals.field_is_editable(entity_type, field_name)
         self._field_is_editable_lbl.setText(str(field_is_editable))
 
         # visible
-        field_is_visible = shotgun_globals.field_is_visible(
-            entity_type, field_name
-        )
+        field_is_visible = shotgun_globals.field_is_visible(entity_type, field_name)
         self._field_is_visible_lbl.setText(str(field_is_visible))
+
 
 class MethodLabel(QtGui.QLabel):
     """
     Bare subclass for styling.
     """
+
     pass
+
 
 class ValueLabel(QtGui.QLabel):
     """
     Bare subclass for styling.
     """
+
     pass

@@ -13,7 +13,8 @@ from sgtk.platform.qt import QtCore, QtGui
 
 # import the shotgun model module from shotgunutils framework
 shotgun_model = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils", "shotgun_model")
+    "tk-framework-shotgunutils", "shotgun_model"
+)
 
 
 class ShotgunEntityModelDemo(QtGui.QWidget):
@@ -45,8 +46,8 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
 
         # construct an entity model then load some data.
         self._entity_model = shotgun_model.ShotgunEntityModel(
-            "Asset",                                            # entity type
-            [filters],                                          # filters
+            "Asset",  # entity type
+            [filters],  # filters
             ["project.Project.name", "sg_asset_type", "code"],  # hierarchy
             ["description", "id", "project", "sg_asset_type"],  # fields
             self,
@@ -80,6 +81,6 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         """
         try:
             self._entity_model.destroy()
-        except Exception, e:
+        except Exception as e:
             # log exception
             pass

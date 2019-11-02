@@ -13,7 +13,8 @@ from sgtk.platform.qt import QtCore, QtGui
 
 # import the shotgun_menus module from the qtwidgets framework
 shotgun_menus = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "shotgun_menus")
+    "tk-framework-qtwidgets", "shotgun_menus"
+)
 
 
 class ShotgunMenuDemo(QtGui.QWidget):
@@ -51,9 +52,7 @@ class ShotgunMenuDemo(QtGui.QWidget):
         # a button to trigger the menu
         sg_menu_button = QtGui.QPushButton("ShotgunMenu")
         sg_menu_button.setFixedWidth(100)
-        sg_menu_button.clicked.connect(
-            lambda: sg_menu.exec_(QtGui.QCursor.pos())
-        )
+        sg_menu_button.clicked.connect(lambda: sg_menu.exec_(QtGui.QCursor.pos()))
         sg_menu_button.setObjectName("sg_menu_button")
 
         # help label

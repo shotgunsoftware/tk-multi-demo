@@ -27,8 +27,7 @@ from .demos import DEMO_DEFAULT, DEMOS_LIST
 #       maybe entire python console widget set should live in qtwidgets?
 from syntax_highlighter import PythonSyntaxHighlighter
 
-overlay = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "overlay_widget")
+overlay = sgtk.platform.import_framework("tk-framework-qtwidgets", "overlay_widget")
 
 # logger for this module
 try:
@@ -37,6 +36,7 @@ try:
 except:
     # older cores
     import logging
+
     logger = logging.getLogger(__name__)
 
 
@@ -46,11 +46,7 @@ def show_dialog(app_instance):
 
     :param app_instance: The ``sgtk.platform.Application`` instance.
     """
-    app_instance.engine.show_dialog(
-        "Shotgun Toolkit Demos",
-        app_instance,
-        DemoWidget
-    )
+    app_instance.engine.show_dialog("Shotgun Toolkit Demos", app_instance, DemoWidget)
 
 
 class DemoWidget(QtGui.QSplitter):
@@ -123,8 +119,7 @@ class DemoWidget(QtGui.QSplitter):
 
         # a syntax highlighter for the code editor
         self._syntax_highlighter = PythonSyntaxHighlighter(
-            self._demo_code_edit.document(),
-            self._demo_code_edit.palette()
+            self._demo_code_edit.document(), self._demo_code_edit.palette()
         )
         self._syntax_highlighter.setDocument(self._demo_code_edit.document())
 
@@ -136,8 +131,7 @@ class DemoWidget(QtGui.QSplitter):
         demo_code_layout = QtGui.QVBoxLayout()
         demo_code_layout.addWidget(self._demo_code_edit)
         demo_code_layout.addWidget(self._demo_file_combo)
-        demo_code_layout.setAlignment(
-            self._demo_file_combo, QtCore.Qt.AlignRight)
+        demo_code_layout.setAlignment(self._demo_file_combo, QtCore.Qt.AlignRight)
 
         # a single widget to wrap the code layout
         demo_code_widget = QtGui.QWidget()
@@ -180,9 +174,7 @@ class DemoWidget(QtGui.QSplitter):
         # to handle a new demo being selected
         # NOTE: this has to be done in 2 calls to avoid segfault!
         selection_model = self._demo_tree_view.selectionModel()
-        selection_model.selectionChanged.connect(
-            self._on_selection_changed
-        )
+        selection_model.selectionChanged.connect(self._on_selection_changed)
 
         # handle the user selecting a new file to display in the code widget
         self._demo_file_combo.activated[str].connect(self._on_file_selected)
@@ -223,14 +215,12 @@ class DemoWidget(QtGui.QSplitter):
         # set the name label
         name_color = self.palette().highlight().color().name()
         self._demo_name.setText(
-            "<h2><font color='%s'>%s</font></h2>" %
-            (name_color, demo_name)
+            "<h2><font color='%s'>%s</font></h2>" % (name_color, demo_name)
         )
 
         # show the description label
-        demo_desc += (
-            "&nbsp;&nbsp;<a href='%s'>Click for full docs...</a>"
-            % (demo_doc_url,)
+        demo_desc += "&nbsp;&nbsp;<a href='%s'>Click for full docs...</a>" % (
+            demo_doc_url,
         )
         self._demo_desc.setText(demo_desc)
 
@@ -242,8 +232,9 @@ class DemoWidget(QtGui.QSplitter):
                 widget = demo_class(parent=self)
                 demo_dir = os.path.dirname(inspect.getfile(demo_class))
                 self._apply_external_styleshet(widget, demo_dir)
-            except Exception, e:
+            except Exception as e:
                 import traceback
+
                 tb = traceback.format_exc()
                 self._overlay.show_error_message(
                     "Uh oh! Unable to load the demo! Here's the error: "
@@ -262,8 +253,7 @@ class DemoWidget(QtGui.QSplitter):
         self._overlay.hide()
 
         # set the stacked widget index based on the name of the demo to display
-        self._demo_widget_tab.setCurrentIndex(
-            self._demo_stack_lookup[demo_name])
+        self._demo_widget_tab.setCurrentIndex(self._demo_stack_lookup[demo_name])
 
         # if this demo hasn't previously been shown, create a data model of all
         # the python files in the demo directory
@@ -305,7 +295,7 @@ class DemoWidget(QtGui.QSplitter):
                 if file_path.endswith(".py") or file_path.endswith(".qss"):
 
                     # display a path relative to the demo directory
-                    display = os.path.join(root[len(demo_dir)+1:], file_path)
+                    display = os.path.join(root[len(demo_dir) + 1 :], file_path)
 
                     # create the item for display
                     item = QtGui.QStandardItem(display)
@@ -395,9 +385,7 @@ class DemoWidget(QtGui.QSplitter):
                 group_item.setSelectable(False)
 
                 # display it a little differently to distinguish
-                group_item.setForeground(
-                    self.palette().light().color()
-                )
+                group_item.setForeground(self.palette().light().color())
                 model.invisibleRootItem().appendRow(group_item)
 
                 # this is now the parent for subsequent demo class items
@@ -453,15 +441,14 @@ class DemoWidget(QtGui.QSplitter):
         if not os.path.exists:
             # no path fo the manifest
             logger.error(
-                "No manifest file exists for this demo class: %s." %
-                (demo_class,)
+                "No manifest file exists for this demo class: %s." % (demo_class,)
             )
             return None
 
         # attempt to read the manifest file
         try:
             fh = open(manifest, "r")
-        except Exception, e:
+        except Exception as e:
             logger.error(
                 "Could not open demo manifest file '%s'.\n"
                 " Error reported: '%s'" % (manifest, e)
@@ -471,7 +458,7 @@ class DemoWidget(QtGui.QSplitter):
         # now try to parse it
         try:
             demo_info = yaml.load(fh)
-        except Exception, e:
+        except Exception as e:
             logger.error(
                 "Could not parse demo manifest file '%s'.\n"
                 " Error reported: '%s'" % (manifest, e)
@@ -523,10 +510,11 @@ class DemoWidget(QtGui.QSplitter):
                 qss_data = self._resolve_sg_stylesheet_tokens(qss_data)
                 # apply to widget (and all its children)
                 widget.setStyleSheet(qss_data)
-            except Exception, e:
+            except Exception as e:
                 # catch-all and issue a warning and continue.
                 self.app.log_warning(
-                    "Could not apply stylesheet '%s': %s" % (qss_file, e))
+                    "Could not apply stylesheet '%s': %s" % (qss_file, e)
+                )
             finally:
                 f.close()
         except IOError:
@@ -546,5 +534,6 @@ class DemoWidget(QtGui.QSplitter):
         processed_style_sheet = style_sheet
         for (token, value) in constants.SG_STYLESHEET_CONSTANTS.iteritems():
             processed_style_sheet = processed_style_sheet.replace(
-                "{{%s}}" % token, value)
+                "{{%s}}" % token, value
+            )
         return processed_style_sheet

@@ -84,5 +84,3 @@ QTabBar::tab:selected {
     color: {{SG_HIGHLIGHT_COLOR}};
     border-top: 2px solid {{SG_HIGHLIGHT_COLOR}};
 }
-
-

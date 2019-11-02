@@ -41,35 +41,34 @@ DEMO_DEFAULT = HelpDemo
 # in multiple groups. only one instance of a demo will be created however.
 DEMOS_LIST = [
     "Qt Widgets Framework",
-        ActivityStreamWidgetDemo,
-        ContextWidgetDemo,
-        ElidedLabelDemo,
-        GlobalSearchWidgetDemo,
-        HelpScreenPopupDemo,
-        NavigationDemo,
-        NoteInputWidgetDemo,
-        OverlayDemo,
-        #PlaybackLabelDemo,         # TODO: turn back on when we have a good lookup for Version with media
-        ScreenCaptureWidgetDemo,
-        SearchWidgetDemo,
-        FieldWidgetDelegateDemo,
-        FieldWidgetsFormDemo,
-        CustomFieldWidgetDemo,
-        EntityFieldMenuDemo,
-        ShotgunMenuDemo,
-        SpinnerWidgetDemo,
-        # TODO: view related classes
+    ActivityStreamWidgetDemo,
+    ContextWidgetDemo,
+    ElidedLabelDemo,
+    GlobalSearchWidgetDemo,
+    HelpScreenPopupDemo,
+    NavigationDemo,
+    NoteInputWidgetDemo,
+    OverlayDemo,
+    # PlaybackLabelDemo,         # TODO: turn back on when we have a good lookup for Version with media
+    ScreenCaptureWidgetDemo,
+    SearchWidgetDemo,
+    FieldWidgetDelegateDemo,
+    FieldWidgetsFormDemo,
+    CustomFieldWidgetDemo,
+    EntityFieldMenuDemo,
+    ShotgunMenuDemo,
+    SpinnerWidgetDemo,
+    # TODO: view related classes
     "Shotgun Utils Framework",
-        # TODO: SG model
-        ShotgunEntityModelDemo,
-        ShotgunHierarchyDemo,
-        # TODO: data retriever
-        # TODO: bg task manager
-        # TODO: settings
-        ShotgunGlobalsDemo,
+    # TODO: SG model
+    ShotgunEntityModelDemo,
+    ShotgunHierarchyDemo,
+    # TODO: data retriever
+    # TODO: bg task manager
+    # TODO: settings
+    ShotgunGlobalsDemo,
     "Toolkit Core",
-        EngineShowBusyDemo,
+    EngineShowBusyDemo,
     "Other",
-        HelpDemo,
+    HelpDemo,
 ]
-
