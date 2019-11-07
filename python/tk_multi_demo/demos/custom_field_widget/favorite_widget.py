@@ -9,6 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 import sgtk
+from tank_vendor.shotgun_api3.lib import six
 
 # import the shotgun_fields module from the qtwidgets framework
 shotgun_fields = sgtk.platform.import_framework(
@@ -19,17 +20,16 @@ shotgun_fields = sgtk.platform.import_framework(
 DefaultCheckBoxWidget = shotgun_fields.checkbox_widget.CheckBoxWidget
 
 
+# defining the meta class will register this class for use by the
+# field manager widget factory. the simple act of importing this class
+# will be enough to register it and apply it to the project favorite field.
+@six.add_metaclass(shotgun_fields.ShotgunFieldMeta)
 class MyProjectFavoritesWidget(DefaultCheckBoxWidget):
     """
     A custom display widget for the Project entity's "favorite" field.
 
     Shotgun also displays this field in a custom way.
     """
-
-    # defining the meta class will register this class for use by the
-    # field manager widget factory. the simple act of importing this class
-    # will be enough to register it and apply it to the project favorite field.
-    __metaclass__ = shotgun_fields.ShotgunFieldMeta
 
     # make this class usable as both an editor and display widget for fields
     # of type "checkbox"
