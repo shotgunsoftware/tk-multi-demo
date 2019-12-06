@@ -121,20 +121,32 @@ class AppDialogAppWrapper(object):
 
 def test_activity_stream(app_dialog):
     # Validate that Demo app is on the welcome page
-    assert app_dialog._root.captions["Help With this App"].exists()==True, "Not on the Demos app Welcome Page"
+    assert (
+        app_dialog._root.captions["Help With this App"].exists() == True
+    ), "Not on the Demos app Welcome Page"
 
     # Click on the Activity Stream widget
     app_dialog._root.outlineitems["Activity Stream"].get().mouseClick()
-    assert app_dialog._root.captions["Activity Stream"].exists()==True, "Not on the Activity Stream widget"
+    assert (
+        app_dialog._root.captions["Activity Stream"].exists() == True
+    ), "Not on the Activity Stream widget"
 
     # Create a Note
     app_dialog._root.captions["Click to create a new note..."].get().mouseClick()
 
     # Validate that all buttons are available
-    assert app_dialog._root.buttons["Cancel"].exists()==True, "Cancel buttons is not showing up"
-    assert app_dialog._root.buttons["Attach Files"].exists()==True, "Attach Screenshot buttons is not showing up"
-    assert app_dialog._root.buttons["Take Screenshot"].exists()==True, "Take Screenshot buttons is not showing up"
-    assert app_dialog._root.buttons["Create Note"].exists()==True, "Create Note buttons is not showing up"
+    assert (
+        app_dialog._root.buttons["Cancel"].exists() == True
+    ), "Cancel buttons is not showing up"
+    assert (
+        app_dialog._root.buttons["Attach Files"].exists() == True
+    ), "Attach Screenshot buttons is not showing up"
+    assert (
+        app_dialog._root.buttons["Take Screenshot"].exists() == True
+    ), "Take Screenshot buttons is not showing up"
+    assert (
+        app_dialog._root.buttons["Create Note"].exists() == True
+    ), "Create Note buttons is not showing up"
 
     # Add a note
     app_dialog._root.textfields.typeIn("New Note")
@@ -142,51 +154,137 @@ def test_activity_stream(app_dialog):
     app_dialog._root.captions["New Note"].get().waitExist(), 30
 
     # Validate the Note gets created
-    assert app_dialog._root.captions["New Note"].exists()==True, "New note wasn't created"
-    assert app_dialog._root.captions["Reply to this Note"].exists()==True, "New note wasn't created"
+    assert (
+        app_dialog._root.captions["New Note"].exists() == True
+    ), "New note wasn't created"
+    assert (
+        app_dialog._root.captions["Reply to this Note"].exists() == True
+    ), "New note wasn't created"
 
     # Scroll down in the activity stream
-    activityScrollBar= first (app_dialog._root.scrollbars[1])
+    activityScrollBar = first(app_dialog._root.scrollbars[1])
     width, height = activityScrollBar.size
     app_dialog._root.scrollbars[1]["Position"].get().mouseSlide()
-    activityScrollBar.mouseDrag(width*0, height*1)
-    assert app_dialog._root.buttons["Click here to see the Activity stream in Shotgun."].exists()==True, "Hyperlink to see the Activity Stream in Shotgun is missing"
+    activityScrollBar.mouseDrag(width * 0, height * 1)
+    assert (
+        app_dialog._root.buttons[
+            "Click here to see the Activity stream in Shotgun."
+        ].exists()
+        == True
+    ), "Hyperlink to see the Activity Stream in Shotgun is missing"
 
 
 def test_context_selector(app_dialog):
     # Click on the Context Selector widget
     app_dialog._root.outlineitems["Context Selector Widget"].get().mouseClick()
-    assert app_dialog._root.captions["Context Selector Widget"].exists()==True, "Not on the Context Selector Widget"
+    assert (
+        app_dialog._root.captions["Context Selector Widget"].exists() == True
+    ), "Not on the Context Selector Widget"
 
     # Validate that all selectors are available
-    if app_dialog._root.captions["Editing is now enabled."].exists()==True:
-        assert app_dialog._root.captions["Task:*"].exists()==True, "Task: is not available"
-        assert app_dialog._root.captions["*The task that the selected item will be associated with the Shotgun entity being acted upon.*"].exists()==True, "Task field is not available"
-        assert app_dialog._root.checkboxes["*Toggle this button to allow searching for a Task to associate with the selected item*"].exists()==True, "Task search is not available"
-        assert app_dialog._root.captions["Link:*"].exists()==True, "Link: is not available"
-        assert app_dialog._root.captions["*Big Buck Bunny"].exists()==True, "Link field isn't set"
-        assert app_dialog._root.checkboxes["*Toggle this button to allow searching for an entity to link to the selected item.*"].exists()==True, "Link search is not available"
+    if app_dialog._root.captions["Editing is now enabled."].exists() == True:
+        assert (
+            app_dialog._root.captions["Task:*"].exists() == True
+        ), "Task: is not available"
+        assert (
+            app_dialog._root.captions[
+                "*The task that the selected item will be associated with the Shotgun entity being acted upon.*"
+            ].exists()
+            == True
+        ), "Task field is not available"
+        assert (
+            app_dialog._root.checkboxes[
+                "*Toggle this button to allow searching for a Task to associate with the selected item*"
+            ].exists()
+            == True
+        ), "Task search is not available"
+        assert (
+            app_dialog._root.captions["Link:*"].exists() == True
+        ), "Link: is not available"
+        assert (
+            app_dialog._root.captions["*Big Buck Bunny"].exists() == True
+        ), "Link field isn't set"
+        assert (
+            app_dialog._root.checkboxes[
+                "*Toggle this button to allow searching for an entity to link to the selected item.*"
+            ].exists()
+            == True
+        ), "Link search is not available"
         app_dialog._root.checkboxes["Click to Toggle Editing"].get().mouseClick()
-        assert app_dialog._root.captions["Editing is now disabled."].exists()==True, "Toggle to disable context switch doesn't work."
+        assert (
+            app_dialog._root.captions["Editing is now disabled."].exists() == True
+        ), "Toggle to disable context switch doesn't work."
         app_dialog._root.checkboxes["Click to Toggle Editing"].get().mouseClick()
-        assert app_dialog._root.captions["Editing is now enabled."].exists()==True, "Toggle to disable context switch doesn't work."
-    elif app_dialog._root.captions["Editing is now disabled."].exists()==True:
+        assert (
+            app_dialog._root.captions["Editing is now enabled."].exists() == True
+        ), "Toggle to disable context switch doesn't work."
+    elif app_dialog._root.captions["Editing is now disabled."].exists() == True:
         app_dialog._root.checkboxes["Click to Toggle Editing"].get().mouseClick()
-        assert app_dialog._root.captions["Editing is now enabled."].exists()==True, "Toggle to disable context switch doesn't work."
-        assert app_dialog._root.captions["Task:*"].exists()==True, "Task: is not available"
-        assert app_dialog._root.captions["*The task that the selected item will be associated with the Shotgun entity being acted upon.*"].exists()==True, "Task field is not available"
-        assert app_dialog._root.checkboxes["*Toggle this button to allow searching for a Task to associate with the selected item*"].exists()==True, "Task search is not available"
-        assert app_dialog._root.captions["Link:*"].exists()==True, "Link: is not available"
-        assert app_dialog._root.captions["*Big Buck Bunny"].exists()==True, "Link field isn't set"
-        assert app_dialog._root.checkboxes["*Toggle this button to allow searching for an entity to link to the selected item.*"].exists()==True, "Link search is not available"
+        assert (
+            app_dialog._root.captions["Editing is now enabled."].exists() == True
+        ), "Toggle to disable context switch doesn't work."
+        assert (
+            app_dialog._root.captions["Task:*"].exists() == True
+        ), "Task: is not available"
+        assert (
+            app_dialog._root.captions[
+                "*The task that the selected item will be associated with the Shotgun entity being acted upon.*"
+            ].exists()
+            == True
+        ), "Task field is not available"
+        assert (
+            app_dialog._root.checkboxes[
+                "*Toggle this button to allow searching for a Task to associate with the selected item*"
+            ].exists()
+            == True
+        ), "Task search is not available"
+        assert (
+            app_dialog._root.captions["Link:*"].exists() == True
+        ), "Link: is not available"
+        assert (
+            app_dialog._root.captions["*Big Buck Bunny"].exists() == True
+        ), "Link field isn't set"
+        assert (
+            app_dialog._root.checkboxes[
+                "*Toggle this button to allow searching for an entity to link to the selected item.*"
+            ].exists()
+            == True
+        ), "Link search is not available"
 
     # Change Context
-    app_dialog._root.checkboxes["*Toggle this button to allow searching for a Task to associate with the selected item*"].get().mouseClick()
+    app_dialog._root.checkboxes[
+        "*Toggle this button to allow searching for a Task to associate with the selected item*"
+    ].get().mouseClick()
     app_dialog._root.textfields.typeIn("Art")
     topwindows.listitems["Art"].get().mouseClick()
     app_dialog._root.captions["*Art"].get().waitExist(), 30
 
     # Validate context Changed successfully
-    assert app_dialog._root.captions["*Art"].exists()==True, "Task field didn't update"
-    assert app_dialog._root.captions["*Acorn"].exists()==True, "Link field didn't update"
-    assert app_dialog._root.captions["Context set to: Art, Asset Acorn"].exists()==True, "Context wasn't set correctly"
+    assert (
+        app_dialog._root.captions["*Art"].exists() == True
+    ), "Task field didn't update"
+    assert (
+        app_dialog._root.captions["*Acorn"].exists() == True
+    ), "Link field didn't update"
+    assert (
+        app_dialog._root.captions["Context set to: Art, Asset Acorn"].exists() == True
+    ), "Context wasn't set correctly"
+
+
+def test_auto_elide_label(app_dialog):
+    # Click on the Context Selector widget
+    app_dialog._root.outlineitems["Auto-Elide Label"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Auto-Elide Label"].exists() == True
+    ), "Not on the Auto-Elide Label Widget"
+
+    # Validate that all selectors are available
+    assert (
+        app_dialog._root.captions[
+            "Lorem ipsum dolor sit amet, consectetur adipiscing el..."
+        ].exists()
+        == True
+    ), "Auto-Elide test is good"
+    app_dialog._root["Position"].get().mouseSlide()
+    app_dialog._root["Position"].get().mouseDrag(width * 0, height * 0)
+    # assert app_dialog._root.captions["Editing is now disabled."].exists()==True, "Toggle to disable context switch doesn't work."
