@@ -132,6 +132,7 @@ def test_activity_stream(app_dialog):
     ), "Not on the Activity Stream widget"
 
     # Create a Note
+    app_dialog._root.captions["Click to create a new note..."].get().waitExist(), 30
     app_dialog._root.captions["Click to create a new note..."].get().mouseClick()
 
     # Validate that all buttons are available
@@ -278,13 +279,31 @@ def test_auto_elide_label(app_dialog):
         app_dialog._root.captions["Auto-Elide Label"].exists() == True
     ), "Not on the Auto-Elide Label Widget"
 
-    # Validate that all selectors are available
+    # Validate default lable value
     assert (
         app_dialog._root.captions[
             "Lorem ipsum dolor sit amet, consectetur adipiscing el..."
         ].exists()
         == True
-    ), "Auto-Elide test is good"
-    app_dialog._root["Position"].get().mouseSlide()
-    app_dialog._root["Position"].get().mouseDrag(width * 0, height * 0)
-    # assert app_dialog._root.captions["Editing is now disabled."].exists()==True, "Toggle to disable context switch doesn't work."
+    ), "Default Auto-Elide text value is good"
+
+    # Slide to the left side to remove the text and validate
+    labelIndicator = first(app_dialog._root.buttons["Page left"])
+    width, height = labelIndicator.size
+    app_dialog._root.indicators.Position[1].mouseSlide()
+    labelIndicator.mouseDrag(width * 0, height * 0)
+    assert (
+        app_dialog._root.captions[""].exists() == True
+    ), "Empty Auto-Elide text value is good"
+
+    # Slide to the right side to show all the text and validate
+    labelIndicator = first(app_dialog._root.buttons["Page right"])
+    width, height = labelIndicator.size
+    app_dialog._root.indicators.Position[1].mouseSlide()
+    labelIndicator.mouseDrag(width * 1, height * 0)
+    assert (
+        app_dialog._root.captions[
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non posuere lorem. Donec non lobortis mauris...."
+        ].exists()
+        == True
+    ), "Full Auto-Elide text value is good"
