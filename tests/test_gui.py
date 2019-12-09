@@ -311,3 +311,242 @@ def test_auto_elide_label(app_dialog):
         ].exists()
         == True
     ), "Full Auto-Elide text value is good"
+
+
+def test_global_search(app_dialog):
+    # Click on the Global Search widget
+    app_dialog._root.outlineitems["Global Search"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Global Search"].exists() == True
+    ), "Not on the Global Search Widget"
+
+    # Search for a specific entity
+    app_dialog._root.textfields.typeIn("Art")
+    topwindows.listitems["Art"].get().mouseClick()
+
+    # Validate search complete successfully
+    assert (
+        app_dialog._root.captions["Task 'Art' with id 448 activated"].exists() == True
+    ), "Global search is not working"
+
+
+def test_help_screen(app_dialog):
+    # Click on the Help Screen Popup widget
+    app_dialog._root.outlineitems["Help Screen Popup"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Help Screen Popup"].exists() == True
+    ), "Not on the Help Screen Popup Widget"
+
+    # Click on the show_help_screen button
+    app_dialog._root.buttons["show_help_screen()"].get().mouseClick()
+
+    # Validate Show Help Screen
+    assert (
+        app_dialog._root.dialogs["Toolkit Help"].exists() == True
+    ), "Show Help Screen is not showing up"
+    assert (
+        app_dialog._root.dialogs["Toolkit Help"]
+        .buttons["Jump to Documentation"]
+        .exists()
+        == True
+    ), "Jump to Documentation button is not available"
+    assert (
+        app_dialog._root.dialogs["Toolkit Help"].buttons["Close"].exists() == True
+    ), "Close button is not available"
+    assert (
+        app_dialog._root.dialogs["Toolkit Help"]
+        .buttons["Scroll to the next slide"]
+        .exists()
+        == True
+    ), "Scroll to the next slide button is not available"
+
+    # Click on Scroll to the next slide until you reach the last slide
+    while (
+        app_dialog._root.dialogs["Toolkit Help"]
+        .buttons["Scroll to the next slide"]
+        .exists()
+        == True
+    ):
+        app_dialog._root.dialogs["Toolkit Help"].buttons[
+            "Scroll to the next slide"
+        ].get().mouseClick()
+
+    # Validate Show Help Screen last slide
+    assert (
+        app_dialog._root.dialogs["Toolkit Help"].exists() == True
+    ), "Show Help Screen is not showing up"
+    assert (
+        app_dialog._root.dialogs["Toolkit Help"]
+        .buttons["Jump to Documentation"]
+        .exists()
+        == True
+    ), "Jump to Documentation button is not available"
+    assert (
+        app_dialog._root.dialogs["Toolkit Help"].buttons["Close"].exists() == True
+    ), "Close button is not available"
+    assert (
+        app_dialog._root.dialogs["Toolkit Help"]
+        .buttons["Scroll to the previous slide"]
+        .exists()
+        == True
+    ), "Scroll to the previous slide button is not available"
+
+    # Close Show Help Screen
+    app_dialog._root.dialogs["Toolkit Help"].buttons["Close"].get().mouseClick()
+
+
+def test_navigation(app_dialog):
+    # Click on the Navigation widget
+    app_dialog._root.outlineitems["Navigation"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Navigation"].exists() == True
+    ), "Not on the Navigation widget"
+
+
+def test_note_editor(app_dialog):
+    # Click on the Note Editor widget
+    app_dialog._root.outlineitems["Note Editor"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Note Editor"].exists() == True
+    ), "Not on the Note Editor widget"
+
+    # Click to create a new note
+    if app_dialog._root.captions["Click to create a new note..."].exists() == True:
+        app_dialog._root.captions["Click to create a new note..."].get().mouseClick()
+
+    # Validate that all buttons are available
+    assert (
+        app_dialog._root.buttons["Cancel"].exists() == True
+    ), "Cancel buttons is not showing up"
+    assert (
+        app_dialog._root.buttons["Attach Files"].exists() == True
+    ), "Attach Screenshot buttons is not showing up"
+    assert (
+        app_dialog._root.buttons["Take Screenshot"].exists() == True
+    ), "Take Screenshot buttons is not showing up"
+    assert (
+        app_dialog._root.buttons["Create Note"].exists() == True
+    ), "Create Note buttons is not showing up"
+
+    # Add a note
+    app_dialog._root.textfields.typeIn("New Note")
+    app_dialog._root.buttons["Create Note"].get().mouseClick()
+    app_dialog._root.captions["Click to create a new note..."].waitExist(), 30
+
+
+def test_overlay(app_dialog):
+    # Click on the Overlay widget
+    app_dialog._root.outlineitems["Overlay"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Overlay"].exists() == True
+    ), "Not on the Overlay widget"
+
+
+def test_screen_capture(app_dialog):
+    # Click on the Screen Capture widget
+    app_dialog._root.outlineitems["Screen Capture"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Screen Capture"].exists() == True
+    ), "Not on the Screen Capture widget"
+
+
+def test_search(app_dialog):
+    # Click on the Search widget
+    app_dialog._root.outlineitems["Search"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Search"].exists() == True
+    ), "Not on the Search widget"
+
+
+def test_shotgun_field_delegate(app_dialog):
+    # Click on the Shotgun Field Delegate widget
+    app_dialog._root.outlineitems["Shotgun Field Delegate"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Shotgun Field Delegate"].exists() == True
+    ), "Not on the Shotgun Field Delegate widget"
+
+
+def test_shotgun_field_widgets_form(app_dialog):
+    # Click on the Shotgun Field Widgets Form widget
+    app_dialog._root.outlineitems["Shotgun Field Widgets Form"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Shotgun Field Widgets Form"].exists() == True
+    ), "Not on the Shotgun Field Widgets Form widget"
+
+
+def test_custom_field_widget(app_dialog):
+    # Click on the Custom Field Widget widget
+    app_dialog._root.outlineitems["Custom Field Widget"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Custom Field Widget"].exists() == True
+    ), "Not on the Custom Field Widget widget"
+
+
+def test_entity_field_menu(app_dialog):
+    # Click on the Entity Field Menu widget
+    app_dialog._root.outlineitems["Entity Field Menu"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Entity Field Menu"].exists() == True
+    ), "Not on the Entity Field Menu widget"
+
+
+def test_shotgun_menu(app_dialog):
+    # Click on the Shotgun Menu widget
+    app_dialog._root.outlineitems["Shotgun Menu"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Shotgun Menu"].exists() == True
+    ), "Not on the Shotgun Menu widget"
+
+
+def test_spinner(app_dialog):
+    # Click on the Spinner widget
+    app_dialog._root.outlineitems["Spinner"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Spinner"].exists() == True
+    ), "Not on the Spinner widget"
+
+
+def test_shotgun_entity_model(app_dialog):
+    # Scroll down in the widgets panel
+    activityScrollBar = first(app_dialog._root.indicators.Position)
+    width, height = activityScrollBar.size
+    app_dialog._root.indicators.Position.get().mouseSlide()
+    activityScrollBar.mouseDrag(width * 0, height * 1)
+
+    # Click on the Shotgun Entity Model widget
+    app_dialog._root.outlineitems["Shotgun Entity Model"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Shotgun Entity Model"].exists() == True
+    ), "Not on the Shotgun Entity Model widget"
+
+
+def test_shotgun_hierarchy(app_dialog):
+    # Click on the Shotgun Hierarchy widget
+    app_dialog._root.outlineitems["Shotgun Hierarchy"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Shotgun Hierarchy"].exists() == True
+    ), "Not on the Shotgun Hierarchy widget"
+
+
+def test_shotgun_globals(app_dialog):
+    # Click on the Shotgun Globals widget
+    app_dialog._root.outlineitems["Shotgun Globals"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Shotgun Globals"].exists() == True
+    ), "Not on the Shotgun Globals widget"
+
+
+def test_busy_dialog(app_dialog):
+    # Click on the Busy Dialog widget
+    app_dialog._root.outlineitems["Busy Dialog"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Busy Dialog"].exists() == True
+    ), "Not on the Busy Dialog widget"
+
+
+def test_help_app(app_dialog):
+    # Click on the Help With this App widget
+    app_dialog._root.outlineitems["Help With this App"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Help With this App"].exists() == True
+    ), "Not on the Help With this App widget"
