@@ -131,8 +131,11 @@ def test_activity_stream(app_dialog):
         app_dialog._root.captions["Activity Stream"].exists() == True
     ), "Not on the Activity Stream widget"
 
-    # Create a Note
-    app_dialog._root.captions["Click to create a new note..."].get().waitExist(), 30
+    # Wait until note creation field is showing up.
+    while app_dialog._root.captions["Loading Shotgun Data..."].exists() == True:
+        sleep(1)
+
+    # Click to create a new note
     app_dialog._root.captions["Click to create a new note..."].get().mouseClick()
 
     # Validate that all buttons are available
@@ -152,6 +155,7 @@ def test_activity_stream(app_dialog):
     # Add a note
     app_dialog._root.textfields.typeIn("New Note")
     app_dialog._root.buttons["Create Note"].get().mouseClick()
+    app_dialog._root.waitIdle(), 30
     app_dialog._root.captions["New Note"].get().waitExist(), 30
 
     # Validate the Note gets created
