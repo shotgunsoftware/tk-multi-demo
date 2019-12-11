@@ -133,7 +133,7 @@ def test_activity_stream(app_dialog):
 
     # Wait until note creation field is showing up.
     while app_dialog._root.captions["Loading Shotgun Data..."].exists() == True:
-        sleep(1)
+        time.sleep(1)
 
     # Click to create a new note
     app_dialog._root.captions["Click to create a new note..."].get().mouseClick()
@@ -401,6 +401,159 @@ def test_navigation(app_dialog):
     assert (
         app_dialog._root.captions["Navigation"].exists() == True
     ), "Not on the Navigation widget"
+    assert (
+        app_dialog._root.captions[
+            "Select items in the tree view to the left to see the NavigationWidget and BreadcrumbWidget above update. Then use the navigation widgets themselves to traverse the selection history in the tree view. Clicking the Home button in the NavigationWidget will clear selection."
+        ].exists()
+        == True
+    ), "Widget's description is missing"
+
+    # Navigate in Big Buck bunny project
+    app_dialog._root.outlineitems["Big Buck Bunny"].waitExist(), 30
+    app_dialog._root.outlineitems["Big Buck Bunny"].get().mouseDoubleClick()
+
+    # Validate Breadcrumb widget and that Assets and Shots entities are showing up
+    assert (
+        app_dialog._root.captions["Project Big Buck Bunny"].exists() == True
+    ), "Breadcrumb widget is not set correctly"
+    app_dialog._root.outlineitems["Assets"].waitExist(), 30
+    assert (
+        app_dialog._root.outlineitems["Assets"].exists() == True
+    ), "Assets entity is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Shots"].exists() == True
+    ), "Shots entity is not in the navigation widget"
+
+    # Navigate in Assets entity
+    app_dialog._root.outlineitems["Assets"].get().mouseDoubleClick()
+
+    # Validate Breadcrumb widget and Assets Types
+    assert (
+        app_dialog._root.captions["Project Big Buck Bunny * Assets"].exists() == True
+    ), "Breadcrumb widget is not set correctly"
+    app_dialog._root.outlineitems["Character"].waitExist(), 30
+    assert (
+        app_dialog._root.outlineitems["Character"].exists() == True
+    ), "Asset type Character is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Environment"].exists() == True
+    ), "Asset type Environment is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Matte Painting"].exists() == True
+    ), "Asset type Matte Painting is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Prop"].exists() == True
+    ), "Asset type Prop is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Vehicle"].exists() == True
+    ), "Asset type Vehicle is not in the navigation widget"
+
+    # Navigate in Asset type Character
+    app_dialog._root.outlineitems["Character"].get().mouseDoubleClick()
+
+    # Validate Breadcrumb widget and Asset Type Characters
+    assert (
+        app_dialog._root.captions[
+            "Project Big Buck Bunny * Assets * Character"
+        ].exists()
+        == True
+    ), "Breadcrumb widget is not set correctly"
+    app_dialog._root.outlineitems["Alice"].waitExist(), 30
+    assert (
+        app_dialog._root.outlineitems["Alice"].exists() == True
+    ), "Character Alice is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Anders"].exists() == True
+    ), "Character Anders is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Blue Jay"].exists() == True
+    ), "Character Blue Jay is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Buck"].exists() == True
+    ), "Character Buck is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Bunny"].exists() == True
+    ), "Character Bunny is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Caterpillar"].exists() == True
+    ), "Character Caterpillar is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Darcy"].exists() == True
+    ), "Character Darcy is not in the navigation widget"
+
+    # Scroll down in the navigation tree to show more asset type characters
+    activityScrollBar = first(app_dialog._root.scrollbars[1])
+    width, height = activityScrollBar.size
+    app_dialog._root.scrollbars[1]["Position"].get().mouseSlide()
+    activityScrollBar.mouseDrag(width * 0, height * 0.30)
+
+    # Continue to validate that all Characters are there
+    assert (
+        app_dialog._root.outlineitems["Fern"].exists() == True
+    ), "Character Fern is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Flash"].exists() == True
+    ), "Character Flash is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Hamster"].exists() == True
+    ), "Character Hamster is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Jimmy"].exists() == True
+    ), "Character Jimmy is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Jojo"].exists() == True
+    ), "Character Jojo is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Mr Banning"].exists() == True
+    ), "Character Mr Banning is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Mrs Banning"].exists() == True
+    ), "Character Mrs Banning is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Queen"].exists() == True
+    ), "Character Queen is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Scare Crow"].exists() == True
+    ), "Character Scare Crow is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Squirrel"].exists() == True
+    ), "Character Squirrel is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Young Bunny"].exists() == True
+    ), "Character Young Bunny is not in the navigation widget"
+
+    # Select asset Hamster
+    app_dialog._root.outlineitems["Hamster"].get().mouseClick()
+
+    # Validate Breadcrumb widget
+    assert (
+        app_dialog._root.captions[
+            "Project Big Buck Bunny * Assets * Character * Asset Hamster"
+        ].exists()
+        == True
+    ), "Breadcrumb widget is not set correctly"
+
+    # Click on the back navigation button until back to the project context
+    while app_dialog._root.captions["Project Big Buck Bunny"].exists() != True:
+        # FIXME Need to add a name to the button to avoid any issue
+        app_dialog._root.buttons[8].mouseClick()
+
+    # Click on the forward navigation button until back to the asset hamster context
+    while (
+        app_dialog._root.captions[
+            "Project Big Buck Bunny * Assets * Character * Asset Hamster"
+        ].exists()
+        != True
+    ):
+        # FIXME Need to add a name to the button to avoid any issue
+        app_dialog._root.buttons[9].mouseClick()
+
+    # Click on the home button and validate breadcrumb is empty
+    # FIXME Need to add a name to the button to avoid any issue
+    app_dialog._root.buttons[7].mouseClick()
+    assert (
+        app_dialog._root.outlineitems[""].exists() == True
+    ), "Breadcrumb should be empty after clicking on the home button"
 
 
 def test_note_editor(app_dialog):
