@@ -581,6 +581,33 @@ def test_note_editor(app_dialog):
         app_dialog._root.buttons["Create Note"].exists() == True
     ), "Create Note buttons is not showing up"
 
+    # Validate that the File browser is showing up after clicking on the Files to attach button then close it
+    app_dialog._root.buttons["Attach Files"].get().mouseClick()
+    app_dialog._root.dialogs["Select files to attach."].waitExist(), 30
+    app_dialog._root.dialogs["Select files to attach."].buttons[
+        "Cancel"
+    ].get().mouseClick()
+
+    # Validate that all buttons are available
+    assert (
+        app_dialog._root.buttons["Cancel"].exists() == True
+    ), "Cancel buttons is not showing up"
+    # FIXME Need to add a name to the button to avoid any issue
+    assert (
+        app_dialog._root.buttons["..."].exists() == True
+    ), "Attach Screenshot buttons is not showing up"
+    assert (
+        app_dialog._root.buttons["Create Note"].exists() == True
+    ), "Create Note buttons is not showing up"
+    app_dialog._root.buttons["Cancel"].get().mouseClick()
+
+    # Take a screenshot
+    app_dialog._root.buttons["Take Screenshot"].get().mouseClick()
+    MyOGL = first(app_dialog._root)
+    width, height = MyOGL.size
+    MyOGL.mouseSlide(width * 0, height * 0)
+    MyOGL.mouseDrag(width * 1, height * 1)
+
     # Add a note
     app_dialog._root.textfields.typeIn("New Note")
     app_dialog._root.buttons["Create Note"].get().mouseClick()
@@ -594,6 +621,60 @@ def test_overlay(app_dialog):
         app_dialog._root.captions["Overlay"].exists() == True
     ), "Not on the Overlay widget"
 
+    # Validate "When the overlay widget is hidden, you should be able to click this button" button
+    app_dialog._root.buttons[
+        "When the overlay widget is hidden, you should be able to click this button."
+    ].get().mouseClick()
+    assert (
+        app_dialog._root.captions[
+            "*This is a label widget with an OverlayWidget parented to it. When shown,*"
+        ].exists()
+        == True
+    ), "Message isn't showing up in the overlay dialog"
+
+    # Type in text dialog
+    app_dialog._root.textfields.typeIn("This is a test")
+
+    # Validate spinner button
+    app_dialog._root.buttons["start_spin()"].get().mouseClick()
+    # FIXME Need to find a way to know that spinner is showing up
+
+    # Validate show message button
+    app_dialog._root.buttons["show_message()"].get().mouseClick()
+    assert (
+        app_dialog._root.captions[
+            "Showing this message in the overlay widget.*"
+        ].exists()
+        == True
+    ), "Message isn't showing up in the overlay dialog"
+
+    # Validate show message pixmap button
+    app_dialog._root.buttons["show_message_pixmap()"].get().mouseClick()
+    # FIXME Need to find a way to know that pixmap is showing up
+
+    # Validate show error message button
+    app_dialog._root.buttons["show_error_message()"].get().mouseClick()
+    assert (
+        app_dialog._root.captions[
+            "Showing this error message in the overlay widget.*"
+        ].exists()
+        == True
+    ), "Message isn't showing up in the overlay dialog"
+
+    # Validate hide button
+    app_dialog._root.buttons["hide()"].get().mouseClick()
+    assert (
+        app_dialog._root.captions[
+            "*This is a label widget with an OverlayWidget parented to it. When shown,*"
+        ].exists()
+        == True
+    ), "Message isn't showing up in the overlay dialog"
+
+    # Validate text dialog
+    assert (
+        app_dialog._root.textfields.value == "This is a test"
+    ), "Text field doesn't have the right value"
+
 
 def test_screen_capture(app_dialog):
     # Click on the Screen Capture widget
@@ -601,6 +682,26 @@ def test_screen_capture(app_dialog):
     assert (
         app_dialog._root.captions["Screen Capture"].exists() == True
     ), "Not on the Screen Capture widget"
+
+    # Validate get_desktop_pixmap button
+    app_dialog._root.buttons["get_desktop_pixmap(rect)"].get().mouseClick()
+
+    # Validate screen_capture button
+    app_dialog._root.buttons["screen_capture()"].get().mouseClick()
+    MyOGL = first(app_dialog._root)
+    width, height = MyOGL.size
+    MyOGL.mouseSlide(width * 0, height * 0)
+    MyOGL.mouseDrag(width * 1, height * 1)
+
+    # Validate screen_capture_file button
+    app_dialog._root.buttons["screen_capture_file()"].get().mouseClick()
+    MyOGL = first(app_dialog._root)
+    width, height = MyOGL.size
+    MyOGL.mouseSlide(width * 0, height * 0)
+    MyOGL.mouseDrag(width * 1, height * 1)
+    assert (
+        app_dialog._root.captions["Output file: *"].exists() == True
+    ), "Output file is missing"
 
 
 def test_search(app_dialog):
@@ -610,6 +711,16 @@ def test_search(app_dialog):
         app_dialog._root.captions["Search"].exists() == True
     ), "Not on the Search widget"
 
+    # Validate test dialog
+    app_dialog._root.textfields.typeIn("This is a test")
+    assert (
+        app_dialog._root.captions["search_edited: This is a test"].exists() == True
+    ), "Caption didn't get updated after typing in the Search widget"
+    app_dialog._root.textfields.typeIn("{ENTER}")
+    assert (
+        app_dialog._root.captions["search_changed: This is a test"].exists() == True
+    ), "Caption didn't get updated after clicking on the enter key in the Search widget"
+
 
 def test_shotgun_field_delegate(app_dialog):
     # Click on the Shotgun Field Delegate widget
@@ -617,6 +728,47 @@ def test_shotgun_field_delegate(app_dialog):
     assert (
         app_dialog._root.captions["Shotgun Field Delegate"].exists() == True
     ), "Not on the Shotgun Field Delegate widget"
+    app_dialog._root.captions[
+        "A ShotgunTableView with auto-assigned field delegates:"
+    ].waitExist(), 30
+
+    # Validate Big Buck Bunny is showing up
+    assert (
+        app_dialog._root.tables[0].rows["2"].cells["Big Buck Bunny"].exists() == True
+    ), "Big Buck Bunny project not showing up in the Shotgun Field Delegate widget"
+    assert (
+        app_dialog._root.tables[0]
+        .rows["2"]
+        .cells["https://sg-media-staging-usor-01.s3-accelerate.amazonaws.com*"]
+        .exists()
+        == True
+    ), "Big Buck Bunny project doesn't have a thumbnail"
+
+    # Validate scroll bar is working fine
+    activityScrollBar = first(app_dialog._root.scrollbars[1])
+    width, height = activityScrollBar.size
+    app_dialog._root.scrollbars[1]["Position"].get().mouseSlide()
+    activityScrollBar.mouseDrag(width * 0, height * 1)
+
+    # Validate second table
+    assert (
+        app_dialog._root.tables[1].rows["1"].cells["New Project"].exists() == True
+    ), "New Project not showing up in the Shotgun Field Delegate widget"
+
+    # Change New Project name
+    app_dialog._root.tables[1].rows["1"].cells["New Project"].get().mouseDoubleClick()
+    app_dialog._root.tables[1].rows["1"].cells["New Project"].get().mouseDoubleClick()
+    app_dialog._root.tables[1].rows["1"].cells["New Project"].typeIn(" Renamed")
+    app_dialog._root.tables[1].rows["1"].get().mouseClick()
+    assert (
+        app_dialog._root.tables[1].rows["1"].cells["Renamed"].exists() == True
+    ), "Project rename didn't work"
+
+    # Validate scroll bar is working fine
+    activityScrollBar = first(app_dialog._root.scrollbars[2])
+    width, height = activityScrollBar.size
+    app_dialog._root.scrollbars[2]["Position"].get().mouseSlide()
+    activityScrollBar.mouseDrag(width * 0, height * 1)
 
 
 def test_shotgun_field_widgets_form(app_dialog):
@@ -625,6 +777,33 @@ def test_shotgun_field_widgets_form(app_dialog):
     assert (
         app_dialog._root.captions["Shotgun Field Widgets Form"].exists() == True
     ), "Not on the Shotgun Field Widgets Form widget"
+    app_dialog._root.captions["Analytics Truth Finder Onboarded:"].waitExist(), 30
+
+    # Validate widget interactions
+    # FIXME Need to add a name to the check box to avoid any issue
+    app_dialog._root.checkboxes.mouseClick()
+    assert (
+        app_dialog._root.captions[
+            "> Analytics Truth Finder Onboarded widget value changed to: True"
+        ].exists()
+        == True
+    ), "Checkbox wasn't successfully checked in the Shotgun Field Widgets Form widget"
+
+    # Validate scroll bar is working fine
+    activityScrollBar = first(app_dialog._root.scrollbars[1])
+    width, height = activityScrollBar.size
+    app_dialog._root.scrollbars[1]["Position"].get().mouseSlide()
+    activityScrollBar.mouseDrag(width * 0, height * 1)
+
+    # Validate widget interactions
+    # FIXME Need to add a name to the check box to avoid any issue
+    app_dialog._root.checkboxes[22].mouseClick()
+    assert (
+        app_dialog._root.captions[
+            "> Welcome Page Visited widget value changed to: False"
+        ].exists()
+        == True
+    ), "Checkbox wasn't successfully unchecked in the Shotgun Field Widgets Form widget"
 
 
 def test_custom_field_widget(app_dialog):
@@ -634,6 +813,32 @@ def test_custom_field_widget(app_dialog):
         app_dialog._root.captions["Custom Field Widget"].exists() == True
     ), "Not on the Custom Field Widget widget"
 
+    # Wait until widget is showing up
+    app_dialog._root.tables.waitExist(), 30
+
+    # Validate Big Buck Bunny Project
+    app_dialog._root.tables.rows["1"].get().mouseClick()
+    assert (
+        app_dialog._root.tables.rows["1"].cells["Big Buck Bunny"].exists() == True
+    ), "Big Buck Bunny project not showing up in the Shotgun Field Delegate widget"
+    assert (
+        app_dialog._root.tables.rows["1"]
+        .cells["https://sg-media-staging-usor-01.s3-accelerate.amazonaws.com*"]
+        .exists()
+        == True
+    ), "Big Buck Bunny project doesn't have a thumbnail"
+    assert (
+        app_dialog._root.tables.rows["1"].cells["False"].exists() == True
+    ), "Missing Big Buck Bunny project Favorite column"
+    assert (
+        app_dialog._root.tables.rows["1"]
+        .cells[
+            "Big Buck Bunny is a short computer animated film by the Blender Institute, part of the Blender Foundation."
+        ]
+        .exists()
+        == True
+    ), "Missing Big Buck Bunny project description"
+
 
 def test_entity_field_menu(app_dialog):
     # Click on the Entity Field Menu widget
@@ -641,6 +846,24 @@ def test_entity_field_menu(app_dialog):
     assert (
         app_dialog._root.captions["Entity Field Menu"].exists() == True
     ), "Not on the Entity Field Menu widget"
+
+    # Wait until widget is showing up
+    app_dialog._root.captions["Click the button to show the menu."].waitExist(), 30
+
+    # Validate entity field menu
+    app_dialog._root.buttons["EntityFieldMenu (HumanUser)"].get().mouseClick()
+    time.sleep(5)  # to give some time for the menu to load
+    topwindows.menuitems["Id"].get().mouseClick()
+    app_dialog._root.buttons["EntityFieldMenu (HumanUser)"].get().mouseClick()
+    time.sleep(2)  # to give some time for the menu to load
+    assert (
+        topwindows.menuitems["Id"].exists() == True
+    ), "Id not on the entity field menu widget"
+    topwindows.menuitems["Pipeline Configurations"].mouseSlide()
+    topwindows.menuitems["Windows path"].waitExist(), 30
+    app_dialog._root.captions[
+        "Click the button to show the menu."
+    ].get().mouseClick()  # to close the menu
 
 
 def test_shotgun_menu(app_dialog):
@@ -650,6 +873,21 @@ def test_shotgun_menu(app_dialog):
         app_dialog._root.captions["Shotgun Menu"].exists() == True
     ), "Not on the Shotgun Menu widget"
 
+    # Wait until widget is showing up
+    app_dialog._root.captions["Click the button to show the menu."].waitExist(), 30
+
+    # Validate Shotgun menu
+    app_dialog._root.buttons["ShotgunMenu"].get().mouseClick()
+    time.sleep(1)  # to give some time for the menu to load
+    assert (
+        topwindows.menuitems["Action 1"].exists() == True
+    ), "Action 1 not on the Shotgun menu widget"
+    topwindows.menuitems["Submenu"].mouseSlide()
+    assert (
+        topwindows.menuitems["Action 3"].exists() == True
+    ), "Action 3 not on the Shotgun menu widget"
+    topwindows.menuitems["Action 4"].mouseClick()  # to close the menu
+
 
 def test_spinner(app_dialog):
     # Click on the Spinner widget
@@ -657,6 +895,15 @@ def test_spinner(app_dialog):
     assert (
         app_dialog._root.captions["Spinner"].exists() == True
     ), "Not on the Spinner widget"
+
+    # Show the spinner
+    app_dialog._root.buttons["spinner.show()"].get().mouseClick()
+    time.sleep(2)  # let the spinner show up
+    # FIXME Need to find a way to know that spinner is showing up
+
+    # Hide the spinner
+    app_dialog._root.buttons["spinner.hide()"].get().mouseClick()
+    # FIXME Need to find a way to know that spinner is hidden
 
 
 def test_shotgun_entity_model(app_dialog):
@@ -672,6 +919,98 @@ def test_shotgun_entity_model(app_dialog):
         app_dialog._root.captions["Shotgun Entity Model"].exists() == True
     ), "Not on the Shotgun Entity Model widget"
 
+    # Wait until widget is showing up
+    app_dialog._root.outlineitems["Big Buck Bunny"].waitExist(), 30
+
+    # Click on Big Buck Bunny entity model
+    app_dialog._root.outlineitems["Big Buck Bunny"].get().mouseDoubleClick()
+
+    # Validate Asset Types are showing up
+    app_dialog._root.outlineitems["Character"].waitExist(), 30
+    assert (
+        app_dialog._root.outlineitems["Character"].exists() == True
+    ), "Character is missing from the Shotgun Entity Model widget"
+    assert (
+        app_dialog._root.outlineitems["Environment"].exists() == True
+    ), "Environment is missing from the Shotgun Entity Model widget"
+    assert (
+        app_dialog._root.outlineitems["Matte Painting"].exists() == True
+    ), "Matte Painting is missing from the Shotgun Entity Model widget"
+    assert (
+        app_dialog._root.outlineitems["Prop"].exists() == True
+    ), "Prop is missing from the Shotgun Entity Model widget"
+    assert (
+        app_dialog._root.outlineitems["Vehicle"].exists() == True
+    ), "Vehicle is missing from the Shotgun Entity Model widget"
+
+    # Click on Character entity model
+    app_dialog._root.outlineitems["Character"].get().mouseDoubleClick()
+
+    # Validate Characters are showing up
+    app_dialog._root.outlineitems["Alice"].waitExist(), 30
+    assert (
+        app_dialog._root.outlineitems["Alice"].exists() == True
+    ), "Character Alice is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Anders"].exists() == True
+    ), "Character Anders is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Blue Jay"].exists() == True
+    ), "Character Blue Jay is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Buck"].exists() == True
+    ), "Character Buck is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Bunny"].exists() == True
+    ), "Character Bunny is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Caterpillar"].exists() == True
+    ), "Character Caterpillar is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Darcy"].exists() == True
+    ), "Character Darcy is not in the navigation widget"
+
+    # Scroll down in the navigation tree to show more asset type characters
+    activityScrollBar = first(app_dialog._root.scrollbars[1])
+    width, height = activityScrollBar.size
+    app_dialog._root.scrollbars[1]["Position"].get().mouseSlide()
+    activityScrollBar.mouseDrag(width * 0, height * 1)
+
+    # Continue to validate that all Characters are there
+    assert (
+        app_dialog._root.outlineitems["Fern"].exists() == True
+    ), "Character Fern is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Flash"].exists() == True
+    ), "Character Flash is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Hamster"].exists() == True
+    ), "Character Hamster is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Jimmy"].exists() == True
+    ), "Character Jimmy is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Jojo"].exists() == True
+    ), "Character Jojo is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Mr Banning"].exists() == True
+    ), "Character Mr Banning is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Mrs Banning"].exists() == True
+    ), "Character Mrs Banning is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Queen"].exists() == True
+    ), "Character Queen is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Scare Crow"].exists() == True
+    ), "Character Scare Crow is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Squirrel"].exists() == True
+    ), "Character Squirrel is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Young Bunny"].exists() == True
+    ), "Character Young Bunny is not in the navigation widget"
+
 
 def test_shotgun_hierarchy(app_dialog):
     # Click on the Shotgun Hierarchy widget
@@ -679,6 +1018,123 @@ def test_shotgun_hierarchy(app_dialog):
     assert (
         app_dialog._root.captions["Shotgun Hierarchy"].exists() == True
     ), "Not on the Shotgun Hierarchy widget"
+
+    # Wait until widget is showing up
+    app_dialog._root.outlineitems["Big Buck Bunny"].waitExist(), 30
+
+    # Click on Big Buck Bunny entity
+    app_dialog._root.outlineitems["Big Buck Bunny"].get().mouseDoubleClick()
+    app_dialog._root.tables.rows["1"].cells[
+        "bunny_010_0010_layout_v000"
+    ].waitExist(), 30
+
+    # Scroll down in the navigation table to show more asset type characters
+    tableScrollBar = first(app_dialog._root.scrollbars[2])
+    width, height = tableScrollBar.size
+    app_dialog._root.scrollbars[2]["Position"].get().mouseSlide()
+    tableScrollBar.mouseDrag(width * 0, height * 1)
+
+    # Validate last entries is available
+    assert (
+        app_dialog._root.tables.rows["50"].cells["bunny_010_0030_fx_v001"].exists()
+        == True
+    ), "Last Big Bug Bunny entry is missing in the Shotgun Hierarchy widget"
+
+    # Click on Big Buck Bunny Assets entity
+    app_dialog._root.outlineitems["Assets"].get().mouseDoubleClick()
+    app_dialog._root.tables.rows["1"].cells["Buck_rig_v01"].waitExist(), 30
+
+    # Validate Asset Types are showing up
+    app_dialog._root.outlineitems["Character"].waitExist(), 30
+    assert (
+        app_dialog._root.outlineitems["Character"].exists() == True
+    ), "Character is missing from the Shotgun Entity Model widget"
+    assert (
+        app_dialog._root.outlineitems["Environment"].exists() == True
+    ), "Environment is missing from the Shotgun Entity Model widget"
+    assert (
+        app_dialog._root.outlineitems["Matte Painting"].exists() == True
+    ), "Matte Painting is missing from the Shotgun Entity Model widget"
+    assert (
+        app_dialog._root.outlineitems["Prop"].exists() == True
+    ), "Prop is missing from the Shotgun Entity Model widget"
+    assert (
+        app_dialog._root.outlineitems["Vehicle"].exists() == True
+    ), "Vehicle is missing from the Shotgun Entity Model widget"
+
+    # Click on Character entity model
+    app_dialog._root.outlineitems["Character"].get().mouseDoubleClick()
+    app_dialog._root.tables.rows["1"].cells["Buck_rig_v01"].waitExist(), 30
+
+    # Select asset Buck
+    app_dialog._root.outlineitems["Buck"].get().mouseClick()
+    assert (
+        app_dialog._root.tables.rows["1"].cells["Buck_rig_v01"].exists() == True
+    ), "Buck_rig_v01 is missing in the Shotgun Hierarchy widget"
+
+    # Validate Characters are showing up
+    assert (
+        app_dialog._root.outlineitems["Alice"].exists() == True
+    ), "Character Alice is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Anders"].exists() == True
+    ), "Character Anders is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Blue Jay"].exists() == True
+    ), "Character Blue Jay is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Buck"].exists() == True
+    ), "Character Buck is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Bunny"].exists() == True
+    ), "Character Bunny is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Caterpillar"].exists() == True
+    ), "Character Caterpillar is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Darcy"].exists() == True
+    ), "Character Darcy is not in the navigation widget"
+
+    # Scroll down in the navigation tree to show more asset type characters
+    activityScrollBar = first(app_dialog._root.scrollbars[2])
+    width, height = activityScrollBar.size
+    app_dialog._root.scrollbars[2]["Position"].get().mouseSlide()
+    activityScrollBar.mouseDrag(width * 0, height * 0.30)
+
+    # Continue to validate that all Characters are there
+    assert (
+        app_dialog._root.outlineitems["Fern"].exists() == True
+    ), "Character Fern is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Flash"].exists() == True
+    ), "Character Flash is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Hamster"].exists() == True
+    ), "Character Hamster is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Jimmy"].exists() == True
+    ), "Character Jimmy is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Jojo"].exists() == True
+    ), "Character Jojo is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Mr Banning"].exists() == True
+    ), "Character Mr Banning is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Mrs Banning"].exists() == True
+    ), "Character Mrs Banning is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Queen"].exists() == True
+    ), "Character Queen is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Scare Crow"].exists() == True
+    ), "Character Scare Crow is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Squirrel"].exists() == True
+    ), "Character Squirrel is not in the navigation widget"
+    assert (
+        app_dialog._root.outlineitems["Young Bunny"].exists() == True
+    ), "Character Young Bunny is not in the navigation widget"
 
 
 def test_shotgun_globals(app_dialog):
@@ -688,13 +1144,110 @@ def test_shotgun_globals(app_dialog):
         app_dialog._root.captions["Shotgun Globals"].exists() == True
     ), "Not on the Shotgun Globals widget"
 
+    # Wait until widget is showing up
+    app_dialog._root.captions["Select an Entity type from the list:"].waitExist(), 30
+
+    # Validate Shotgun globals first dropdown menu
+    app_dialog._root.dropdowns.mouseClick()
+
+    # Scroll up in the widgets panel and select Asset entity type
+    activityScrollBar = first(topwindows.indicators.Position)
+    width, height = activityScrollBar.size
+    topwindows.indicators.Position.get().mouseSlide()
+    activityScrollBar.mouseDrag(width * 0, height * 0)
+    topwindows.listitems["Asset"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Asset"].exists() == True
+    ), "Asset didn't get selected from the firts dropdown menu"
+    assert (
+        app_dialog._root.captions[
+            ":/tk-framework-shotgunutils/icon_Asset_dark.png"
+        ].exists()
+        == True
+    ), "Asset didn't get selected from the firts dropdown menu"
+
+    # Validate Shotgun globals second dropdown menu
+    app_dialog._root.dropdowns[1].mouseClick()
+    topwindows.listitems["Description"].get().mouseClick()
+    assert (
+        app_dialog._root.captions["Description"].exists() == True
+    ), "Description didn't get selected from the second dropdown menu"
+
 
 def test_busy_dialog(app_dialog):
+    # Scroll down in the widgets panel
+    activityScrollBar = first(app_dialog._root.indicators.Position)
+    width, height = activityScrollBar.size
+    app_dialog._root.indicators.Position.get().mouseSlide()
+    activityScrollBar.mouseDrag(width * 0, height * 1)
     # Click on the Busy Dialog widget
     app_dialog._root.outlineitems["Busy Dialog"].get().mouseClick()
     assert (
         app_dialog._root.captions["Busy Dialog"].exists() == True
     ), "Not on the Busy Dialog widget"
+
+    # Click on show busy button
+    app_dialog._root.buttons["show_busy(title, details)"].get().mouseClick()
+
+    # Wait until busy dialog is showing up
+    app_dialog._root.topwindows["Shotgun: Toolkit is busy"].captions[
+        "Example: Something is Taking a Long Time..."
+    ].waitExist(), 30
+    busy_dialog = app_dialog._root.topwindows["Shotgun: Toolkit is busy"]
+    assert (
+        busy_dialog.captions["Example: Something is Taking a Long Time..."].exists()
+        == True
+    ), "Busy dialog didn't show up"
+    assert (
+        busy_dialog.captions[
+            "Here is some description of why this is taking so long. Click the clear_busy() button or anywhere in this dialog to clear it."
+        ].exists()
+        == True
+    ), "Busy dialog didn't show up"
+
+    # Click on clear busy button
+    app_dialog._root.buttons["clear_busy()"].get().mouseClick()
+    assert (
+        busy_dialog.captions["Example: Something is Taking a Long Time..."].exists()
+        != True
+    ), "Clear dialog button didn't work"
+    assert (
+        busy_dialog.captions[
+            "Here is some description of why this is taking so long. Click the clear_busy() button or anywhere in this dialog to clear it."
+        ].exists()
+        != True
+    ), "Clear dialog button didn't work"
+
+    # Click on show busy button again
+    app_dialog._root.buttons["show_busy(title, details)"].get().mouseClick()
+
+    # Wait until busy dialog is showing up
+    busy_dialog.captions["Example: Something is Taking a Long Time..."].waitExist(), 30
+    assert (
+        busy_dialog.captions["Example: Something is Taking a Long Time..."].exists()
+        == True
+    ), "Busy dialog didn't show up"
+    assert (
+        busy_dialog.captions[
+            "Here is some description of why this is taking so long. Click the clear_busy() button or anywhere in this dialog to clear it."
+        ].exists()
+        == True
+    ), "Busy dialog didn't show up"
+
+    # Clear busy dialog by clicking on it
+    busy_dialog.captions[
+        "Example: Something is Taking a Long Time..."
+    ].get().mouseClick()
+    assert (
+        busy_dialog.captions["Example: Something is Taking a Long Time..."].exists()
+        != True
+    ), "Clear dialog button didn't work"
+    assert (
+        busy_dialog.captions[
+            "Here is some description of why this is taking so long. Click the clear_busy() button or anywhere in this dialog to clear it."
+        ].exists()
+        != True
+    ), "Clear dialog button didn't work"
 
 
 def test_help_app(app_dialog):
