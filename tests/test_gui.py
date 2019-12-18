@@ -859,11 +859,7 @@ def test_entity_field_menu(app_dialog):
     assert (
         topwindows.menuitems["Id"].exists() == True
     ), "Id not on the entity field menu widget"
-    topwindows.menuitems["Pipeline Configurations"].mouseSlide()
-    topwindows.menuitems["Windows path"].waitExist(), 30
-    app_dialog._root.captions[
-        "Click the button to show the menu."
-    ].get().mouseClick()  # to close the menu
+    topwindows.menuitems["Pipeline Configurations"].get().mouseClick()
 
 
 def test_shotgun_menu(app_dialog):
@@ -1175,11 +1171,6 @@ def test_shotgun_globals(app_dialog):
 
 
 def test_busy_dialog(app_dialog):
-    # Scroll down in the widgets panel
-    activityScrollBar = first(app_dialog._root.indicators.Position)
-    width, height = activityScrollBar.size
-    app_dialog._root.indicators.Position.get().mouseSlide()
-    activityScrollBar.mouseDrag(width * 0, height * 1)
     # Click on the Busy Dialog widget
     app_dialog._root.outlineitems["Busy Dialog"].get().mouseClick()
     assert (
