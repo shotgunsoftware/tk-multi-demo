@@ -97,6 +97,7 @@ class DemoWidget(QtGui.QSplitter):
         self._demo_tree_view.setRootIsDecorated(False)
         self._demo_tree_view.setFocusPolicy(QtCore.Qt.NoFocus)
         self._demo_tree_view.setMinimumWidth(250)
+        self._demo_tree_view.setAccessibleName("Demo Tree View")
 
         # shows the name of the demo
         self._demo_name = QtGui.QLabel(self)
@@ -111,6 +112,7 @@ class DemoWidget(QtGui.QSplitter):
 
         # holds a stack of all demo widgets
         self._demo_widget_tab = QtGui.QStackedWidget()
+        self._demo_widget_tab.setAccessibleName("Demo Area")
 
         # used to display the code associated with the demos
         self._demo_code_edit = QtGui.QPlainTextEdit(self)
