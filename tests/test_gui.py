@@ -115,6 +115,9 @@ class AppDialogAppWrapper(object):
         """
         return self._root.exists()
 
+    def open_demo_pane(self, name):
+        self._root["Demo Tree View"][name].get().mouseClick()
+
     def close(self):
         self._root.buttons["Close"].get().mouseClick()
 
@@ -126,7 +129,7 @@ def test_activity_stream(app_dialog):
     ].exists(), "Not on the Demos app Welcome Page"
 
     # Click on the Activity Stream widget
-    app_dialog._root.outlineitems["Activity Stream"].get().mouseClick()
+    app_dialog.open_demo_pane("Activity Stream")
     assert app_dialog._root.captions[
         "Activity Stream"
     ].exists(), "Not on the Activity Stream widget"

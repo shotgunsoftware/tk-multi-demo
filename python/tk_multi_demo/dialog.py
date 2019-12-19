@@ -97,6 +97,7 @@ class DemoWidget(QtGui.QSplitter):
         self._demo_tree_view.setRootIsDecorated(False)
         self._demo_tree_view.setFocusPolicy(QtCore.Qt.NoFocus)
         self._demo_tree_view.setMinimumWidth(250)
+        self._demo_tree_view.setAccessibleName("Demo Tree View")
 
         # shows the name of the demo
         self._demo_name = QtGui.QLabel(self)
