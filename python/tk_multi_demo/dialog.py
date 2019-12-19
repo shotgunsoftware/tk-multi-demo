@@ -112,6 +112,7 @@ class DemoWidget(QtGui.QSplitter):
 
         # holds a stack of all demo widgets
         self._demo_widget_tab = QtGui.QStackedWidget()
+        self._demo_widget_tab.setAccessibleName("Demo Area")
 
         # used to display the code associated with the demos
         self._demo_code_edit = QtGui.QPlainTextEdit(self)
