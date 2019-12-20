@@ -179,7 +179,7 @@ def test_activity_stream(app_dialog):
 
 def test_context_selector(app_dialog):
     # Click on the Context Selector widget
-    app_dialog.root.outlineitems["Context Selector Widget"].get().mouseClick()
+    app_dialog.open_demo_pane("Context Selector Widget")
     assert app_dialog.root.captions[
         "Context Selector Widget"
     ].exists(), "Not on the Context Selector Widget"
@@ -246,7 +246,7 @@ def test_context_selector(app_dialog):
 
 def test_auto_elide_label(app_dialog):
     # Click on the Context Selector widget
-    app_dialog.root.outlineitems["Auto-Elide Label"].get().mouseClick()
+    app_dialog.open_demo_pane("Auto-Elide Label")
     assert app_dialog.root.captions[
         "Auto-Elide Label"
     ].exists(), "Not on the Auto-Elide Label Widget"
@@ -275,7 +275,7 @@ def test_auto_elide_label(app_dialog):
 
 def test_global_search(app_dialog):
     # Click on the Global Search widget
-    app_dialog.root.outlineitems["Global Search"].get().mouseClick()
+    app_dialog.open_demo_pane("Global Search")
     assert app_dialog.root.captions[
         "Global Search"
     ].exists(), "Not on the Global Search Widget"
@@ -292,7 +292,7 @@ def test_global_search(app_dialog):
 
 def test_help_screen(app_dialog):
     # Click on the Help Screen Popup widget
-    app_dialog.root.outlineitems["Help Screen Popup"].get().mouseClick()
+    app_dialog.open_demo_pane("Help Screen Popup")
     assert app_dialog.root.captions[
         "Help Screen Popup"
     ].exists(), "Not on the Help Screen Popup Widget"
@@ -352,7 +352,7 @@ def test_help_screen(app_dialog):
 
 def test_navigation(app_dialog):
     # Click on the Navigation widget
-    app_dialog.root.outlineitems["Navigation"].get().mouseClick()
+    app_dialog.open_demo_pane("Navigation")
     assert app_dialog.root.captions[
         "Navigation"
     ].exists(), "Not on the Navigation widget"
@@ -504,7 +504,7 @@ def test_navigation(app_dialog):
 
 def test_note_editor(app_dialog):
     # Click on the Note Editor widget
-    app_dialog.root.outlineitems["Note Editor"].get().mouseClick()
+    app_dialog.open_demo_pane("Note Editor")
     assert app_dialog.root.captions[
         "Note Editor"
     ].exists(), "Not on the Note Editor widget"
@@ -562,7 +562,7 @@ def test_note_editor(app_dialog):
 
 def test_overlay(app_dialog):
     # Click on the Overlay widget
-    app_dialog.root.outlineitems["Overlay"].get().mouseClick()
+    app_dialog.open_demo_pane("Overlay")
     assert app_dialog.root.captions["Overlay"].exists(), "Not on the Overlay widget"
 
     # Validate "When the overlay widget is hidden, you should be able to click this button" button
@@ -610,7 +610,7 @@ def test_overlay(app_dialog):
 
 def test_screen_capture(app_dialog):
     # Click on the Screen Capture widget
-    app_dialog.root.outlineitems["Screen Capture"].get().mouseClick()
+    app_dialog.open_demo_pane("Screen Capture")
     assert app_dialog.root.captions[
         "Screen Capture"
     ].exists(), "Not on the Screen Capture widget"
@@ -636,7 +636,7 @@ def test_screen_capture(app_dialog):
 
 def test_search(app_dialog):
     # Click on the Search widget
-    app_dialog.root.outlineitems["Search"].get().mouseClick()
+    app_dialog.open_demo_pane("Search")
     assert app_dialog.root.captions["Search"].exists(), "Not on the Search widget"
 
     # Validate test dialog
@@ -652,7 +652,7 @@ def test_search(app_dialog):
 
 def test_shotgun_field_delegate(app_dialog):
     # Click on the Shotgun Field Delegate widget
-    app_dialog.root.outlineitems["Shotgun Field Delegate"].get().mouseClick()
+    app_dialog.open_demo_pane("Shotgun Field Delegate")
     assert app_dialog.root.captions[
         "Shotgun Field Delegate"
     ].exists(), "Not on the Shotgun Field Delegate widget"
@@ -700,7 +700,7 @@ def test_shotgun_field_delegate(app_dialog):
 
 def test_shotgun_field_widgets_form(app_dialog):
     # Click on the Shotgun Field Widgets Form widget
-    app_dialog.root.outlineitems["Shotgun Field Widgets Form"].get().mouseClick()
+    app_dialog.open_demo_pane("Shotgun Field Widgets Form")
     assert app_dialog.root.captions[
         "Shotgun Field Widgets Form"
     ].exists(), "Not on the Shotgun Field Widgets Form widget"
@@ -731,7 +731,7 @@ def test_shotgun_field_widgets_form(app_dialog):
 
 def test_custom_field_widget(app_dialog):
     # Click on the Custom Field Widget widget
-    app_dialog.root.outlineitems["Custom Field Widget"].get().mouseClick()
+    app_dialog.open_demo_pane("Custom Field Widget")
     assert app_dialog.root.captions[
         "Custom Field Widget"
     ].exists(), "Not on the Custom Field Widget widget"
@@ -763,7 +763,7 @@ def test_custom_field_widget(app_dialog):
 
 def test_entity_field_menu(app_dialog):
     # Click on the Entity Field Menu widget
-    app_dialog.root.outlineitems["Entity Field Menu"].get().mouseClick()
+    app_dialog.open_demo_pane("Entity Field Menu")
     assert app_dialog.root.captions[
         "Entity Field Menu"
     ].exists(), "Not on the Entity Field Menu widget"
@@ -783,7 +783,7 @@ def test_entity_field_menu(app_dialog):
 
 def test_shotgun_menu(app_dialog):
     # Click on the Shotgun Menu widget
-    app_dialog.root.outlineitems["Shotgun Menu"].get().mouseClick()
+    app_dialog.open_demo_pane("Shotgun Menu")
     assert app_dialog.root.captions[
         "Shotgun Menu"
     ].exists(), "Not on the Shotgun Menu widget"
@@ -806,7 +806,7 @@ def test_shotgun_menu(app_dialog):
 
 def test_spinner(app_dialog):
     # Click on the Spinner widget
-    app_dialog.root.outlineitems["Spinner"].get().mouseClick()
+    app_dialog.open_demo_pane("Spinner")
     assert app_dialog.root.captions["Spinner"].exists(), "Not on the Spinner widget"
 
     # Show the spinner
@@ -827,7 +827,7 @@ def test_shotgun_entity_model(app_dialog):
     activityScrollBar.mouseDrag(width * 0, height * 1)
 
     # Click on the Shotgun Entity Model widget
-    app_dialog.root.outlineitems["Shotgun Entity Model"].get().mouseClick()
+    app_dialog.open_demo_pane("Shotgun Entity Model")
     assert app_dialog.root.captions[
         "Shotgun Entity Model"
     ].exists(), "Not on the Shotgun Entity Model widget"
@@ -927,7 +927,7 @@ def test_shotgun_entity_model(app_dialog):
 
 def test_shotgun_hierarchy(app_dialog):
     # Click on the Shotgun Hierarchy widget
-    app_dialog.root.outlineitems["Shotgun Hierarchy"].get().mouseClick()
+    app_dialog.open_demo_pane("Shotgun Hierarchy")
     assert app_dialog.root.captions[
         "Shotgun Hierarchy"
     ].exists(), "Not on the Shotgun Hierarchy widget"
@@ -1049,7 +1049,7 @@ def test_shotgun_hierarchy(app_dialog):
 
 def test_shotgun_globals(app_dialog):
     # Click on the Shotgun Globals widget
-    app_dialog.root.outlineitems["Shotgun Globals"].get().mouseClick()
+    app_dialog.open_demo_pane("Shotgun Globals")
     assert app_dialog.root.captions[
         "Shotgun Globals"
     ].exists(), "Not on the Shotgun Globals widget"
@@ -1083,7 +1083,7 @@ def test_shotgun_globals(app_dialog):
 
 def test_busy_dialog(app_dialog):
     # Click on the Busy Dialog widget
-    app_dialog.root.outlineitems["Busy Dialog"].get().mouseClick()
+    app_dialog.open_demo_pane("Busy Dialog")
     assert app_dialog.root.captions[
         "Busy Dialog"
     ].exists(), "Not on the Busy Dialog widget"
@@ -1146,7 +1146,7 @@ def test_busy_dialog(app_dialog):
 
 def test_help_app(app_dialog):
     # Click on the Help With this App widget
-    app_dialog.root.outlineitems["Help With this App"].get().mouseClick()
+    app_dialog.open_demo_pane("Help With this App")
     assert app_dialog.root.captions[
         "Help With this App"
     ].exists(), "Not on the Help With this App widget"
