@@ -17,7 +17,7 @@ from sgtk.platform import constants
 
 # for reading each demo's demo.yml file
 from tank_vendor import yaml
-from tank_vendor.shotgun_api3.lib import six
+from tank_vendor import six
 
 # ensure the resources are available
 from .ui import resources_rc

@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 import sgtk
-from tank_vendor.shotgun_api3.lib import six
+from tank_vendor import six
 
 # import the shotgun_fields module from the qtwidgets framework
 shotgun_fields = sgtk.platform.import_framework(
