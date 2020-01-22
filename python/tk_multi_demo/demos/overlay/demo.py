@@ -75,7 +75,8 @@ class OverlayDemo(QtGui.QWidget):
 
         # hides the overlay
         hide = OverlayButton("hide()")
-        hide.clicked.connect(overlay_widget.hide)
+        # Wrap inside a lambda or PySide2 will pass False to the hide method in Python 3.
+        hide.clicked.connect(lambda: overlay_widget.hide())
 
         # lay out and align the widgets
         button_layout = QtGui.QHBoxLayout()

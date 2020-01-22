@@ -60,8 +60,8 @@ QLabel#demo_desc {
 }
 
 QTabWidget::pane {
-    border-top: 1px solid rgb(255, 255, 255, 20);
-    border-bottom: 1px solid rgb(255, 255, 255, 20);
+    border-top: 1px solid rgba(255, 255, 255, 20);
+    border-bottom: 1px solid rgba(255, 255, 255, 20);
     padding-bottom: 8px;
     padding-top: 8px;
 }
@@ -73,7 +73,7 @@ QTabBar::tab {
     padding-right: 12px;
     padding-top: 4px;
     padding-bottom: 2px;
-    border-top: 2px solid rgb(255, 255, 255, 5);
+    border-top: 2px solid rgba(255, 255, 255, 5);
 }
 
 QTabBar::tab:hover {

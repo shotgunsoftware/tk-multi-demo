@@ -17,6 +17,7 @@ from sgtk.platform import constants
 
 # for reading each demo's demo.yml file
 from tank_vendor import yaml
+from tank_vendor import six
 
 # ensure the resources are available
 from .ui import resources_rc
@@ -25,7 +26,7 @@ from .demos import DEMO_DEFAULT, DEMOS_LIST
 
 # TODO: file copied from python console.
 #       maybe entire python console widget set should live in qtwidgets?
-from syntax_highlighter import PythonSyntaxHighlighter
+from .syntax_highlighter import PythonSyntaxHighlighter
 
 overlay = sgtk.platform.import_framework("tk-framework-qtwidgets", "overlay_widget")
 
@@ -377,7 +378,7 @@ class DemoWidget(QtGui.QSplitter):
         for d in DEMOS_LIST:
 
             # a group of demos to display in the UI
-            if isinstance(d, basestring):
+            if isinstance(d, six.string_types):
 
                 # create the item
                 group_item = QtGui.QStandardItem(d)
@@ -532,7 +533,7 @@ class DemoWidget(QtGui.QSplitter):
         :returns: Stylesheet string with replacements applied
         """
         processed_style_sheet = style_sheet
-        for (token, value) in constants.SG_STYLESHEET_CONSTANTS.iteritems():
+        for (token, value) in constants.SG_STYLESHEET_CONSTANTS.items():
             processed_style_sheet = processed_style_sheet.replace(
                 "{{%s}}" % token, value
             )
