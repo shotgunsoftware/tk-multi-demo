@@ -298,7 +298,7 @@ def test_help_screen(app_dialog):
     ), "Close button is not available"
 
     # Click on Scroll to the next slide until you reach the last slide
-    for i in range(0, 3):
+    for _i in range(0, 3):
         # Make sure Scroll to the next slide button is available
         assert (
             app_dialog.root.dialogs["Toolkit Help"]
@@ -331,7 +331,7 @@ def test_help_screen(app_dialog):
         app_dialog.root.dialogs["Toolkit Help"]
         .buttons["Scroll to the next slide"]
         .exists()
-        == False
+        is False
     ), "Scroll to the next slide button is still available"
 
     # Close Show Help Screen
