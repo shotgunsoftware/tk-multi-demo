@@ -14,11 +14,10 @@ import time
 import os
 import sys
 import sgtk
-from tk_toolchain.cmd_line_tools import tk_run_app
-from MA.UI import first
 
 try:
     from MA.UI import topwindows
+    from MA.UI import first
 except ImportError:
     pytestmark = pytest.mark.skip()
 
@@ -184,49 +183,34 @@ def test_context_selector(app_dialog):
         "Context Selector Widget"
     ].exists(), "Not on the Context Selector Widget"
 
+    # Make sure you are in editing mode
+    if app_dialog.root.captions["Editing is now disabled."].exists():
+        app_dialog.root.checkboxes["Click to Toggle Editing"].get().mouseClick()
+        assert app_dialog.root.captions[
+            "Editing is now enabled."
+        ].exists(), "Toggle to disable context switch doesn't work."
+
     # Validate that all selectors are available
-    if app_dialog.root.captions["Editing is now enabled."].exists():
-        assert app_dialog.root.captions["Task:*"].exists(), "Task: is not available"
-        assert app_dialog.root.captions[
-            "*The task that the selected item will be associated with the Shotgun entity being acted upon.*"
-        ].exists(), "Task field is not available"
-        assert app_dialog.root.checkboxes[
-            "*Toggle this button to allow searching for a Task to associate with the selected item*"
-        ].exists(), "Task search is not available"
-        assert app_dialog.root.captions["Link:*"].exists(), "Link: is not available"
-        assert app_dialog.root.captions[
-            "*Big Buck Bunny"
-        ].exists(), "Link field isn't set"
-        assert app_dialog.root.checkboxes[
-            "*Toggle this button to allow searching for an entity to link to the selected item.*"
-        ].exists(), "Link search is not available"
-        app_dialog.root.checkboxes["Click to Toggle Editing"].get().mouseClick()
-        assert app_dialog.root.captions[
-            "Editing is now disabled."
-        ].exists(), "Toggle to disable context switch doesn't work."
-        app_dialog.root.checkboxes["Click to Toggle Editing"].get().mouseClick()
-        assert app_dialog.root.captions[
-            "Editing is now enabled."
-        ].exists(), "Toggle to disable context switch doesn't work."
-    elif app_dialog.root.captions["Editing is now disabled."].exists():
-        app_dialog.root.checkboxes["Click to Toggle Editing"].get().mouseClick()
-        assert app_dialog.root.captions[
-            "Editing is now enabled."
-        ].exists(), "Toggle to disable context switch doesn't work."
-        assert app_dialog.root.captions["Task:*"].exists(), "Task: is not available"
-        assert app_dialog.root.captions[
-            "*The task that the selected item will be associated with the Shotgun entity being acted upon.*"
-        ].exists(), "Task field is not available"
-        assert app_dialog.root.checkboxes[
-            "*Toggle this button to allow searching for a Task to associate with the selected item*"
-        ].exists(), "Task search is not available"
-        assert app_dialog.root.captions["Link:*"].exists(), "Link: is not available"
-        assert app_dialog.root.captions[
-            "*Big Buck Bunny"
-        ].exists(), "Link field isn't set"
-        assert app_dialog.root.checkboxes[
-            "*Toggle this button to allow searching for an entity to link to the selected item.*"
-        ].exists(), "Link search is not available"
+    assert app_dialog.root.captions["Task:*"].exists(), "Task: is not available"
+    assert app_dialog.root.captions[
+        "*The task that the selected item will be associated with the Shotgun entity being acted upon.*"
+    ].exists(), "Task field is not available"
+    assert app_dialog.root.checkboxes[
+        "*Toggle this button to allow searching for a Task to associate with the selected item*"
+    ].exists(), "Task search is not available"
+    assert app_dialog.root.captions["Link:*"].exists(), "Link: is not available"
+    assert app_dialog.root.captions["*Big Buck Bunny"].exists(), "Link field isn't set"
+    assert app_dialog.root.checkboxes[
+        "*Toggle this button to allow searching for an entity to link to the selected item.*"
+    ].exists(), "Link search is not available"
+    app_dialog.root.checkboxes["Click to Toggle Editing"].get().mouseClick()
+    assert app_dialog.root.captions[
+        "Editing is now disabled."
+    ].exists(), "Toggle to disable context switch doesn't work."
+    app_dialog.root.checkboxes["Click to Toggle Editing"].get().mouseClick()
+    assert app_dialog.root.captions[
+        "Editing is now enabled."
+    ].exists(), "Toggle to disable context switch doesn't work."
 
     # Change Context
     app_dialog.root.checkboxes[
@@ -312,18 +296,16 @@ def test_help_screen(app_dialog):
     assert (
         app_dialog.root.dialogs["Toolkit Help"].buttons["Close"].exists()
     ), "Close button is not available"
-    assert (
-        app_dialog.root.dialogs["Toolkit Help"]
-        .buttons["Scroll to the next slide"]
-        .exists()
-    ), "Scroll to the next slide button is not available"
 
     # Click on Scroll to the next slide until you reach the last slide
-    while (
-        app_dialog.root.dialogs["Toolkit Help"]
-        .buttons["Scroll to the next slide"]
-        .exists()
-    ):
+    for i in range(0, 3):
+        # Make sure Scroll to the next slide button is available
+        assert (
+            app_dialog.root.dialogs["Toolkit Help"]
+            .buttons["Scroll to the next slide"]
+            .exists()
+        ), "Scroll to the next slide button is not available"
+        # Click on Scroll to the next slide button
         app_dialog.root.dialogs["Toolkit Help"].buttons[
             "Scroll to the next slide"
         ].get().mouseClick()
@@ -345,6 +327,12 @@ def test_help_screen(app_dialog):
         .buttons["Scroll to the previous slide"]
         .exists()
     ), "Scroll to the previous slide button is not available"
+    assert (
+        app_dialog.root.dialogs["Toolkit Help"]
+        .buttons["Scroll to the next slide"]
+        .exists()
+        == False
+    ), "Scroll to the next slide button is still available"
 
     # Close Show Help Screen
     app_dialog.root.dialogs["Toolkit Help"].buttons["Close"].get().mouseClick()
