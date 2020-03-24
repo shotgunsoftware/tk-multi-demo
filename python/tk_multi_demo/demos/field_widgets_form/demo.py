@@ -121,6 +121,9 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
                 entity_type, field, entity=current_user, parent=self
             )
 
+            # Add the accessible name to widget based on field name
+            editable_field_widget.setAccessibleName("%s_widget" % field)
+
             # give the image field widget a minimum size
             if field == "image":
                 editable_field_widget.setMinimumSize(QtCore.QSize(64, 64))
