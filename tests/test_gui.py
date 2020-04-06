@@ -183,13 +183,6 @@ def test_context_selector(app_dialog):
         "Context Selector Widget"
     ].exists(), "Not on the Context Selector Widget"
 
-    # Make sure you are in editing mode
-    if app_dialog.root.captions["Editing is now disabled."].exists():
-        app_dialog.root.checkboxes["Click to Toggle Editing"].get().mouseClick()
-        assert app_dialog.root.captions[
-            "Editing is now enabled."
-        ].exists(), "Toggle to disable context switch doesn't work."
-
     # Validate that all selectors are available
     assert app_dialog.root.captions["Task:*"].exists(), "Task: is not available"
     assert app_dialog.root.captions[
