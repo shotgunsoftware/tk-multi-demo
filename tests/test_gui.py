@@ -14,6 +14,7 @@ import time
 import os
 import sys
 import sgtk
+from tank_vendor import shotgun_api3
 
 try:
     from MA.UI import topwindows
@@ -24,9 +25,17 @@ except ImportError:
 
 @pytest.fixture(scope="session")
 def context():
-    # A task in Big Buck Bunny which we're going to use
-    # for the current context.
-    return {"type": "Project", "id": 65}
+    # Get credentials from TK_TOOLCHAIN env vars
+    sg = shotgun_api3.Shotgun(
+        os.environ["TK_TOOLCHAIN_HOST"],
+        login=os.environ["TK_TOOLCHAIN_USER_LOGIN"],
+        password=os.environ["TK_TOOLCHAIN_USER_PASSWORD"],
+    )
+    # Get the Demo Animation project id
+    filters = [["name", "is", "Demo: Animation"]]
+    project = sg.find_one("Project", filters)
+
+    return project
 
 
 # This fixture will launch tk-run-app on first usage
@@ -192,7 +201,7 @@ def test_context_selector(app_dialog):
         "*Toggle this button to allow searching for a Task to associate with the selected item*"
     ].exists(), "Task search is not available"
     assert app_dialog.root.captions["Link:*"].exists(), "Link: is not available"
-    assert app_dialog.root.captions["*Big Buck Bunny"].exists(), "Link field isn't set"
+    assert app_dialog.root.captions["*Demo: Animation"].exists(), "Link field isn't set"
     assert app_dialog.root.checkboxes[
         "*Toggle this button to allow searching for an entity to link to the selected item.*"
     ].exists(), "Link search is not available"
@@ -263,7 +272,7 @@ def test_global_search(app_dialog):
 
     # Validate search complete successfully
     assert app_dialog.root.captions[
-        "Task 'Art' with id 448 activated"
+        "Task 'Art' with id * activated"
     ].exists(), "Global search is not working"
 
 
@@ -341,13 +350,13 @@ def test_navigation(app_dialog):
         "Select items in the tree view to the left to see the NavigationWidget and BreadcrumbWidget above update. Then use the navigation widgets themselves to traverse the selection history in the tree view. Clicking the Home button in the NavigationWidget will clear selection."
     ].exists(), "Widget's description is missing"
 
-    # Navigate in Big Buck bunny project
-    app_dialog.root.outlineitems["Big Buck Bunny"].waitExist(), 30
-    app_dialog.root.outlineitems["Big Buck Bunny"].get().mouseDoubleClick()
+    # Navigate in Demo: Animation project
+    app_dialog.root.outlineitems["Demo: Animation"].waitExist(), 30
+    app_dialog.root.outlineitems["Demo: Animation"].get().mouseDoubleClick()
 
     # Validate Breadcrumb widget and that Assets and Shots entities are showing up
     assert app_dialog.root.captions[
-        "Project Big Buck Bunny"
+        "Project Demo: Animation"
     ].exists(), "Breadcrumb widget is not set correctly"
     app_dialog.root.outlineitems["Assets"].waitExist(), 30
     assert app_dialog.root.outlineitems[
@@ -362,7 +371,7 @@ def test_navigation(app_dialog):
 
     # Validate Breadcrumb widget and Assets Types
     assert app_dialog.root.captions[
-        "Project Big Buck Bunny * Assets"
+        "Project Demo: Animation * Assets"
     ].exists(), "Breadcrumb widget is not set correctly"
     app_dialog.root.outlineitems["Character"].waitExist(), 30
     assert app_dialog.root.outlineitems[
@@ -386,7 +395,7 @@ def test_navigation(app_dialog):
 
     # Validate Breadcrumb widget and Asset Type Characters
     assert app_dialog.root.captions[
-        "Project Big Buck Bunny * Assets * Character"
+        "Project Demo: Animation * Assets * Character"
     ].exists(), "Breadcrumb widget is not set correctly"
     app_dialog.root.outlineitems["Alice"].waitExist(), 30
     assert app_dialog.root.outlineitems[
@@ -398,7 +407,7 @@ def test_navigation(app_dialog):
 
     # Validate Breadcrumb widget
     assert app_dialog.root.captions[
-        "Project Big Buck Bunny * Assets * Character * Asset Alice"
+        "Project Demo: Animation * Assets * Character * Asset Alice"
     ].exists(), "Breadcrumb widget is not set correctly"
 
     # Click on the back navigation button until back to the project context
@@ -408,7 +417,7 @@ def test_navigation(app_dialog):
 
     # Validate Breadcrumb widget is only showing the project context
     assert app_dialog.root.captions[
-        "Project Big Buck Bunny"
+        "Project Demo: Animation"
     ].exists(), "Breadcrumb widget is not set correctly"
 
     # Click on the forward navigation button until back to the asset hamster context
@@ -418,7 +427,7 @@ def test_navigation(app_dialog):
 
     # Validate Breadcrumb widget is only showing the entire context
     assert app_dialog.root.captions[
-        "Project Big Buck Bunny * Assets * Character * Asset Alice"
+        "Project Demo: Animation * Assets * Character * Asset Alice"
     ].exists(), "Breadcrumb widget is not set correctly"
 
     # Click on the home button and validate breadcrumb is empty
@@ -586,15 +595,15 @@ def test_shotgun_field_delegate(app_dialog):
         "A ShotgunTableView with auto-assigned field delegates:"
     ].waitExist(), 30
 
-    # Validate Big Buck Bunny is showing up
+    # Validate Demo: Animation is showing up
     assert (
-        app_dialog.root.tables[0].cells["Big Buck Bunny"].exists()
-    ), "Big Buck Bunny project not showing up in the Shotgun Field Delegate widget"
+        app_dialog.root.tables[0].cells["Demo: Animation"].exists()
+    ), "Demo: Animation project not showing up in the Shotgun Field Delegate widget"
     assert (
         app_dialog.root.tables[0]
-        .cells["https://sg-media-staging-usor-01.s3-accelerate.amazonaws.com*"]
+        .cells["https://sg-media-*-usor-01.s3-accelerate.amazonaws.com*"]
         .exists()
-    ), "Big Buck Bunny project doesn't have a thumbnail"
+    ), "Demo: Animation project doesn't have a thumbnail"
 
     # Validate scroll bar is working fine
     activityScrollBar = first(app_dialog.root.scrollbars[1])
@@ -662,26 +671,19 @@ def test_custom_field_widget(app_dialog):
     # Wait until widget is showing up
     app_dialog.root.tables.waitExist(), 30
 
-    # Validate Big Buck Bunny Project
-    app_dialog.root.tables.rows["1"].get().mouseClick()
+    # Validate Demo: Animation Project
+    app_dialog.root.tables.rows["2"].get().mouseClick()
     assert (
-        app_dialog.root.tables.rows["1"].cells["Big Buck Bunny"].exists()
-    ), "Big Buck Bunny project not showing up in the Shotgun Field Delegate widget"
+        app_dialog.root.tables.rows["2"].cells["Demo: Animation"].exists()
+    ), "Demo: Animation project not showing up in the Shotgun Field Delegate widget"
     assert (
-        app_dialog.root.tables.rows["1"]
-        .cells["https://sg-media-staging-usor-01.s3-accelerate.amazonaws.com*"]
+        app_dialog.root.tables.rows["2"]
+        .cells["https://sg-media-*-usor-01.s3-accelerate.amazonaws.com*"]
         .exists()
-    ), "Big Buck Bunny project doesn't have a thumbnail"
+    ), "Demo: Animation project doesn't have a thumbnail"
     assert (
-        app_dialog.root.tables.rows["1"].cells["False"].exists()
-    ), "Missing Big Buck Bunny project Favorite column"
-    assert (
-        app_dialog.root.tables.rows["1"]
-        .cells[
-            "Big Buck Bunny is a short computer animated film by the Blender Institute, part of the Blender Foundation."
-        ]
-        .exists()
-    ), "Missing Big Buck Bunny project description"
+        app_dialog.root.tables.rows["2"].cells["False"].exists()
+    ), "Missing Demo: Animation project Favorite column"
 
 
 def test_entity_field_menu(app_dialog):
@@ -756,10 +758,10 @@ def test_shotgun_entity_model(app_dialog):
     ].exists(), "Not on the Shotgun Entity Model widget"
 
     # Wait until widget is showing up
-    app_dialog.root.outlineitems["Big Buck Bunny"].waitExist(), 30
+    app_dialog.root.outlineitems["Demo: Animation"].waitExist(), 30
 
-    # Click on Big Buck Bunny entity model
-    app_dialog.root.outlineitems["Big Buck Bunny"].get().mouseDoubleClick()
+    # Click on Demo: Animation entity model
+    app_dialog.root.outlineitems["Demo: Animation"].get().mouseDoubleClick()
 
     # Validate Asset Types are showing up
     app_dialog.root.outlineitems["Character"].waitExist(), 30
@@ -856,11 +858,11 @@ def test_shotgun_hierarchy(app_dialog):
     ].exists(), "Not on the Shotgun Hierarchy widget"
 
     # Wait until widget is showing up
-    app_dialog.root.outlineitems["Big Buck Bunny"].waitExist(), 30
+    app_dialog.root.outlineitems["Demo: Animation"].waitExist(), 30
 
-    # Click on Big Buck Bunny entity
-    app_dialog.root.outlineitems["Big Buck Bunny"].get().mouseDoubleClick()
-    app_dialog.root.tables.rows["1"].cells["bunny_010_0010_layout_v000"].waitExist(), 30
+    # Click on Demo: Animation entity
+    app_dialog.root.outlineitems["Demo: Animation"].get().mouseDoubleClick()
+    app_dialog.root.tables.rows["1"].cells["bunny_080_0010_layout_v001"].waitExist(), 30
 
     # Scroll down in the navigation table to show more asset type characters
     tableScrollBar = first(app_dialog.root.scrollbars[2])
@@ -870,40 +872,35 @@ def test_shotgun_hierarchy(app_dialog):
 
     # Validate last entries is available
     assert (
-        app_dialog.root.tables.rows["50"].cells["bunny_010_0030_fx_v001"].exists()
-    ), "Last Big Bug Bunny entry is missing in the Shotgun Hierarchy widget"
+        app_dialog.root.tables.rows["40"].cells["bunny_080_0200_layout_v001"].exists()
+    ), "Last Demo: Animation entry is missing in the Shotgun Hierarchy widget"
 
-    # Click on Big Buck Bunny Assets entity
-    app_dialog.root.outlineitems["Assets"].get().mouseDoubleClick()
-    app_dialog.root.tables.rows["1"].cells["Buck_rig_v01"].waitExist(), 30
+    # Click on Demo: Animation Shots entity
+    app_dialog.root.outlineitems["Shots"].get().mouseDoubleClick()
+    app_dialog.root.tables.rows["40"].cells[
+        "bunny_080_0200_layout_v001"
+    ].waitExist(), 30
 
-    # Validate Asset Types are showing up
-    app_dialog.root.outlineitems["Character"].waitExist(), 30
+    # Validate Shots are showing up
+    app_dialog.root.outlineitems["bunny_010"].waitExist(), 30
     assert app_dialog.root.outlineitems[
-        "Character"
-    ].exists(), "Character is missing from the Shotgun Entity Model widget"
+        "bunny_010"
+    ].exists(), "bunny_010 is missing from the Shotgun Entity Model widget"
     assert app_dialog.root.outlineitems[
-        "Environment"
-    ].exists(), "Environment is missing from the Shotgun Entity Model widget"
-    assert app_dialog.root.outlineitems[
-        "Matte Painting"
-    ].exists(), "Matte Painting is missing from the Shotgun Entity Model widget"
-    assert app_dialog.root.outlineitems[
-        "Prop"
-    ].exists(), "Prop is missing from the Shotgun Entity Model widget"
-    assert app_dialog.root.outlineitems[
-        "Vehicle"
-    ].exists(), "Vehicle is missing from the Shotgun Entity Model widget"
+        "bunny_080"
+    ].exists(), "bunny_080 is missing from the Shotgun Entity Model widget"
 
-    # Click on Character entity model
-    app_dialog.root.outlineitems["Character"].get().mouseDoubleClick()
-    app_dialog.root.tables.rows["1"].cells["Buck_rig_v01"].waitExist(), 30
+    # Click on bunny_080 entity model
+    app_dialog.root.outlineitems["bunny_080"].get().mouseDoubleClick()
+    app_dialog.root.tables.rows["40"].cells[
+        "bunny_080_0200_layout_v001"
+    ].waitExist(), 30
 
-    # Select asset Buck
-    app_dialog.root.outlineitems["Buck"].get().mouseClick()
+    # Select shot bunny_080_0020
+    app_dialog.root.outlineitems["bunny_080_0020"].get().mouseClick()
     assert (
-        app_dialog.root.tables.rows["1"].cells["Buck_rig_v01"].exists()
-    ), "Buck_rig_v01 is missing in the Shotgun Hierarchy widget"
+        app_dialog.root.tables.rows["2"].cells["bunny_080_0020_layout_v002"].exists()
+    ), "bunny_080_0020_layout_v002 is missing in the Shotgun Hierarchy widget"
 
 
 def test_shotgun_globals(app_dialog):
