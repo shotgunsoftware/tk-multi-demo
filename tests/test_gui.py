@@ -14,7 +14,7 @@ import time
 import os
 import sys
 import sgtk
-from tank_vendor import shotgun_api3
+from tk_toolchain.authentication import get_toolkit_user
 
 try:
     from MA.UI import topwindows
@@ -25,12 +25,9 @@ except ImportError:
 
 @pytest.fixture(scope="session")
 def context():
-    # Get credentials from TK_TOOLCHAIN env vars
-    sg = shotgun_api3.Shotgun(
-        os.environ["TK_TOOLCHAIN_HOST"],
-        login=os.environ["TK_TOOLCHAIN_USER_LOGIN"],
-        password=os.environ["TK_TOOLCHAIN_USER_PASSWORD"],
-    )
+    # Get credentials from TK_TOOLCHAIN
+    sg = get_toolkit_user().create_sg_connection()
+
     # Get the Demo Animation project id
     filters = [["name", "is", "Demo: Animation"]]
     project = sg.find_one("Project", filters)
