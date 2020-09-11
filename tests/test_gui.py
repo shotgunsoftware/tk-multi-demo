@@ -515,11 +515,8 @@ def test_note_editor(app_dialog):
     ].exists(), "Not on the Activity Stream widget"
     assert app_dialog.root.captions["New Note"].exists(), "New Note is missing"
     assert app_dialog.root.captions[
-        "Azure Pipelines"
+        "azure-pipelines 1.0"
     ].exists(), "Not the right user linked to the note"
-    assert app_dialog.root.captions[
-        "*Person Azure Pipelines*"
-    ].exists(), "Not on the right person linked to the note"
     assert app_dialog.root.panes["Demo Area"][
         "Click to show a larger thumbnail."
     ].exists(), "Attached Thumbnail is missing in the note"
