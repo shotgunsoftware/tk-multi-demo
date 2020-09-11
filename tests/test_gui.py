@@ -163,8 +163,8 @@ def test_activity_stream(app_dialog):
     # Add a note
     app_dialog.root.textfields.typeIn("New Note")
     app_dialog.root.buttons["Create Note"].get().mouseClick()
-    app_dialog.root.waitIdle(), 30
-    app_dialog.root.captions["New Note"].get().waitExist(), 30
+    app_dialog.root.waitIdle(timeout=30)
+    app_dialog.root.captions["New Note"].get().waitExist(timeout=30)
 
     # Validate the Note gets created
     assert app_dialog.root.captions["New Note"].exists(), "New note wasn't created"
@@ -217,7 +217,7 @@ def test_context_selector(app_dialog):
     ].get().mouseClick()
     app_dialog.root.textfields.typeIn("Art")
     topwindows.listitems["Art"].get().mouseClick()
-    app_dialog.root.captions["*Art"].get().waitExist(), 30
+    app_dialog.root.captions["*Art"].get().waitExist(timeout=30)
 
     # Validate context Changed successfully
     assert app_dialog.root.captions["*Art"].exists(), "Task field didn't update"
@@ -348,14 +348,14 @@ def test_navigation(app_dialog):
     ].exists(), "Widget's description is missing"
 
     # Navigate in Demo: Animation project
-    app_dialog.root.outlineitems["Demo: Animation"].waitExist(), 30
+    app_dialog.root.outlineitems["Demo: Animation"].waitExist(timeout=30)
     app_dialog.root.outlineitems["Demo: Animation"].get().mouseDoubleClick()
 
     # Validate Breadcrumb widget and that Assets and Shots entities are showing up
     assert app_dialog.root.captions[
         "Project Demo: Animation"
     ].exists(), "Breadcrumb widget is not set correctly"
-    app_dialog.root.outlineitems["Assets"].waitExist(), 30
+    app_dialog.root.outlineitems["Assets"].waitExist(timeout=30)
     assert app_dialog.root.outlineitems[
         "Assets"
     ].exists(), "Assets entity is not in the navigation widget"
@@ -370,7 +370,7 @@ def test_navigation(app_dialog):
     assert app_dialog.root.captions[
         "Project Demo: Animation * Assets"
     ].exists(), "Breadcrumb widget is not set correctly"
-    app_dialog.root.outlineitems["Character"].waitExist(), 30
+    app_dialog.root.outlineitems["Character"].waitExist(timeout=30)
     assert app_dialog.root.outlineitems[
         "Character"
     ].exists(), "Asset type Character is not in the navigation widget"
@@ -394,7 +394,7 @@ def test_navigation(app_dialog):
     assert app_dialog.root.captions[
         "Project Demo: Animation * Assets * Character"
     ].exists(), "Breadcrumb widget is not set correctly"
-    app_dialog.root.outlineitems["Alice"].waitExist(), 30
+    app_dialog.root.outlineitems["Alice"].waitExist(timeout=30)
     assert app_dialog.root.outlineitems[
         "Alice"
     ].exists(), "Character Alice is not in the navigation widget"
@@ -461,10 +461,26 @@ def test_note_editor(app_dialog):
 
     # Validate that the File browser is showing up after clicking on the Files to attach button then close it
     app_dialog.root.buttons["Attach Files"].get().mouseClick()
-    app_dialog.root.dialogs["Select files to attach."].waitExist(), 30
-    app_dialog.root.dialogs["Select files to attach."].buttons[
-        "Close"
-    ].get().mouseClick()
+    app_dialog.root.dialogs["Select files to attach."].waitExist(timeout=30)
+
+    # Get image path to be published
+    image_path = os.path.normpath(
+        os.path.expandvars("${TK_TEST_FIXTURES}/files/images/achmed.JPG")
+    )
+
+    # Type in image path
+    app_dialog.root.dialogs["Select files to attach."].textfields[
+        "File name:"
+    ].mouseClick()
+    app_dialog.root.dialogs["Select files to attach."].textfields["File name:"].pasteIn(
+        image_path
+    )
+    app_dialog.root.dialogs["Select files to attach."].textfields[
+        "File name:"
+    ].waitIdle(timeout=30)
+    app_dialog.root.dialogs["Select files to attach."].textfields["File name:"].typeIn(
+        "{ENTER}"
+    )
 
     # Validate that all buttons are available
     assert app_dialog.root.buttons["Cancel"].exists(), "Cancel button is not showing up"
@@ -477,7 +493,7 @@ def test_note_editor(app_dialog):
     assert app_dialog.root.buttons[
         "Create Note"
     ].exists(), "Create Note button is not showing up"
-    app_dialog.root.buttons["Cancel"].get().mouseClick()
+    app_dialog.root.buttons["Create Note"].get().mouseClick()
 
     # Take a screenshot
     app_dialog.root.buttons["Take Screenshot"].get().mouseClick()
@@ -489,7 +505,24 @@ def test_note_editor(app_dialog):
     # Add a note
     app_dialog.root.textfields.typeIn("New Note")
     app_dialog.root.buttons["Create Note"].get().mouseClick()
-    app_dialog.root.captions["Click to create a new note..."].waitExist(), 30
+    app_dialog.root.captions["Click to create a new note..."].waitExist(timeout=30)
+
+    # Validate the note gets created
+    # Click on the Activity Stream widget
+    app_dialog.open_demo_pane("Activity Stream")
+    assert app_dialog.root.captions[
+        "Activity Stream"
+    ].exists(), "Not on the Activity Stream widget"
+    assert app_dialog.root.captions["New Note"].exists(), "New Note is missing"
+    assert app_dialog.root.captions[
+        "Azure Pipelines"
+    ].exists(), "Not the right user linked to the note"
+    assert app_dialog.root.captions[
+        "*Person Azure Pipelines*"
+    ].exists(), "Not on the right person linked to the note"
+    assert app_dialog.root.panes["Demo Area"][
+        "Click to show a larger thumbnail."
+    ].exists(), "Attached Thumbnail is missing in the note"
 
 
 def test_overlay(app_dialog):
@@ -590,15 +623,16 @@ def test_shotgun_field_delegate(app_dialog):
     ].exists(), "Not on the Shotgun Field Delegate widget"
     app_dialog.root.captions[
         "A ShotgunTableView with auto-assigned field delegates:"
-    ].waitExist(), 30
-
+    ].waitExist(timeout=30)
     # Validate Demo: Animation is showing up
+    app_dialog.root.tables[0].rows[0]["Project Name"].get().mouseClick()
+    app_dialog.root.tables[0].rows[0]["Project Name"].typeIn("Demo")
     assert (
         app_dialog.root.tables[0].cells["Demo: Animation"].exists()
     ), "Demo: Animation project not showing up in the Shotgun Field Delegate widget"
     assert (
         app_dialog.root.tables[0]
-        .cells["https://sg-media-*-usor-01.s3-accelerate.amazonaws.com*"]
+        .cells["https://sg-media*-usor-01.s3*.amazonaws.com*"]
         .exists()
     ), "Demo: Animation project doesn't have a thumbnail"
 
@@ -635,7 +669,7 @@ def test_shotgun_field_widgets_form(app_dialog):
     assert app_dialog.root.captions[
         "Shotgun Field Widgets Form"
     ].exists(), "Not on the Shotgun Field Widgets Form widget"
-    app_dialog.root.captions["Analytics Truth Finder Onboarded:"].waitExist(), 30
+    app_dialog.root.captions["Analytics Truth Finder Onboarded:"].waitExist(timeout=30)
 
     # Validate widget interactions
     app_dialog.root.checkboxes["analytics_truth_finder_onboarded_widget"].mouseClick()
@@ -654,8 +688,10 @@ def test_shotgun_field_widgets_form(app_dialog):
     # Validate widget interactions
     app_dialog.root.checkboxes["welcome_page_visited_widget"].mouseClick()
     assert app_dialog.root.captions[
-        "> Welcome Page Visited widget value changed to: False"
-    ].exists(), "Checkbox wasn't successfully unchecked in the Shotgun Field Widgets Form widget"
+        "> Welcome Page Visited widget value changed to: True"
+    ].exists(), (
+        "Checkbox wasn't successfully checked in the Shotgun Field Widgets Form widget"
+    )
 
 
 def test_custom_field_widget(app_dialog):
@@ -666,7 +702,7 @@ def test_custom_field_widget(app_dialog):
     ].exists(), "Not on the Custom Field Widget widget"
 
     # Wait until widget is showing up
-    app_dialog.root.tables.waitExist(), 30
+    app_dialog.root.tables.waitExist(timeout=30)
 
     # Validate Demo: Animation Project
     app_dialog.root.tables.rows["2"].get().mouseClick()
@@ -675,7 +711,7 @@ def test_custom_field_widget(app_dialog):
     ), "Demo: Animation project not showing up in the Shotgun Field Delegate widget"
     assert (
         app_dialog.root.tables.rows["2"]
-        .cells["https://sg-media-*-usor-01.s3-accelerate.amazonaws.com*"]
+        .cells["https://sg-media*-usor-01.s3*.amazonaws.com*"]
         .exists()
     ), "Demo: Animation project doesn't have a thumbnail"
     assert (
@@ -691,7 +727,7 @@ def test_entity_field_menu(app_dialog):
     ].exists(), "Not on the Entity Field Menu widget"
 
     # Wait until widget is showing up
-    app_dialog.root.captions["Click the button to show the menu."].waitExist(), 30
+    app_dialog.root.captions["Click the button to show the menu."].waitExist(timeout=30)
 
     # Validate entity field menu
     app_dialog.root.buttons["EntityFieldMenu (HumanUser)"].get().mouseClick()
@@ -711,7 +747,7 @@ def test_shotgun_menu(app_dialog):
     ].exists(), "Not on the Shotgun Menu widget"
 
     # Wait until widget is showing up
-    app_dialog.root.captions["Click the button to show the menu."].waitExist(), 30
+    app_dialog.root.captions["Click the button to show the menu."].waitExist(timeout=30)
 
     # Validate Shotgun menu
     app_dialog.root.buttons["ShotgunMenu"].get().mouseClick()
@@ -755,13 +791,13 @@ def test_shotgun_entity_model(app_dialog):
     ].exists(), "Not on the Shotgun Entity Model widget"
 
     # Wait until widget is showing up
-    app_dialog.root.outlineitems["Demo: Animation"].waitExist(), 30
+    app_dialog.root.outlineitems["Demo: Animation"].waitExist(timeout=30)
 
     # Click on Demo: Animation entity model
     app_dialog.root.outlineitems["Demo: Animation"].get().mouseDoubleClick()
 
     # Validate Asset Types are showing up
-    app_dialog.root.outlineitems["Character"].waitExist(), 30
+    app_dialog.root.outlineitems["Character"].waitExist(timeout=30)
     assert app_dialog.root.outlineitems[
         "Character"
     ].exists(), "Character is missing from the Shotgun Entity Model widget"
@@ -782,7 +818,7 @@ def test_shotgun_entity_model(app_dialog):
     app_dialog.root.outlineitems["Character"].get().mouseDoubleClick()
 
     # Validate Characters are showing up
-    app_dialog.root.outlineitems["Alice"].waitExist(), 30
+    app_dialog.root.outlineitems["Alice"].waitExist(timeout=30)
     assert app_dialog.root.outlineitems[
         "Alice"
     ].exists(), "Character Alice is not in the navigation widget"
@@ -855,11 +891,11 @@ def test_shotgun_hierarchy(app_dialog):
     ].exists(), "Not on the Shotgun Hierarchy widget"
 
     # Wait until widget is showing up
-    app_dialog.root.outlineitems["Demo: Animation"].waitExist(), 30
+    app_dialog.root.outlineitems["Demo: Animation"].waitExist(timeout=30)
 
     # Click on Demo: Animation entity
     app_dialog.root.outlineitems["Demo: Animation"].get().mouseDoubleClick()
-    app_dialog.root.tables.rows["1"].cells["bunny_080_0010_layout_v001"].waitExist(), 30
+    app_dialog.root.tables.cells["bunny_080_0010_layout_v001"].waitExist(timeout=30)
 
     # Scroll down in the navigation table to show more asset type characters
     tableScrollBar = first(app_dialog.root.scrollbars[2])
@@ -868,18 +904,16 @@ def test_shotgun_hierarchy(app_dialog):
     tableScrollBar.mouseDrag(width * 0, height * 1)
 
     # Validate last entries is available
-    assert (
-        app_dialog.root.tables.rows["40"].cells["bunny_080_0200_layout_v001"].exists()
-    ), "Last Demo: Animation entry is missing in the Shotgun Hierarchy widget"
+    assert app_dialog.root.tables.cells[
+        "bunny_080_0200_layout_v001"
+    ].exists(), "Last Demo: Animation entry is missing in the Shotgun Hierarchy widget"
 
     # Click on Demo: Animation Shots entity
     app_dialog.root.outlineitems["Shots"].get().mouseDoubleClick()
-    app_dialog.root.tables.rows["40"].cells[
-        "bunny_080_0200_layout_v001"
-    ].waitExist(), 30
+    app_dialog.root.tables.cells["bunny_080_0200_layout_v001"].waitExist(timeout=30)
 
     # Validate Shots are showing up
-    app_dialog.root.outlineitems["bunny_010"].waitExist(), 30
+    app_dialog.root.outlineitems["bunny_010"].waitExist(timeout=30)
     assert app_dialog.root.outlineitems[
         "bunny_010"
     ].exists(), "bunny_010 is missing from the Shotgun Entity Model widget"
@@ -889,9 +923,9 @@ def test_shotgun_hierarchy(app_dialog):
 
     # Click on bunny_080 entity model
     app_dialog.root.outlineitems["bunny_080"].get().mouseDoubleClick()
-    app_dialog.root.tables.rows["40"].cells[
-        "bunny_080_0200_layout_v001"
-    ].waitExist(), 30
+    app_dialog.root.tables.rows["40"].cells["bunny_080_0200_layout_v001"].waitExist(
+        timeout=30
+    )
 
     # Select shot bunny_080_0020
     app_dialog.root.outlineitems["bunny_080_0020"].get().mouseClick()
@@ -908,7 +942,9 @@ def test_shotgun_globals(app_dialog):
     ].exists(), "Not on the Shotgun Globals widget"
 
     # Wait until widget is showing up
-    app_dialog.root.captions["Select an Entity type from the list:"].waitExist(), 30
+    app_dialog.root.captions["Select an Entity type from the list:"].waitExist(
+        timeout=30
+    )
 
     # Validate Shotgun globals first dropdown menu
     app_dialog.root.dropdowns.mouseClick()
@@ -947,7 +983,7 @@ def test_busy_dialog(app_dialog):
     # Wait until busy dialog is showing up
     app_dialog.root.topwindows["Shotgun: Toolkit is busy"].captions[
         "Example: Something is Taking a Long Time..."
-    ].waitExist(), 30
+    ].waitExist(timeout=30)
     busy_dialog = app_dialog.root.topwindows["Shotgun: Toolkit is busy"]
     assert busy_dialog.captions[
         "Example: Something is Taking a Long Time..."
@@ -973,7 +1009,9 @@ def test_busy_dialog(app_dialog):
     app_dialog.root.buttons["show_busy(title, details)"].get().mouseClick()
 
     # Wait until busy dialog is showing up
-    busy_dialog.captions["Example: Something is Taking a Long Time..."].waitExist(), 30
+    busy_dialog.captions["Example: Something is Taking a Long Time..."].waitExist(
+        timeout=30
+    )
     assert busy_dialog.captions[
         "Example: Something is Taking a Long Time..."
     ].exists(), "Busy dialog didn't show up"
