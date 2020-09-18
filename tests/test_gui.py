@@ -89,7 +89,7 @@ def app_dialog(host_application):
     Retrieve the application dialog and return the AppDialogAppWrapper.
     """
     before = time.time()
-    while before + 30 > time.time():
+    while before + 60 > time.time():
         if sgtk.util.is_windows():
             app_dialog = AppDialogAppWrapper(topwindows)
         else:
