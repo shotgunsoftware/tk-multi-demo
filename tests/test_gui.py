@@ -515,10 +515,19 @@ def test_note_editor(app_dialog):
     ].exists(), "Not on the Activity Stream widget"
     assert app_dialog.root.captions["New Note"].exists(), "New Note is missing"
     # Get the current user
+    sg = get_toolkit_user().create_sg_connection()
     user = str(get_toolkit_user())
-    assert app_dialog.root.captions[
-        user + "*"
-    ].exists(), "Not the right user linked to the note"
+    # Validate if it is an API or human user
+    if sg.find_one("ApiUser", [["firstname", "is", user]]) is None:
+        human_user = sg.find_one("HumanUser", [["login", "is", user]], ["name"])
+        assert app_dialog.root.captions[
+            human_user["name"]
+        ].exists(), "Not the right user linked to the note"
+    else:
+        api_user = sg.find_one("ApiUser", [["firstname", "is", user]], ["firstname"])
+        assert app_dialog.root.captions[
+            api_user["firstname"] + "*"
+        ].exists(), "Not the right user linked to the note"
     assert app_dialog.root.panes["Demo Area"][
         "Click to show a larger thumbnail."
     ].exists(), "Attached Thumbnail is missing in the note"
