@@ -465,7 +465,7 @@ def test_note_editor(app_dialog):
 
     # Get image path to be published
     image_path = os.path.normpath(
-        os.path.expandvars("${TK_TEST_FIXTURES}/files/images/achmed.JPG")
+        os.path.expandvars("${TK_TEST_FIXTURES}/files/images/sven.png")
     )
 
     # Type in image path
@@ -514,8 +514,10 @@ def test_note_editor(app_dialog):
         "Activity Stream"
     ].exists(), "Not on the Activity Stream widget"
     assert app_dialog.root.captions["New Note"].exists(), "New Note is missing"
+    # Get the current user
+    user = str(get_toolkit_user())
     assert app_dialog.root.captions[
-        "azure-pipelines 1.0"
+        user + "*"
     ].exists(), "Not the right user linked to the note"
     assert app_dialog.root.panes["Demo Area"][
         "Click to show a larger thumbnail."
