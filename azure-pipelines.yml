@@ -45,4 +45,5 @@ jobs:
     additional_repositories:
     - name: tk-framework-qtwidgets
     - name: tk-framework-shotgunutils
+    - name: tk-framework-widget
     - name: tk-shell
