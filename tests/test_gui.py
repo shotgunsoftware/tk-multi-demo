@@ -686,7 +686,7 @@ def test_shotgun_field_widgets_form(app_dialog):
     # Validate widget interactions
     app_dialog.root.checkboxes["analytics_truth_finder_onboarded_widget"].mouseClick()
     assert app_dialog.root.captions[
-        "> Analytics Truth Finder Onboarded widget value changed to: True"
+        "> Analytics Truth Finder Onboarded widget value changed to: False"
     ].exists(), (
         "Checkbox wasn't successfully checked in the Shotgun Field Widgets Form widget"
     )
@@ -700,7 +700,7 @@ def test_shotgun_field_widgets_form(app_dialog):
     # Validate widget interactions
     app_dialog.root.checkboxes["welcome_page_visited_widget"].mouseClick()
     assert app_dialog.root.captions[
-        "> Welcome Page Visited widget value changed to: True"
+        "> Welcome Page Visited widget value changed to: False"
     ].exists(), (
         "Checkbox wasn't successfully checked in the Shotgun Field Widgets Form widget"
     )
