@@ -922,6 +922,11 @@ def test_shotgun_hierarchy(app_dialog):
 
     # Click on Demo: Animation Shots entity
     app_dialog.root.outlineitems["Shots"].get().mouseDoubleClick()
+    # Scroll down in the navigation table to show more asset type characters
+    tableScrollBar = first(app_dialog.root.scrollbars[2])
+    width, height = tableScrollBar.size
+    app_dialog.root.scrollbars[2]["Position"].get().mouseSlide()
+    tableScrollBar.mouseDrag(width * 0, height * 1)
     app_dialog.root.tables.cells["bunny_080_0200_layout_v001"].waitExist(timeout=30)
 
     # Validate Shots are showing up
@@ -935,6 +940,11 @@ def test_shotgun_hierarchy(app_dialog):
 
     # Click on bunny_080 entity model
     app_dialog.root.outlineitems["bunny_080"].get().mouseDoubleClick()
+    # Scroll down in the navigation table to show more asset type characters
+    tableScrollBar = first(app_dialog.root.scrollbars[2])
+    width, height = tableScrollBar.size
+    app_dialog.root.scrollbars[2]["Position"].get().mouseSlide()
+    tableScrollBar.mouseDrag(width * 0, height * 1)
     app_dialog.root.tables.rows["40"].cells["bunny_080_0200_layout_v001"].waitExist(
         timeout=30
     )
