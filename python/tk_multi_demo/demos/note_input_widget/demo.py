@@ -67,7 +67,7 @@ class NoteInputWidgetDemo(QtGui.QWidget):
             "the input, you will attach a new Note to yourself in Shotgun. "
             "Just a heads up in case you want to delete it afterward.<br><br>"
             "It is worth pointing out that Note input on the "
-            "<tt>HumanUser</tt> entity in Shotgun is typically not exposed."
+            "<tt>HumanUser</tt> entity in SG is typically not exposed."
         )
         info_lbl.setWordWrap(True)
 
