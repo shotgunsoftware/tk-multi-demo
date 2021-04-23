@@ -64,7 +64,7 @@ class GlobalSearchWidgetDemo(QtGui.QWidget):
 
         # display some instructions
         info_lbl = QtGui.QLabel(
-            "Click in the widget and type to search for Shotgun entities. You "
+            "Click in the widget and type to search for SG entities. You "
             "will need to type at least 3 characters before the search begins."
         )
 
