@@ -112,7 +112,7 @@ class AppDialogAppWrapper(object):
         """
         :param root:
         """
-        self.root = parent["Shotgun: Shotgun Toolkit Demos"].get()
+        self.root = parent["ShotGrid: Shotgun Toolkit Demos"].get()
 
     def exists(self):
         """
