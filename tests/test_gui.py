@@ -178,7 +178,7 @@ def test_activity_stream(app_dialog):
     app_dialog.root.scrollbars[1]["Position"].get().mouseSlide()
     activityScrollBar.mouseDrag(width * 0, height * 1)
     assert app_dialog.root.buttons[
-        "Click here to see the Activity stream in Shotgun."
+        "Click here to see the Activity stream in ShotGrid."
     ].exists(), "Hyperlink to see the Activity Stream in SG is missing"
 
 
@@ -714,7 +714,7 @@ def test_shotgun_menu(app_dialog):
     app_dialog.root.captions["Click the button to show the menu."].waitExist(), 30
 
     # Validate Shotgun menu
-    app_dialog.root.buttons["ShotgunMenu"].get().mouseClick()
+    app_dialog.root.buttons["ShotGridMenu"].get().mouseClick()
     time.sleep(1)  # to give some time for the menu to load
     assert topwindows.menuitems[
         "Action 1"
@@ -945,10 +945,10 @@ def test_busy_dialog(app_dialog):
     app_dialog.root.buttons["show_busy(title, details)"].get().mouseClick()
 
     # Wait until busy dialog is showing up
-    app_dialog.root.topwindows["Shotgun: Toolkit is busy"].captions[
+    app_dialog.root.topwindows["ShotGrid: Toolkit is busy"].captions[
         "Example: Something is Taking a Long Time..."
     ].waitExist(), 30
-    busy_dialog = app_dialog.root.topwindows["Shotgun: Toolkit is busy"]
+    busy_dialog = app_dialog.root.topwindows["ShotGrid: Toolkit is busy"]
     assert busy_dialog.captions[
         "Example: Something is Taking a Long Time..."
     ].exists(), "Busy dialog didn't show up"

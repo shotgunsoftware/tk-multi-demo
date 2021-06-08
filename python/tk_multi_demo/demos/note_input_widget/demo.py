@@ -64,7 +64,7 @@ class NoteInputWidgetDemo(QtGui.QWidget):
         # aware that this will actually update SG.
         info_lbl = QtGui.QLabel(
             "<strong>LIVE DEMO</strong>: If you click the checkmark to submit "
-            "the input, you will attach a new Note to yourself in Shotgun. "
+            "the input, you will attach a new Note to yourself in ShotGrid. "
             "Just a heads up in case you want to delete it afterward.<br><br>"
             "It is worth pointing out that Note input on the "
             "<tt>HumanUser</tt> entity in SG is typically not exposed."

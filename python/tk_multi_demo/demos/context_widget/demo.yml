@@ -16,7 +16,7 @@ description:
      for a different context via search completer. A menu is also provided for
      recent contexts as well as tasks assigned to the user."
 
-documentation_url: "http://developer.shotgunsoftware.com/tk-framework-qtwidgets/context_selector.html"
+documentation_url: "http://developer.shotgridsoftware.com/tk-framework-qtwidgets/context_selector.html"
 
 frameworks:
     - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}
