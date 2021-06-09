@@ -12,12 +12,12 @@
 display_name: "Custom Field Widget"
 
 description:
-    Toolkit provides a set of standard widgets to display and edit Shotgun
+    Toolkit provides a set of standard widgets to display and edit ShotGrid
     fields within a Qt application. This demo shows how to override one of those
     default widgets with a custom widget. Custom widgets can be used for
     displaying values, editing values, or both.
 
-documentation_url: http://developer.shotgunsoftware.com/tk-framework-qtwidgets/shotgun_fields.html#field-widget-metaclass
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/shotgun_fields.html#field-widget-metaclass
 
 frameworks:
     - {"name": "tk-framework-shotgunutils", "version": "v4.x.x"}

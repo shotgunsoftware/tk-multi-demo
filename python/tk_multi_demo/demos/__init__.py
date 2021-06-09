@@ -59,7 +59,7 @@ DEMOS_LIST = [
     ShotgunMenuDemo,
     SpinnerWidgetDemo,
     # TODO: view related classes
-    "Shotgun Utils Framework",
+    "SG Utils Framework",
     # TODO: SG model
     ShotgunEntityModelDemo,
     ShotgunHierarchyDemo,

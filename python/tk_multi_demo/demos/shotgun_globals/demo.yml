@@ -9,14 +9,14 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Shotgun Globals"
+display_name: "ShotGrid Globals"
 
 description:
   A demonstration of the shotgun_globals module found in the toolkit shotgun
   utils framework. The methods in this module allow you to display select
-  portions of your site's Shotgun schema in a clean and consistent way.
+  portions of your site's ShotGrid schema in a clean and consistent way.
 
-documentation_url: "http://developer.shotgunsoftware.com/tk-framework-shotgunutils/shotgun_globals.html"
+documentation_url: "http://developer.shotgridsoftware.com/tk-framework-shotgunutils/shotgun_globals.html"
 
 frameworks:
     - {"name": "tk-framework-shotgunutils", "version": "v4.x.x"}

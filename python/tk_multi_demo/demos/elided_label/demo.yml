@@ -15,7 +15,7 @@ description:
     This simple yet commonly used class helps add an elide (a '...' at the end)
     to text when it doens't fit within a given space.
 
-documentation_url: "http://developer.shotgunsoftware.com/tk-framework-qtwidgets/elided_label.html"
+documentation_url: "http://developer.shotgridsoftware.com/tk-framework-qtwidgets/elided_label.html"
 
 frameworks:
     - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}

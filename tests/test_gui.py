@@ -112,7 +112,7 @@ class AppDialogAppWrapper(object):
         """
         :param root:
         """
-        self.root = parent["ShotGrid: Shotgun Toolkit Demos"].get()
+        self.root = parent["ShotGrid: SG Toolkit Demos"].get()
 
     def exists(self):
         """
@@ -140,7 +140,7 @@ def test_activity_stream(app_dialog):
     ].exists(), "Not on the Activity Stream widget"
 
     # Wait until note creation field is showing up.
-    while app_dialog.root.captions["Loading Shotgun Data..."].exists():
+    while app_dialog.root.captions["Loading SG Data..."].exists():
         time.sleep(1)
 
     # Click to create a new note
@@ -178,8 +178,8 @@ def test_activity_stream(app_dialog):
     app_dialog.root.scrollbars[1]["Position"].get().mouseSlide()
     activityScrollBar.mouseDrag(width * 0, height * 1)
     assert app_dialog.root.buttons[
-        "Click here to see the Activity stream in Shotgun."
-    ].exists(), "Hyperlink to see the Activity Stream in Shotgun is missing"
+        "Click here to see the Activity stream in ShotGrid."
+    ].exists(), "Hyperlink to see the Activity Stream in SG is missing"
 
 
 def test_context_selector(app_dialog):
@@ -192,7 +192,7 @@ def test_context_selector(app_dialog):
     # Validate that all selectors are available
     assert app_dialog.root.captions["Task:*"].exists(), "Task: is not available"
     assert app_dialog.root.captions[
-        "*The task that the selected item will be associated with the Shotgun entity being acted upon.*"
+        "*The task that the selected item will be associated with the SG entity being acted upon.*"
     ].exists(), "Task field is not available"
     assert app_dialog.root.checkboxes[
         "*Toggle this button to allow searching for a Task to associate with the selected item*"
@@ -629,24 +629,34 @@ def test_search(app_dialog):
 
 def test_shotgun_field_delegate(app_dialog):
     # Click on the Shotgun Field Delegate widget
-    app_dialog.open_demo_pane("Shotgun Field Delegate")
+    app_dialog.open_demo_pane("ShotGrid Field Delegate")
     assert app_dialog.root.captions[
-        "Shotgun Field Delegate"
-    ].exists(), "Not on the Shotgun Field Delegate widget"
+        "ShotGrid Field Delegate"
+    ].exists(), "Not on the ShotGrid Field Delegate widget"
     app_dialog.root.captions[
         "A ShotgunTableView with auto-assigned field delegates:"
     ].waitExist(timeout=30)
     # Validate Demo: Animation is showing up
-    app_dialog.root.tables[0].rows[0]["Project Name"].get().mouseClick()
-    app_dialog.root.tables[0].rows[0]["Project Name"].typeIn("Demo")
-    assert (
-        app_dialog.root.tables[0].cells["Demo: Animation"].exists()
-    ), "Demo: Animation project not showing up in the Shotgun Field Delegate widget"
-    assert (
-        app_dialog.root.tables[0]
-        .cells["https://sg-media*-usor-01.s3*.amazonaws.com*"]
-        .exists()
-    ), "Demo: Animation project doesn't have a thumbnail"
+    if app_dialog.root.tables[0].cells["Demo: Animation*"].exists() is True:
+        assert (
+            app_dialog.root.tables[0].cells["Demo: Animation*"].exists()
+        ), "Demo: Animation project not showing up in the ShotGrid Field Delegate widget"
+        assert (
+            app_dialog.root.tables[0].cells["https://sg-media*.amazonaws.com*"].exists()
+        ), "Demo: Animation project doesn't have a thumbnail"
+    else:
+        # Scroll down
+        activityScrollBar = first(app_dialog.root.scrollbars[1])
+        width, height = activityScrollBar.size
+        app_dialog.root.scrollbars[1]["Position"].get().mouseSlide()
+        activityScrollBar.mouseDrag(width * 0, height * 1)
+        # Validate Demo: Animation is showing up
+        assert (
+            app_dialog.root.tables[0].cells["Demo: Animation*"].exists()
+        ), "Demo: Animation project not showing up in the ShotGrid Field Delegate widget"
+        assert (
+            app_dialog.root.tables[0].cells["https://sg-media*.amazonaws.com*"].exists()
+        ), "Demo: Animation project doesn't have a thumbnail"
 
     # Validate scroll bar is working fine
     activityScrollBar = first(app_dialog.root.scrollbars[1])
@@ -657,7 +667,7 @@ def test_shotgun_field_delegate(app_dialog):
     # Validate second table
     assert (
         app_dialog.root.tables[1].cells["New Project"].exists()
-    ), "New Project not showing up in the Shotgun Field Delegate widget"
+    ), "New Project not showing up in the ShotGrid Field Delegate widget"
 
     # Change New Project name
     app_dialog.root.tables[1].cells["New Project"].get().mouseDoubleClick()
@@ -677,18 +687,18 @@ def test_shotgun_field_delegate(app_dialog):
 
 def test_shotgun_field_widgets_form(app_dialog):
     # Click on the Shotgun Field Widgets Form widget
-    app_dialog.open_demo_pane("Shotgun Field Widgets Form")
+    app_dialog.open_demo_pane("ShotGrid Field Widgets Form")
     assert app_dialog.root.captions[
-        "Shotgun Field Widgets Form"
-    ].exists(), "Not on the Shotgun Field Widgets Form widget"
-    app_dialog.root.captions["Analytics Truth Finder Onboarded:"].waitExist(timeout=30)
+        "ShotGrid Field Widgets Form"
+    ].exists(), "Not on the ShotGrid Field Widgets Form widget"
+    app_dialog.root.captions["Analytics Truth Finder Onboarded:"].waitExist(), 30
 
     # Validate widget interactions
     app_dialog.root.checkboxes["analytics_truth_finder_onboarded_widget"].mouseClick()
     assert app_dialog.root.captions[
         "> Analytics Truth Finder Onboarded widget value changed to: False"
     ].exists(), (
-        "Checkbox wasn't successfully checked in the Shotgun Field Widgets Form widget"
+        "Checkbox wasn't successfully checked in the ShotGrid Field Widgets Form widget"
     )
 
     # Validate scroll bar is working fine
@@ -701,9 +711,7 @@ def test_shotgun_field_widgets_form(app_dialog):
     app_dialog.root.checkboxes["welcome_page_visited_widget"].mouseClick()
     assert app_dialog.root.captions[
         "> Welcome Page Visited widget value changed to: False"
-    ].exists(), (
-        "Checkbox wasn't successfully checked in the Shotgun Field Widgets Form widget"
-    )
+    ].exists(), "Checkbox wasn't successfully unchecked in the ShotGrid Field Widgets Form widget"
 
 
 def test_custom_field_widget(app_dialog):
@@ -720,10 +728,10 @@ def test_custom_field_widget(app_dialog):
     app_dialog.root.tables.rows["2"].get().mouseClick()
     assert (
         app_dialog.root.tables.rows["2"].cells["Demo: Animation"].exists()
-    ), "Demo: Animation project not showing up in the Shotgun Field Delegate widget"
+    ), "Demo: Animation project not showing up in the SG Field Delegate widget"
     assert (
         app_dialog.root.tables.rows["2"]
-        .cells["https://sg-media*-usor-01.s3*.amazonaws.com*"]
+        .cells["https://sg-media*.amazonaws.com*"]
         .exists()
     ), "Demo: Animation project doesn't have a thumbnail"
     assert (
@@ -753,24 +761,24 @@ def test_entity_field_menu(app_dialog):
 
 def test_shotgun_menu(app_dialog):
     # Click on the Shotgun Menu widget
-    app_dialog.open_demo_pane("Shotgun Menu")
+    app_dialog.open_demo_pane("ShotGrid Menu")
     assert app_dialog.root.captions[
-        "Shotgun Menu"
-    ].exists(), "Not on the Shotgun Menu widget"
+        "ShotGrid Menu"
+    ].exists(), "Not on the ShotGrid Menu widget"
 
     # Wait until widget is showing up
     app_dialog.root.captions["Click the button to show the menu."].waitExist(timeout=30)
 
     # Validate Shotgun menu
-    app_dialog.root.buttons["ShotgunMenu"].get().mouseClick()
+    app_dialog.root.buttons["ShotGridMenu"].get().mouseClick()
     time.sleep(1)  # to give some time for the menu to load
     assert topwindows.menuitems[
         "Action 1"
-    ].exists(), "Action 1 not on the Shotgun menu widget"
+    ].exists(), "Action 1 not on the ShotGrid menu widget"
     topwindows.menuitems["Submenu"].mouseSlide()
     assert topwindows.menuitems[
         "Action 3"
-    ].exists(), "Action 3 not on the Shotgun menu widget"
+    ].exists(), "Action 3 not on the ShotGrid menu widget"
     topwindows.menuitems["Action 4"].mouseClick()  # to close the menu
 
 
@@ -797,10 +805,10 @@ def test_shotgun_entity_model(app_dialog):
     activityScrollBar.mouseDrag(width * 0, height * 1)
 
     # Click on the Shotgun Entity Model widget
-    app_dialog.open_demo_pane("Shotgun Entity Model")
+    app_dialog.open_demo_pane("ShotGrid Entity Model")
     assert app_dialog.root.captions[
-        "Shotgun Entity Model"
-    ].exists(), "Not on the Shotgun Entity Model widget"
+        "ShotGrid Entity Model"
+    ].exists(), "Not on the ShotGrid Entity Model widget"
 
     # Wait until widget is showing up
     app_dialog.root.outlineitems["Demo: Animation"].waitExist(timeout=30)
@@ -812,19 +820,19 @@ def test_shotgun_entity_model(app_dialog):
     app_dialog.root.outlineitems["Character"].waitExist(timeout=30)
     assert app_dialog.root.outlineitems[
         "Character"
-    ].exists(), "Character is missing from the Shotgun Entity Model widget"
+    ].exists(), "Character is missing from the ShotGrid Entity Model widget"
     assert app_dialog.root.outlineitems[
         "Environment"
-    ].exists(), "Environment is missing from the Shotgun Entity Model widget"
+    ].exists(), "Environment is missing from the ShotGrid Entity Model widget"
     assert app_dialog.root.outlineitems[
         "Matte Painting"
-    ].exists(), "Matte Painting is missing from the Shotgun Entity Model widget"
+    ].exists(), "Matte Painting is missing from the ShotGrid Entity Model widget"
     assert app_dialog.root.outlineitems[
         "Prop"
-    ].exists(), "Prop is missing from the Shotgun Entity Model widget"
+    ].exists(), "Prop is missing from the ShotGrid Entity Model widget"
     assert app_dialog.root.outlineitems[
         "Vehicle"
-    ].exists(), "Vehicle is missing from the Shotgun Entity Model widget"
+    ].exists(), "Vehicle is missing from the ShotGrid Entity Model widget"
 
     # Click on Character entity model
     app_dialog.root.outlineitems["Character"].get().mouseDoubleClick()
@@ -897,10 +905,10 @@ def test_shotgun_entity_model(app_dialog):
 
 def test_shotgun_hierarchy(app_dialog):
     # Click on the Shotgun Hierarchy widget
-    app_dialog.open_demo_pane("Shotgun Hierarchy")
+    app_dialog.open_demo_pane("ShotGrid Hierarchy")
     assert app_dialog.root.captions[
-        "Shotgun Hierarchy"
-    ].exists(), "Not on the Shotgun Hierarchy widget"
+        "ShotGrid Hierarchy"
+    ].exists(), "Not on the ShotGrid Hierarchy widget"
 
     # Wait until widget is showing up
     app_dialog.root.outlineitems["Demo: Animation"].waitExist(timeout=30)
@@ -916,9 +924,9 @@ def test_shotgun_hierarchy(app_dialog):
     tableScrollBar.mouseDrag(width * 0, height * 1)
 
     # Validate last entries is available
-    assert app_dialog.root.tables.cells[
-        "bunny_080_0200_layout_v001"
-    ].exists(), "Last Demo: Animation entry is missing in the Shotgun Hierarchy widget"
+    assert (
+        app_dialog.root.tables.rows["40"].cells["bunny_080_0200_layout_v001"].exists()
+    ), "Last Demo: Animation entry is missing in the ShotGrid Hierarchy widget"
 
     # Click on Demo: Animation Shots entity
     app_dialog.root.outlineitems["Shots"].get().mouseDoubleClick()
@@ -933,35 +941,44 @@ def test_shotgun_hierarchy(app_dialog):
     app_dialog.root.outlineitems["bunny_010"].waitExist(timeout=30)
     assert app_dialog.root.outlineitems[
         "bunny_010"
-    ].exists(), "bunny_010 is missing from the Shotgun Entity Model widget"
+    ].exists(), "bunny_010 is missing from the ShotGrid Entity Model widget"
     assert app_dialog.root.outlineitems[
         "bunny_080"
-    ].exists(), "bunny_080 is missing from the Shotgun Entity Model widget"
+    ].exists(), "bunny_080 is missing from the ShotGrid Entity Model widget"
 
     # Click on bunny_080 entity model
     app_dialog.root.outlineitems["bunny_080"].get().mouseDoubleClick()
-    # Scroll down in the navigation table to show more asset type characters
-    tableScrollBar = first(app_dialog.root.scrollbars[2])
-    width, height = tableScrollBar.size
-    app_dialog.root.scrollbars[2]["Position"].get().mouseSlide()
-    tableScrollBar.mouseDrag(width * 0, height * 1)
-    app_dialog.root.tables.rows["40"].cells["bunny_080_0200_layout_v001"].waitExist(
-        timeout=30
-    )
+    if (
+        app_dialog.root.tables.rows["40"].cells["bunny_080_0200_layout_v001"].exists()
+        is True
+    ):
+        app_dialog.root.tables.rows["40"].cells[
+            "bunny_080_0200_layout_v001"
+        ].waitExist(), 30
+    else:
+        # Scroll down
+        tableScrollBar = first(app_dialog.root.scrollbars[2])
+        width, height = tableScrollBar.size
+        app_dialog.root.scrollbars[2]["Position"].get().mouseSlide()
+        tableScrollBar.mouseDrag(width * 0, height * 1)
+        # Validate bunny_080_0200_layout_v001 is showing up
+        app_dialog.root.tables.rows["40"].cells[
+            "bunny_080_0200_layout_v001"
+        ].waitExist(), 30
 
     # Select shot bunny_080_0020
     app_dialog.root.outlineitems["bunny_080_0020"].get().mouseClick()
     assert (
         app_dialog.root.tables.rows["2"].cells["bunny_080_0020_layout_v002"].exists()
-    ), "bunny_080_0020_layout_v002 is missing in the Shotgun Hierarchy widget"
+    ), "bunny_080_0020_layout_v002 is missing in the ShotGrid Hierarchy widget"
 
 
 def test_shotgun_globals(app_dialog):
     # Click on the Shotgun Globals widget
-    app_dialog.open_demo_pane("Shotgun Globals")
+    app_dialog.open_demo_pane("ShotGrid Globals")
     assert app_dialog.root.captions[
-        "Shotgun Globals"
-    ].exists(), "Not on the Shotgun Globals widget"
+        "ShotGrid Globals"
+    ].exists(), "Not on the ShotGrid Globals widget"
 
     # Wait until widget is showing up
     app_dialog.root.captions["Select an Entity type from the list:"].waitExist(
@@ -1003,10 +1020,10 @@ def test_busy_dialog(app_dialog):
     app_dialog.root.buttons["show_busy(title, details)"].get().mouseClick()
 
     # Wait until busy dialog is showing up
-    app_dialog.root.topwindows["Shotgun: Toolkit is busy"].captions[
+    app_dialog.root.topwindows["ShotGrid: Toolkit is busy"].captions[
         "Example: Something is Taking a Long Time..."
-    ].waitExist(timeout=30)
-    busy_dialog = app_dialog.root.topwindows["Shotgun: Toolkit is busy"]
+    ].waitExist(), 30
+    busy_dialog = app_dialog.root.topwindows["ShotGrid: Toolkit is busy"]
     assert busy_dialog.captions[
         "Example: Something is Taking a Long Time..."
     ].exists(), "Busy dialog didn't show up"

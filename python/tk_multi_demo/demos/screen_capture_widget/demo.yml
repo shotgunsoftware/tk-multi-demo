@@ -16,7 +16,7 @@ description:
   provides several different ways in which the screen can be captured, either
   via a cross hair style selection or by grabbing the entire screen.
 
-documentation_url: http://developer.shotgunsoftware.com/tk-framework-qtwidgets/screen_grab.html
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/screen_grab.html
 
 frameworks:
   - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}

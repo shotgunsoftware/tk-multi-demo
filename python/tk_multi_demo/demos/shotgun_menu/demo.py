@@ -50,7 +50,7 @@ class ShotgunMenuDemo(QtGui.QWidget):
         submenu.add_group([action3, action4], "Submenu Actions")
 
         # a button to trigger the menu
-        sg_menu_button = QtGui.QPushButton("ShotgunMenu")
+        sg_menu_button = QtGui.QPushButton("ShotGridMenu")
         sg_menu_button.setFixedWidth(100)
         sg_menu_button.clicked.connect(lambda: sg_menu.exec_(QtGui.QCursor.pos()))
         sg_menu_button.setObjectName("sg_menu_button")

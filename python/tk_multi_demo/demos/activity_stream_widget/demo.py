@@ -71,7 +71,7 @@ class ActivityStreamWidgetDemo(QtGui.QWidget):
 
         info_lbl = QtGui.QLabel(
             "<strong>LIVE DEMO</strong>: If you click the checkmark to submit "
-            "a note, you will attach a new Note to the project in Shotgun. "
+            "a note, you will attach a new Note to the project in ShotGrid. "
             "Just a heads up in case you want to clean up afterward."
         )
         info_lbl.setWordWrap(True)
