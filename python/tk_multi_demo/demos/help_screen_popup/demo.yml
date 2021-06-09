@@ -19,7 +19,7 @@ description:
     new application to a user. The information is presented as an interactive
     slide show where the user can easily navigate between sides.
 
-documentation_url: "http://developer.shotgunsoftware.com/tk-framework-qtwidgets/help_screen.html"
+documentation_url: "http://developer.shotgridsoftware.com/tk-framework-qtwidgets/help_screen.html"
 
 frameworks:
     - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}

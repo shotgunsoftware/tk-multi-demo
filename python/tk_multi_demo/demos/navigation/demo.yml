@@ -18,7 +18,7 @@ description:
     implements the standard home/next/prev concept that can be found in several
     Toolkit apps.
 
-documentation_url: http://developer.shotgunsoftware.com/tk-framework-qtwidgets/navigation.html
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/navigation.html
 
 frameworks:
     - {"name": "tk-framework-shotgunutils", "version": "v4.x.x"}

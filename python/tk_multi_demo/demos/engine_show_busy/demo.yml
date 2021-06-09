@@ -17,6 +17,6 @@ description:
   message to indicate that there is a long running processes running in the main
   thread.
 
-documentation_url: http://developer.shotgunsoftware.com/tk-core/platform.html#sgtk.platform.Engine.show_busy
+documentation_url: http://developer.shotgridsoftware.com/tk-core/platform.html#sgtk.platform.Engine.show_busy
 
 frameworks:
