@@ -32,6 +32,7 @@ from .shotgun_entity_model import ShotgunEntityModelDemo
 from .shotgun_hierarchy import ShotgunHierarchyDemo
 from .shotgun_globals import ShotgunGlobalsDemo
 from .spinner_widget import SpinnerWidgetDemo
+from .filter_menu import FilterMenuDemo
 
 # the default demo to display when the app starts up.
 DEMO_DEFAULT = HelpDemo
@@ -57,6 +58,7 @@ DEMOS_LIST = [
     CustomFieldWidgetDemo,
     EntityFieldMenuDemo,
     ShotgunMenuDemo,
+    FilterMenuDemo,
     SpinnerWidgetDemo,
     # TODO: view related classes
     "SG Utils Framework",
