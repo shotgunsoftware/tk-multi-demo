@@ -11,11 +11,15 @@
 # More verbose description of this item
 display_name: "Shotgun Widget"
 
-description: ""
+description:
+    A demonstration of the ShotgunListWidget and ShotgunFolderWidget classes. These widgets
+    are used in conjunction with a delegate to render SG specific data in a view. The data
+    displayed in the top left, top right and main body of these widgets can be easily customized.
 
-
-documentation_url: ""
+# TODO add documentation at this link
+documentation_url: http://developer.shotgunsoftware.com/tk-framework-qtwidgets/shotgun_widget
 
 frameworks:
-    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}
+# TODO ensure the minimum version is correct before releasing
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.10.1"}
     - {"name": "tk-framework-shotgunutils", "version": "v5.x.x"}
