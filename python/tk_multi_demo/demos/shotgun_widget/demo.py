@@ -33,6 +33,8 @@ task_manager = sgtk.platform.import_framework(
     "tk-framework-shotgunutils", "task_manager"
 )
 
+utils = sgtk.platform.import_framework("tk-framework-qtwidgets", "utils")
+
 
 class ShotgunWidgetDemo(QtGui.QWidget):
     """
@@ -94,8 +96,8 @@ class ShotgunWidgetDemo(QtGui.QWidget):
             body = "{sg_description}<br> {[Created by: ]created_by.HumanUser.name}"
 
             # to be sure to return the required fields, collect them from the widget
-            fields += shotgun_widget.ShotgunFolderWidget.resolve_sg_fields(header)
-            fields += shotgun_widget.ShotgunFolderWidget.resolve_sg_fields(body)
+            fields += utils.resolve_sg_fields(header)
+            fields += utils.resolve_sg_fields(body)
 
             # setup a delegate which will be using the Shotgun Widget to display the information and tell him how we
             # want to setup the data
@@ -112,9 +114,9 @@ class ShotgunWidgetDemo(QtGui.QWidget):
             body = "{sg_description}<br> {[Created by: ]created_by.HumanUser.name}"
 
             # to be sure to return the required fields, collect them from the widget
-            fields += shotgun_widget.ShotgunListWidget.resolve_sg_fields(left_corner)
-            fields += shotgun_widget.ShotgunListWidget.resolve_sg_fields(right_corner)
-            fields += shotgun_widget.ShotgunListWidget.resolve_sg_fields(body)
+            fields += utils.resolve_sg_fields(left_corner)
+            fields += utils.resolve_sg_fields(right_corner)
+            fields += utils.resolve_sg_fields(body)
 
             # setup a delegate which will be using the Shotgun Widget to display the information and tell him how we
             # want to setup the data
