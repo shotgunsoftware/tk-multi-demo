@@ -22,5 +22,5 @@ description:
 documentation_url: http://developer.shotgunsoftware.com/tk-framework-qtwidgets/filtering
 
 frameworks:
-# FIXME update this
-    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}
+# TODO ensure the minimum version is correct before releasing
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.10.1"}
