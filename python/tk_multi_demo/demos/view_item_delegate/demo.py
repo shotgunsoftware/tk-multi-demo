@@ -272,9 +272,7 @@ class ViewItemDelegateDemo(QtGui.QWidget):
                 None, index.model().VIEW_ITEM_SEPARATOR_ROLE
             )
         )
-        menu.addActions(
-            [toggle_all_loading_action, toggle_all_separator_action,]
-        )
+        menu.addActions([toggle_all_loading_action, toggle_all_separator_action])
 
         # Show the menu at the given position relative to the view widget
         menu_pos = view.mapToGlobal(pos)
