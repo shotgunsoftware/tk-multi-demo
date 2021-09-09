@@ -333,7 +333,7 @@ class ViewItemDelegateDemo(QtGui.QWidget):
             self._item_size_change(self._size_slider.value())
 
         else:
-            assert False, "QCheckBox state '{}' not supported".format(state)
+            raise AssertionError("QCheckBox state '{}' not supported".format(state))
 
     def _item_size_change(self, value):
         """
@@ -391,7 +391,7 @@ class ViewItemDelegateDemo(QtGui.QWidget):
             self._shotgun_model.load_data()
 
         else:
-            assert False, "Unsupported view model option"
+            raise AssertionError("Unsupported view model option")
 
     def _toggle_view_mode(self):
         """
