@@ -1,12 +1,12 @@
-# Copyright (c) 2020 Shotgun Software Inc.
+# Copyright (c) 2020 Autodesk Inc.
 #
 # CONFIDENTIAL AND PROPRIETARY
 #
-# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
 # Source Code License included in this distribution package. See LICENSE.
 # By accessing, using, copying or modifying this work you indicate your
-# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
-# not expressly granted therein are reserved by Shotgun Software Inc.
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Autodesk Inc.
 
 import sgtk
 from sgtk.platform.qt import QtCore, QtGui
@@ -91,7 +91,7 @@ class ShotgunWidgetDemo(QtGui.QWidget):
 
             self.ui.view.setViewMode(QtGui.QListView.IconMode)
 
-            # configure the way we want to display the Shotgun data
+            # configure the way we want to display the ShotGrid data
             header = "<b>{name}<b>"
             body = "{sg_description}<br> {[Created by: ]created_by.HumanUser.name}"
 
@@ -118,7 +118,7 @@ class ShotgunWidgetDemo(QtGui.QWidget):
             fields += utils.resolve_sg_fields(right_corner)
             fields += utils.resolve_sg_fields(body)
 
-            # setup a delegate which will be using the Shotgun Widget to display the information and tell him how we
+            # setup a delegate which will be using the ShotGrid Widget to display the information and tell him how we
             # want to setup the data
             self._sg_delegate = ListItemDelegate(self.ui.view)
             self._sg_delegate.set_formatting(
@@ -194,11 +194,11 @@ class ShotgunWidgetDelegate(shotgun_view.EditSelectedWidgetDelegate):
         # get the shotgun data
         sg_item = shotgun_model.get_sg_data(model_index)
 
-        # fill the content of the widget with the data of the loaded Shotgun
+        # fill the content of the widget with the data of the loaded ShotGrid
         # item
         widget.set_text(sg_item)
 
-        # add an action to the widget toolbox to be able to open the Shotgun Web page of the current item
+        # add an action to the widget toolbox to be able to open the ShotGrid Web page of the current item
         sg_url = sgtk.platform.current_bundle().shotgun.base_url
         url = "%s/page/project_overview?project_id=%d" % (sg_url, sg_item["id"])
         fn = lambda: QtGui.QDesktopServices.openUrl(QtCore.QUrl(url))
