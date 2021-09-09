@@ -2,10 +2,10 @@
 #
 # CONFIDENTIAL AND PROPRIETARY
 #
-# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
 # Source Code License included in this distribution package. See LICENSE.
 #
-# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Autodesk, Inc.
 
 import sgtk
@@ -60,7 +60,7 @@ class FilterMenuDemo(QtGui.QWidget):
         self._sg_proxy_model = FilterItemTreeProxyModel()
         self._sg_proxy_model.setSourceModel(self._sg_source_model)
 
-        # Create a 'Shotgun' specific filter menu since we are using a 'Shotgun' model.
+        # Create a 'ShotGrid' specific filter menu since we are using a 'ShotGrid' model.
         self._sg_filter_menu = ShotgunFilterMenu(self)
 
         # Before initializing the menu, set the filter/proxy model on the menu.
