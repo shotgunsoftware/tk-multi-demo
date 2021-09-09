@@ -2,10 +2,10 @@
 #
 # CONFIDENTIAL AND PROPRIETARY
 #
-# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
 # Source Code License included in this distribution package. See LICENSE.
 #
-# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Autodesk, Inc.
 
 import sgtk
@@ -154,7 +154,7 @@ class ViewItemDelegateDemo(QtGui.QWidget):
         self._basic_model_button.setCheckable(True)
         self._basic_model_button.setFlat(True)
         self._basic_model_button.clicked.connect(self._toggle_view_model)
-        self._shotgun_model_button = QtGui.QPushButton("Shotgun Model", self)
+        self._shotgun_model_button = QtGui.QPushButton("ShotGrid Model", self)
         self._shotgun_model_button.setCheckable(True)
         self._shotgun_model_button.setFlat(True)
         self._shotgun_model_button.clicked.connect(self._toggle_view_model)

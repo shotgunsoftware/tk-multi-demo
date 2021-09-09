@@ -2,14 +2,14 @@
 #
 # CONFIDENTIAL AND PROPRIETARY
 #
-# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
 # Source Code License included in this distribution package. See LICENSE.
 #
-# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Autodesk, Inc.
 
 import sgtk
-from sgtk.platform.qt import QtCore, QtGui
+from sgtk.platform.qt import QtCore
 
 from .mock_view_config_hook import MockViewConfigHook
 
@@ -23,7 +23,7 @@ ShotgunModel = shotgun_model.ShotgunModel
 
 class BasicShotgunModel(ShotgunModel, delegates.ViewItemRolesMixin):
     """
-    A subclass of the ShotgunModel to handle basic Shotgun data.
+    A subclass of the ShotgunModel to handle basic ShotGrid data.
     """
 
     # Custom user roles are key to using the ViewItemDelegate with the data model. The delegates.ViewItemRolesMixin
@@ -63,7 +63,7 @@ class BasicShotgunModel(ShotgunModel, delegates.ViewItemRolesMixin):
             bg_task_manager=bg_task_manager,
         )
 
-        # Shotgun data query fields
+        # ShotGrid data query fields
         self._entity_type = entity_type
         self._fields = fields
         self._filters = filters

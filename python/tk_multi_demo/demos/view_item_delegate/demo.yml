@@ -2,10 +2,10 @@
 #
 # CONFIDENTIAL AND PROPRIETARY
 #
-# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
 # Source Code License included in this distribution package. See LICENSE.
 # By accessing, using, copying or modifying this work you indicate your
-# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Autodesk, Inc.
 
 display_name: "View Item Delegate"
@@ -13,7 +13,7 @@ display_name: "View Item Delegate"
 description:
     A generic delegate designed to work with any model and view. This demo
     shows how to use a both a QStandardItemModel and QAbstractItemModel with
-    the delegate, and a single view. Toggle the models (Basic, Shotgun) and
+    the delegate, and a single view. Toggle the models (Basic, ShotGrid) and
     view modes (List, Thumbnail to see the different view modes and style.
     Uncheck the expand checkbox to use the slider to dynamically change the
     view item sizing. Hover over the items in the  view to see what actions

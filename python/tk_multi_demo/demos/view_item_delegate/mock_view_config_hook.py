@@ -2,10 +2,10 @@
 #
 # CONFIDENTIAL AND PROPRIETARY
 #
-# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
 # Source Code License included in this distribution package. See LICENSE.
 #
-# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Autodesk, Inc.
 
 import sgtk
@@ -40,7 +40,7 @@ class MockViewConfigHook(object):
         Return the header data for the item.
 
         Notice that the return value is a tuple. The ViewItemDelegate will handle
-        a tuple that contains a templated string as the first item, and a Shotgun
+        a tuple that contains a templated string as the first item, and a ShotGrid
         data dictionary as the second item. The delegate will process the template
         and data provided to search and replace tokens before displaying the value.
 
@@ -64,7 +64,7 @@ class MockViewConfigHook(object):
         Return the subtitle data for the item.
 
         Notice that the return value is a tuple. The ViewItemDelegate will handle
-        a tuple that contains a templated string as the first item, and a Shotgun
+        a tuple that contains a templated string as the first item, and a ShotGrid
         data dictionary as the second item. The delegate will process the template
         and data provided to search and replace tokens before displaying the value.
 
@@ -90,7 +90,7 @@ class MockViewConfigHook(object):
         Return the detailed text data for the item.
 
         Notice that the return value is a tuple. The ViewItemDelegate will handle
-        a tuple that contains a templated string as the first item, and a Shotgun
+        a tuple that contains a templated string as the first item, and a ShotGrid
         data dictionary as the second item. The delegate will process the template
         and data provided to search and replace tokens before displaying the value.
 
@@ -121,7 +121,7 @@ class MockViewConfigHook(object):
         Return the condensed text data for the item.
 
         Notice that the return value is a tuple. The ViewItemDelegate will handle
-        a tuple that contains a templated string as the first item, and a Shotgun
+        a tuple that contains a templated string as the first item, and a ShotGrid
         data dictionary as the second item. The delegate will process the template
         and data provided to search and replace tokens before displaying the value.
 
