@@ -411,7 +411,7 @@ class ViewItemDelegateDemo(QtGui.QWidget):
             elif isinstance(self._view.model(), BasicShotgunModel):
                 self._view.setItemDelegate(self._shotgun_list_view_delegate)
             else:
-                assert False, "Unsupport model class"
+                raise AssertionError("Unsupported model class")
 
         elif self.sender() == self._thumbnail_view_button:
             # Thumbnail mode
@@ -426,7 +426,7 @@ class ViewItemDelegateDemo(QtGui.QWidget):
             elif isinstance(self._view.model(), BasicShotgunModel):
                 self._view.setItemDelegate(self._shotgun_thumbnail_view_delegate)
             else:
-                assert False, "Unsupport model class"
+                raise AssertionError("Unsupported model class")
 
         else:
-            assert False, "Unsupported view mode option"
+            raise AssertionError("Unsupported view mode option")

@@ -96,7 +96,7 @@ class BasicShotgunModel(ShotgunModel, delegates.ViewItemRolesMixin):
     @classmethod
     def create_task_model(cls, task_manager, parent):
         """
-        Factory (and mostly a convenience) method to create a Shotgun model with Task data.
+        Factory (and mostly a convenience) method to create a SG model with Task data.
         """
 
         app = sgtk.platform.current_bundle()
@@ -154,7 +154,7 @@ class BasicShotgunModel(ShotgunModel, delegates.ViewItemRolesMixin):
 
         :param item: QStandardItem that is about to be added to the model. This has been primed
                      with the standard settings that the ShotgunModel handles.
-        :param sg_data: Shotgun data dictionary that was received from Shotgun given the fields
+        :param sg_data: SG data dictionary that was received from SG given the fields
                         and other settings specified in load_data()
         """
 
