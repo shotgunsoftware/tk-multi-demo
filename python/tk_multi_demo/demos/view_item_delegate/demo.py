@@ -11,7 +11,7 @@
 import sgtk
 from sgtk.platform.qt import QtCore, QtGui
 
-from .ui import resources_rc
+from .ui import resources_rc  # noqa
 
 from .basic_list_model import BasicListItemModel
 from .basic_shotgun_model import BasicShotgunModel
@@ -135,7 +135,7 @@ class ViewItemDelegateDemo(QtGui.QWidget):
 
             # Add a button action that will display a message box
             delegate.add_actions(
-                [{"name": "Menu", "padding": 2, "callback": self._show_menu},],
+                [{"name": "Menu", "padding": 2, "callback": self._show_menu}],
                 ViewItemDelegate.TOP_RIGHT,
             )
 
@@ -253,9 +253,7 @@ class ViewItemDelegateDemo(QtGui.QWidget):
                     index, index.model().VIEW_ITEM_SEPARATOR_ROLE
                 )
             )
-            menu.addActions(
-                [toggle_loading_action, toggle_separator_action,]
-            )
+            menu.addActions([toggle_loading_action, toggle_separator_action])
 
         # Non-index specific actions
         # Toggle showing loading indactors for all items
