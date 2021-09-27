@@ -152,7 +152,11 @@ class BasicListItemModel(QtCore.QAbstractListModel):
 
         if data_changed:
             # Something changed, emit the sigal
-            self.dataChanged.emit(index, index, [role])
+            try:
+                self.dataChanged.emit(index, index, [role])
+            except TypeError:
+                # Pyside version compaitbility
+                self.dataChanged.emit(index, index])
 
     def data(self, index, role=QtCore.Qt.DisplayRole):
         """
