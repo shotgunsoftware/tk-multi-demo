@@ -26,6 +26,10 @@ task_manager = sgtk.platform.import_framework(
     "tk-framework-shotgunutils", "task_manager"
 )
 
+shotgun_globals = sgtk.platform.import_framework(
+    "tk-framework-shotgunutils", "shotgun_globals"
+)
+
 
 class ViewItemDelegateDemo(QtGui.QWidget):
     """
@@ -46,6 +50,7 @@ class ViewItemDelegateDemo(QtGui.QWidget):
         super(ViewItemDelegateDemo, self).__init__(parent)
 
         self._bg_task_manager = task_manager.BackgroundTaskManager(self, True)
+        shotgun_globals.register_bg_task_manager(self._bg_task_manager)
 
         # Create two separate models to demonstrate how each type can be used with the ViewItemDelegate
         #
@@ -220,7 +225,14 @@ class ViewItemDelegateDemo(QtGui.QWidget):
         Destructor. Clean up.
         """
 
-        self._bg_task_manager.shut_down()
+        shotgun_globals.unregister_bg_task_manager(self._bg_task_manager)
+
+        try:
+            # shut down main threadpool
+            self._bg_task_manager.shut_down()
+        except Exception:
+            logger.exception("Error running closeEvent()")
+
 
     ######################################################################################################
     # ViewItemDelegate action callbacks. These methods are triggered by the ViewItemDelegaet when an
