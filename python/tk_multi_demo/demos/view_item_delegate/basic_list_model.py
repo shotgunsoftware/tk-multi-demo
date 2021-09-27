@@ -156,7 +156,7 @@ class BasicListItemModel(QtCore.QAbstractListModel):
                 self.dataChanged.emit(index, index, [role])
             except TypeError:
                 # Pyside version compaitbility
-                self.dataChanged.emit(index, index])
+                self.dataChanged.emit(index, index)
 
     def data(self, index, role=QtCore.Qt.DisplayRole):
         """
