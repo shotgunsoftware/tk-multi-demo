@@ -33,10 +33,8 @@ filtering = sgtk.platform.import_framework("tk-framework-qtwidgets", "filtering"
 FilterMenu = filtering.FilterMenu
 ShotgunFilterMenu = filtering.ShotgunFilterMenu
 FilterMenuButton = filtering.FilterMenuButton
-
-models = sgtk.platform.import_framework("tk-framework-qtwidgets", "models")
-FilterItemProxyModel = models.FilterItemProxyModel
-FilterItemTreeProxyModel = models.FilterItemTreeProxyModel
+FilterItemProxyModel = filtering.FilterItemProxyModel
+FilterItemTreeProxyModel = filtering.FilterItemTreeProxyModel
 
 
 class FilterMenuDemo(QtGui.QWidget):
