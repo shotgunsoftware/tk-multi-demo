@@ -123,12 +123,12 @@ class FilterMenuDemo(QtGui.QWidget):
         # Set up a combobox for the user to toggle the SG entity data to filter on.
         # A list of entity type examples to filter on. User may also type in other entity types
         # that do not appear in this list.
-        entity_types = ["Project", "Task", "HumanUser", "Asset", "Version"]
+        self._entity_types = ["Project", "Task", "HumanUser", "Asset", "Version"]
         self._entity_type_combo_box = QtGui.QComboBox(self)
-        self._entity_type_combo_box.addItems(entity_types)
+        self._entity_type_combo_box.addItems(self._entity_types)
         self._entity_type_combo_box.setEditable(True)
-        self._entity_type_combo_box.setCurrentText("Project")
-        self._entity_type_combo_box.currentTextChanged.connect(
+        self._entity_type_combo_box.setCurrentIndex(0)
+        self._entity_type_combo_box.currentIndexChanged.connect(
             self._entity_type_changed
         )
 
@@ -181,13 +181,15 @@ class FilterMenuDemo(QtGui.QWidget):
         initialize the menu with the current entity type.
         """
 
-        self._entity_type_changed(self._entity_type_combo_box.currentText())
+        self._entity_type_changed(self._entity_type_combo_box.currentIndex())
 
-    def _entity_type_changed(self, entity_type):
+    def _entity_type_changed(self, entity_index):
         """
         Update the UI based on the current SG entity type. Nothing to do if the model is set to the
         basic model data.
         """
+
+        entity_type = self._entity_types[entity_index]
 
         # Clear the menu of the previous entity filter items.
         self._sg_filter_menu.clear_menu()
