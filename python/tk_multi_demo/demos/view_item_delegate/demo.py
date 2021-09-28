@@ -233,7 +233,6 @@ class ViewItemDelegateDemo(QtGui.QWidget):
         except Exception:
             logger.exception("Error running closeEvent()")
 
-
     ######################################################################################################
     # ViewItemDelegate action callbacks. These methods are triggered by the ViewItemDelegaet when an
     # item's action is triggered (e.g. clicked)
