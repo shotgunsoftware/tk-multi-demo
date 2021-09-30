@@ -33,6 +33,8 @@ from .shotgun_hierarchy import ShotgunHierarchyDemo
 from .shotgun_globals import ShotgunGlobalsDemo
 from .spinner_widget import SpinnerWidgetDemo
 from .filter_menu import FilterMenuDemo
+from .shotgun_widget import ShotgunWidgetDemo
+from .view_item_delegate import ViewItemDelegateDemo
 
 # the default demo to display when the app starts up.
 DEMO_DEFAULT = HelpDemo
@@ -50,6 +52,7 @@ DEMOS_LIST = [
     NavigationDemo,
     NoteInputWidgetDemo,
     OverlayDemo,
+    ViewItemDelegateDemo,
     # PlaybackLabelDemo,         # TODO: turn back on when we have a good lookup for Version with media
     ScreenCaptureWidgetDemo,
     SearchWidgetDemo,
@@ -60,6 +63,7 @@ DEMOS_LIST = [
     ShotgunMenuDemo,
     FilterMenuDemo,
     SpinnerWidgetDemo,
+    ShotgunWidgetDemo,
     # TODO: view related classes
     "SG Utils Framework",
     # TODO: SG model
