@@ -32,6 +32,7 @@ from .shotgun_entity_model import ShotgunEntityModelDemo
 from .shotgun_hierarchy import ShotgunHierarchyDemo
 from .shotgun_globals import ShotgunGlobalsDemo
 from .spinner_widget import SpinnerWidgetDemo
+from .view_item_delegate import ViewItemDelegateDemo
 
 # the default demo to display when the app starts up.
 DEMO_DEFAULT = HelpDemo
@@ -49,6 +50,7 @@ DEMOS_LIST = [
     NavigationDemo,
     NoteInputWidgetDemo,
     OverlayDemo,
+    ViewItemDelegateDemo,
     # PlaybackLabelDemo,         # TODO: turn back on when we have a good lookup for Version with media
     ScreenCaptureWidgetDemo,
     SearchWidgetDemo,
