@@ -61,11 +61,11 @@ class ContextWidgetDemo(QtGui.QWidget):
         # This helps describe to the user why they're choosing a task or link.
         self._context_widget.set_task_tooltip(
             "<p>The task that the selected item will be associated with "
-            "the Shotgun entity being acted upon.</p>"
+            "the SG entity being acted upon.</p>"
         )
         self._context_widget.set_link_tooltip(
             "<p>The link that the selected item will be associated with "
-            "the Shotgun entity being acted upon.</p>"
+            "the SG entity being acted upon.</p>"
         )
 
         # connect the signal emitted by the selector widget when a context is

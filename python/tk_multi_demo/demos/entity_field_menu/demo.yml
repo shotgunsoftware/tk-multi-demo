@@ -14,11 +14,11 @@
 display_name: "Entity Field Menu"
 
 description:
-    The EntityFieldMenu class displays fields for a given Shotgun entity type
+    The EntityFieldMenu class displays fields for a given ShotGrid entity type
     including linked fields. Callbacks can be set to control which fields are
     visible, checked, and disabled when the menu is shown.
 
-documentation_url: "http://developer.shotgunsoftware.com/tk-framework-qtwidgets/shotgun_menus.html#entity-field-menu"
+documentation_url: "http://developer.shotgridsoftware.com/tk-framework-qtwidgets/shotgun_menus.html#entity-field-menu"
 
 frameworks:
     - {"name": "tk-framework-shotgunutils", "version": "v4.x.x"}

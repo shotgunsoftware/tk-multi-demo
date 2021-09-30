@@ -14,7 +14,7 @@ display_name: "Spinner"
 description:
     A simple animated progress spinner that can be used to indicate that something is loading.
 
-documentation_url: "http://developer.shotgunsoftware.com/tk-framework-qtwidgets/spinner_widget.html"
+documentation_url: "http://developer.shotgridsoftware.com/tk-framework-qtwidgets/spinner_widget.html"
 
 frameworks:
     - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}

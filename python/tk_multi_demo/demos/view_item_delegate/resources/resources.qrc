@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="tk_multi_demo_view_item_delegate">
+    <file>project_1.png</file>
+    <file>project_2.png</file>
+    <file>down_arrow.png</file>
+  </qresource>
+</RCC>

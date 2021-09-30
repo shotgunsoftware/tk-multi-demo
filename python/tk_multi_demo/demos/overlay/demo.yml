@@ -18,7 +18,7 @@ description:
     user. Once you have instantiated and placed it on top of another widget,
     you can execute various methods to control its state.
 
-documentation_url: "http://developer.shotgunsoftware.com/tk-framework-qtwidgets/overlay_widget.html#shotgunoverlaywidget"
+documentation_url: "http://developer.shotgridsoftware.com/tk-framework-qtwidgets/overlay_widget.html#shotgunoverlaywidget"
 
 frameworks:
     - {"name": "tk-framework-qtwidgets", "version": "v2.x.x"}
