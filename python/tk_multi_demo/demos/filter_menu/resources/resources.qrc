@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="tk_multi_demo_filtering">
+    <file>filter-active.png</file>
+    <file>filter-inactive.png</file>
+  </qresource>
+</RCC>

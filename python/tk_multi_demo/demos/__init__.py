@@ -32,6 +32,7 @@ from .shotgun_entity_model import ShotgunEntityModelDemo
 from .shotgun_hierarchy import ShotgunHierarchyDemo
 from .shotgun_globals import ShotgunGlobalsDemo
 from .spinner_widget import SpinnerWidgetDemo
+from .filter_menu import FilterMenuDemo
 from .shotgun_widget import ShotgunWidgetDemo
 from .view_item_delegate import ViewItemDelegateDemo
 
@@ -60,6 +61,7 @@ DEMOS_LIST = [
     CustomFieldWidgetDemo,
     EntityFieldMenuDemo,
     ShotgunMenuDemo,
+    FilterMenuDemo,
     SpinnerWidgetDemo,
     ShotgunWidgetDemo,
     # TODO: view related classes
