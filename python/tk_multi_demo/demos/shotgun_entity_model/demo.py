@@ -87,6 +87,10 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         layout.addWidget(info_lbl)
         layout.addWidget(self._entity_view)
 
+        timer = QtCore.QTimer(parent)
+        timer.timeout.connect(self._refresh_data)
+        timer.start(5000)
+
     def _refresh_data(self):
         logger.debug("=" * 60)
         logger.debug("Refreshing data")
