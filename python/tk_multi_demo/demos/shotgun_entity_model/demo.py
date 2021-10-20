@@ -11,6 +11,8 @@
 import sgtk
 from sgtk.platform.qt import QtCore, QtGui
 
+logger = sgtk.platform.get_logger(__name__)
+
 # import the shotgun model module from shotgunutils framework
 shotgun_model = sgtk.platform.import_framework(
     "tk-framework-shotgunutils", "shotgun_model"
@@ -26,8 +28,18 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         """
         Return the ``QtGui.QWidget`` instance for this demo.
         """
+        # import sys
+        # sys.path.append(r"/Users/ariel.calzada/Library/Application Support/JetBrains/Toolbox/apps/PyCharm-P/ch-0/212.5284.44/PyCharm.app/Contents/debug-eggs/pydevd-pycharm.egg")
+        # import pydevd
+        # pydevd.settrace('localhost', port=5490, stdoutToServer=True,
+        #                 stderrToServer=True)
 
         super(ShotgunEntityModelDemo, self).__init__(parent)
+
+        osx_f5_refresh_action = QtGui.QAction("Refresh (F5)", self)
+        osx_f5_refresh_action.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_F5))
+        osx_f5_refresh_action.triggered.connect(self._refresh_data)
+        self.addAction(osx_f5_refresh_action)
 
         # see if we can determine the current project. if we can, only show the
         # assets for this project.
@@ -74,6 +86,12 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(info_lbl)
         layout.addWidget(self._entity_view)
+
+    def _refresh_data(self):
+        logger.debug("=" * 60)
+        logger.debug("Refreshing data")
+        logger.debug("=" * 60)
+        self._entity_model.async_refresh()
 
     def destroy(self):
         """
