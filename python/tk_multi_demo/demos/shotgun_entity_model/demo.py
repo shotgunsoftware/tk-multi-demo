@@ -57,11 +57,30 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         self._entity_view.sortByColumn(0, QtCore.Qt.AscendingOrder)
 
         # construct an entity model then load some data.
+        # self._entity_model = shotgun_model.ShotgunEntityModel(
+        #     "Asset",  # entity type
+        #     [filters],  # filters
+        #     ["project.Project.name", "sg_asset_type", "code"],  # hierarchy
+        #     ["description", "id", "project", "sg_asset_type"],  # fields
+        #     self,
+        # )
+
+        fields = [
+            "code",
+            "sg_status_list",
+            "sg_sequence.Sequence.code",
+            "tasks",
+        ]
+        hierarchy = [
+            "sg_sequence.Sequence.code",
+            "code",
+            "tasks"
+        ]
         self._entity_model = shotgun_model.ShotgunEntityModel(
-            "Asset",  # entity type
+            "Shot",  # entity type
             [filters],  # filters
-            ["project.Project.name", "sg_asset_type", "code"],  # hierarchy
-            ["description", "id", "project", "sg_asset_type"],  # fields
+            hierarchy,  # hierarchy
+            fields,  # fields
             self,
         )
 
