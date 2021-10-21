@@ -460,7 +460,7 @@ class DemoWidget(QtGui.QSplitter):
 
         # now try to parse it
         try:
-            demo_info = yaml.load(fh)
+            demo_info = yaml.load(fh, Loader=yaml.FullLoader)
         except Exception as e:
             logger.error(
                 "Could not parse demo manifest file '%s'.\n"
