@@ -11,12 +11,88 @@
 import sgtk
 from sgtk.platform.qt import QtCore, QtGui
 
-logger = sgtk.platform.get_logger(__name__)
-
 # import the shotgun model module from shotgunutils framework
 shotgun_model = sgtk.platform.import_framework(
     "tk-framework-shotgunutils", "shotgun_model"
 )
+shotgun_model_widgets = sgtk.platform.import_framework("tk-framework-qtwidgets", "models")
+HierarchicalFilteringProxyModel = shotgun_model_widgets.HierarchicalFilteringProxyModel
+
+class SGSortFilterProxyModel(HierarchicalFilteringProxyModel):
+    """
+    A HierarchicalFilteringProxyModel allowing to only show tasks for the current
+    user and filter on any column value.
+    """
+
+    def __init__(self, *args, **kwargs):
+        """
+        Instantiate a new :class:`SGSortFilterProxyModel`.
+        """
+        super(SGSortFilterProxyModel, self).__init__(*args, **kwargs)
+        self._my_tasks_only = False
+        app = sgtk.platform.current_bundle()
+        context = app.context
+        self._current_user = context.user
+        # Allow matching on all columns
+        self.setFilterKeyColumn(-1)
+
+    def invalidate_filter(self):
+        """
+        Invalidate the current filter which forces it to be re-evaluated.
+        """
+        self._dirty_all_accepted()  # Needed to not have parents with no child
+        self.invalidateFilter()
+
+    def show_my_tasks_only(self, value):
+        """
+        Control the current user filter mode.
+        """
+        self._my_tasks_only = value
+        self.invalidate_filter()
+
+    def _is_row_accepted(self, src_row, src_parent_idx, parent_accepted):
+        """
+        Accept or reject the given row, depending on curret filter.
+
+        :param src_row: The row in the source model to filter.
+        :param src_parent_idx: The parent QModelIndex instance to filter.
+        :param parent_accepted: ``True`` if a parent item has been accepted by the filter.
+        :returns: ``True`` if this index should be accepted, otherwise ``False``.
+        """
+        # Ensure everything is loaded before filtering it
+        # TODO: find a better way to handle this since this can cause performance
+        # issues on large set of data.
+        src_model = self.sourceModel()
+        src_model.ensure_data_is_loaded()
+        if self._my_tasks_only:
+            # Get the source index for the row:
+
+            src_idx = src_model.index(src_row, 0, src_parent_idx)
+            item = src_model.itemFromIndex(src_idx)
+            sg_entity = src_model.get_entity(item)
+            if sg_entity:
+                for assignee in sg_entity["task_assignees"]:
+                    if(
+                        assignee["type"] == self._current_user["type"]
+                        and assignee["id"] == self._current_user["id"]
+                    ):
+                        break
+                else:
+                    # It will be accepted if needed when children are checked
+                    return False
+            else:
+                return False
+        if parent_accepted:
+            # The parent was accepted, it means a match happened for it, don't
+            # try to match anything at this level
+            return True
+
+        # Call base implementation
+        return QtGui.QSortFilterProxyModel.filterAcceptsRow(
+            self,
+            src_row,
+            src_parent_idx
+        )
 
 
 class ShotgunEntityModelDemo(QtGui.QWidget):
@@ -28,24 +104,18 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         """
         Return the ``QtGui.QWidget`` instance for this demo.
         """
-        # import sys
-        # sys.path.append(r"/Users/ariel.calzada/Library/Application Support/JetBrains/Toolbox/apps/PyCharm-P/ch-0/212.5284.44/PyCharm.app/Contents/debug-eggs/pydevd-pycharm.egg")
-        # import pydevd
-        # pydevd.settrace('localhost', port=5490, stdoutToServer=True,
-        #                 stderrToServer=True)
 
         super(ShotgunEntityModelDemo, self).__init__(parent)
 
-        osx_f5_refresh_action = QtGui.QAction("Refresh (F5)", self)
-        osx_f5_refresh_action.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_F5))
-        osx_f5_refresh_action.triggered.connect(self._refresh_data)
-        self.addAction(osx_f5_refresh_action)
-
-        # see if we can determine the current project. if we can, only show the
-        # assets for this project.
+        # see if we can determine the current project. if we can, only show
+        # Tasks which are attached to a Shot where the Sequence is ip.
         self._app = sgtk.platform.current_bundle()
         if self._app.context.project:
-            filters = ["project", "is", self._app.context.project]
+            filters = [
+                ["project", "is", self._app.context.project],
+                ["entity", "type_is", "Shot"],
+                ["entity.Shot.sg_sequence.Sequence.sg_status_list", "is", "ip"],
+            ]
         else:
             filters = []
 
@@ -55,55 +125,36 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         self._entity_view.setUniformRowHeights(True)
         self._entity_view.setSortingEnabled(True)
         self._entity_view.sortByColumn(0, QtCore.Qt.AscendingOrder)
-
+        self._refresh_action = QtGui.QAction("Refresh...", self._entity_view)
+        self._refresh_action.triggered.connect(self._refresh)
+        self._entity_view.addAction(self._refresh_action)
+        self._entity_view.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         # construct an entity model then load some data.
-        # self._entity_model = shotgun_model.ShotgunEntityModel(
-        #     "Asset",  # entity type
-        #     [filters],  # filters
-        #     ["project.Project.name", "sg_asset_type", "code"],  # hierarchy
-        #     ["description", "id", "project", "sg_asset_type"],  # fields
-        #     self,
-        # )
-
-        fields = [
-            "code",
-            "sg_status_list",
-            "sg_sequence.Sequence.code",
-            "tasks",
-        ]
-        hierarchy = [
-            "sg_sequence.Sequence.code",
-            "code",
-            "tasks"
-        ]
-        # self._entity_model = shotgun_model.ShotgunEntityModel(
-        #     "Shot",  # entity type
-        #     [filters],  # filters
-        #     hierarchy,  # hierarchy
-        #     fields,  # fields
-        #     self,
-        # )
-
-        self._entity_model = shotgun_model.ShotgunDeferredEntityModel(
-            # Main query: retrieve Shots and group them by Sequences.
-            "Shot",
-            [],
-            ["sg_sequence", "code"],
-            # Deferred query: retrieve Tasks using the "entity" field to retrieve
-            # Tasks for a given Shot, group Tasks by their pipeline Step.
-            {
-                "entity_type": "Task",
-                "link_field": "entity",
-                "filters": [],
-                "hierarchy": ["step"]
-            }
+        self._entity_model = shotgun_model.ShotgunEntityModel(
+            entity_type="Task",
+            filters=filters,
+            hierarchy=[
+                "entity.Shot.sg_sequence.Sequence.code",
+                "entity.Shot.id",
+            ],
+            fields=[
+                "entity.Shot.code", "entity.Shot.id",
+                "description", "sg_status_list", "task_assignees",
+                "entity.Shot.sg_sequence", "entity.Shot.sg_sequence.sg_status_list",
+            ],
+            parent=self,
+            bg_load_thumbs=True,
+            download_thumbs=True,
         )
+        self._entity_model.data_refresh_fail.connect(self._refresh_ended)
+        self._entity_model.data_refreshed.connect(self._refresh_ended)
 
         # refresh the data to ensure it is up-to-date
         self._entity_model.async_refresh()
 
         # create a proxy model to sort the model
-        self._entity_proxy_model = QtGui.QSortFilterProxyModel(self)
+        self._entity_proxy_model = SGSortFilterProxyModel(self)
+#        self._entity_proxy_model = QtGui.QSortFilterProxyModel(self)
         self._entity_proxy_model.setDynamicSortFilter(True)
 
         # set the proxy model's source to the entity model
@@ -112,24 +163,21 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         # set the proxy model as the data source for the view
         self._entity_view.setModel(self._entity_proxy_model)
 
-        info_lbl = QtGui.QLabel(
+        self._info_lbl = QtGui.QLabel(
             "This demo shows how to use the <tt>ShotgunEntityModel</tt> to "
             "display a hierarchy of <b>Asset</b> entities."
         )
 
         layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(info_lbl)
+        layout.addWidget(self._info_lbl)
         layout.addWidget(self._entity_view)
 
-        timer = QtCore.QTimer(parent)
-        timer.timeout.connect(self._refresh_data)
-        timer.start(5000)
-
-    def _refresh_data(self):
-        logger.debug("=" * 60)
-        logger.debug("Refreshing data")
-        logger.debug("=" * 60)
+    def _refresh(self):
+        self._info_lbl.setText("Refreshing SG data")
         self._entity_model.async_refresh()
+
+    def _refresh_ended(self):
+        self._info_lbl.setText("SG Data refreshed")
 
     def destroy(self):
         """
