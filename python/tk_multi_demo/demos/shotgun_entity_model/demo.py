@@ -76,12 +76,27 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
             "code",
             "tasks"
         ]
-        self._entity_model = shotgun_model.ShotgunEntityModel(
-            "Shot",  # entity type
-            [filters],  # filters
-            hierarchy,  # hierarchy
-            fields,  # fields
-            self,
+        # self._entity_model = shotgun_model.ShotgunEntityModel(
+        #     "Shot",  # entity type
+        #     [filters],  # filters
+        #     hierarchy,  # hierarchy
+        #     fields,  # fields
+        #     self,
+        # )
+
+        self._entity_model = shotgun_model.ShotgunDeferredEntityModel(
+            # Main query: retrieve Shots and group them by Sequences.
+            "Shot",
+            [],
+            ["sg_sequence", "code"],
+            # Deferred query: retrieve Tasks using the "entity" field to retrieve
+            # Tasks for a given Shot, group Tasks by their pipeline Step.
+            {
+                "entity_type": "Task",
+                "link_field": "entity",
+                "filters": [],
+                "hierarchy": ["step"]
+            }
         )
 
         # refresh the data to ensure it is up-to-date
