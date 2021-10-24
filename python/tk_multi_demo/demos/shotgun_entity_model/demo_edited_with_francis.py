@@ -13,19 +13,15 @@ from sgtk.platform.qt import QtCore, QtGui
 
 # import the shotgun model module from shotgunutils framework
 shotgun_model = sgtk.platform.import_framework(
-    "tk-framework-shotgunutils",
-    "shotgun_model"
+    "tk-framework-shotgunutils", "shotgun_model"
 )
-shotgun_model_widgets = sgtk.platform.import_framework(
-    "tk-framework-qtwidgets", "models")
-HierarchicalFilteringProxyModel = shotgun_model_widgets.\
-    HierarchicalFilteringProxyModel
-
+shotgun_model_widgets = sgtk.platform.import_framework("tk-framework-qtwidgets", "models")
+HierarchicalFilteringProxyModel = shotgun_model_widgets.HierarchicalFilteringProxyModel
 
 class SGSortFilterProxyModel(HierarchicalFilteringProxyModel):
     """
-    A HierarchicalFilteringProxyModel allowing to only show tasks for the
-    current user and filter on any column value.
+    A HierarchicalFilteringProxyModel allowing to only show tasks for the current
+    user and filter on any column value.
     """
 
     def __init__(self, *args, **kwargs):
@@ -108,12 +104,6 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         """
         Return the ``QtGui.QWidget`` instance for this demo.
         """
-        # import sys
-        # sys.path.append(r"/Users/ariel.calzada/Library/Application Support/JetBrains/Toolbox/apps/PyCharm-P/ch-0/212.5457.59/PyCharm.app/Contents/debug-eggs/pydevd-pycharm.egg")
-        # import pydevd
-        # pydevd.settrace('localhost', port=5490, stdoutToServer=True,
-        #                 stderrToServer=True)
-
 
         super(ShotgunEntityModelDemo, self).__init__(parent)
 
@@ -145,10 +135,12 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
             filters=filters,
             hierarchy=[
                 "entity.Shot.sg_sequence.Sequence.code",
-                # "entity.Shot.id",
                 "entity.Shot.code",
+                # "entity.Shot.id",
+                # "content",
             ],
             fields=[
+                # "content"
                 "entity.Shot.code",
                 "entity.Shot.id",
                 "description",
@@ -176,8 +168,7 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         self._entity_proxy_model.setSourceModel(self._entity_model)
 
         # set the proxy model as the data source for the view
-        # self._entity_view.setModel(self._entity_proxy_model)
-        self._entity_view.setModel(self._entity_model)
+        self._entity_view.setModel(self._entity_proxy_model)
 
         self._info_lbl = QtGui.QLabel(
             "This demo shows how to use the <tt>ShotgunEntityModel</tt> to "
