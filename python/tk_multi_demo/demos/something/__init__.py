@@ -63,13 +63,14 @@ class SGSortFilterProxyModel(HierarchicalFilteringProxyModel):
         # TODO: find a better way to handle this since this can cause performance
         # issues on large set of data.
         src_model = self.sourceModel()
-        src_model.ensure_data_is_loaded()
+        print(self._current_user)
         if self._my_tasks_only:
             # Get the source index for the row:
 
             src_idx = src_model.index(src_row, 0, src_parent_idx)
             item = src_model.itemFromIndex(src_idx)
             sg_entity = src_model.get_entity(item)
+            print(sg_entity)
             if sg_entity:
                 for assignee in sg_entity["task_assignees"]:
                     if(
@@ -106,6 +107,8 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         """
 
         super(ShotgunEntityModelDemo, self).__init__(parent)
+
+        self._show_my_tasks_only = False
 
         # see if we can determine the current project. if we can, only show
         # Tasks which are attached to a Shot where the Sequence is ip.
@@ -149,20 +152,6 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         self._entity_model.data_refresh_fail.connect(self._refresh_ended)
         self._entity_model.data_refreshed.connect(self._refresh_ended)
 
-        # refresh the data to ensure it is up-to-date
-        self._entity_model.async_refresh()
-
-        # create a proxy model to sort the model
-        self._entity_proxy_model = SGSortFilterProxyModel(self)
-#        self._entity_proxy_model = QtGui.QSortFilterProxyModel(self)
-        self._entity_proxy_model.setDynamicSortFilter(True)
-
-        # set the proxy model's source to the entity model
-        self._entity_proxy_model.setSourceModel(self._entity_model)
-
-        # set the proxy model as the data source for the view
-        self._entity_view.setModel(self._entity_proxy_model)
-
         self._info_lbl = QtGui.QLabel(
             "This demo shows how to use the <tt>ShotgunEntityModel</tt> to "
             "display a hierarchy of <b>Asset</b> entities."
@@ -172,12 +161,28 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         layout.addWidget(self._info_lbl)
         layout.addWidget(self._entity_view)
 
+        # refresh the data to ensure it is up-to-date
+        self._entity_model.async_refresh()
+
     def _refresh(self):
         self._info_lbl.setText("Refreshing SG data")
+        self._entity_view.setModel(None)
         self._entity_model.async_refresh()
 
     def _refresh_ended(self):
         self._info_lbl.setText("SG Data refreshed")
+        # create a proxy model to sort the model
+        self._show_my_tasks_only = not self._show_my_tasks_only
+        self._entity_proxy_model = SGSortFilterProxyModel(self)
+        self._entity_proxy_model.show_my_tasks_only(self._show_my_tasks_only)
+#        self._entity_proxy_model = QtGui.QSortFilterProxyModel(self)
+        self._entity_proxy_model.setDynamicSortFilter(True)
+
+        # set the proxy model's source to the entity model
+        self._entity_proxy_model.setSourceModel(self._entity_model)
+
+        # set the proxy model as the data source for the view
+        self._entity_view.setModel(self._entity_proxy_model)
 
     def destroy(self):
         """
