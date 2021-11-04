@@ -35,6 +35,7 @@ from .spinner_widget import SpinnerWidgetDemo
 from .filter_menu import FilterMenuDemo
 from .shotgun_widget import ShotgunWidgetDemo
 from .view_item_delegate import ViewItemDelegateDemo
+from .something import ShotgunEntityModelDemo
 
 # the default demo to display when the app starts up.
 DEMO_DEFAULT = HelpDemo
