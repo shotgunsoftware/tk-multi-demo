@@ -19,7 +19,7 @@ description:
     will then reflect the basic model data in its filter menu options.
 
 # TODO add documentation at this link
-documentation_url: http://developer.shotgunsoftware.com/tk-framework-qtwidgets/filtering
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/filtering
 
 frameworks:
 # TODO ensure the minimum version is correct before releasing

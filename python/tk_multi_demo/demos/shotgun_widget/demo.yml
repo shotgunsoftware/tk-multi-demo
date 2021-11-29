@@ -17,7 +17,7 @@ description:
     displayed in the top left, top right and main body of these widgets can be easily customized.
 
 # TODO add documentation at this link
-documentation_url: http://developer.shotgunsoftware.com/tk-framework-qtwidgets/shotgun_widget
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/shotgun_widget
 
 frameworks:
 # TODO ensure the minimum version is correct before releasing
