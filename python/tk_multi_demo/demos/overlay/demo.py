@@ -50,7 +50,7 @@ class OverlayDemo(QtGui.QWidget):
             lambda: overlay_widget.show_message(
                 "Showing this message in the overlay widget.\n"
                 "The underlying label is now covered by the overlay.\n\n"
-                "You can even use <a href='https://www.shotgunsoftware.com'>hyperlinks</a>!"
+                "You can even use <a href='https://www.shotgridsoftware.com'>hyperlinks</a>!"
             )
         )
 
@@ -69,7 +69,7 @@ class OverlayDemo(QtGui.QWidget):
                 "Showing this error message in the overlay widget.\nNote the "
                 "show_message() and show_message_pixmap() calls won't work "
                 "when this is displayed.\n\n"
-                "You can even use <a href='https://www.shotgunsoftware.com'>hyperlinks</a>!"
+                "You can even use <a href='https://www.shotgridsoftware.com'>hyperlinks</a>!"
             )
         )
 
