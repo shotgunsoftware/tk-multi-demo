@@ -20,7 +20,7 @@ description:
     are available.
 
 # TODO add documentation at this link
-documentation_url: http://developer.shotgunsoftware.com/tk-framework-qtwidgets/delegates
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/delegates
 
 frameworks:
 # TODO ensure the minimum version is correct before releasing
