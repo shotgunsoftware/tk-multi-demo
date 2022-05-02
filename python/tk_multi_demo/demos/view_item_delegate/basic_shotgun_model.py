@@ -40,8 +40,9 @@ class BasicShotgunModel(ShotgunModel, delegates.ViewItemRolesMixin):
     # 'NEXT_AVAILABLE_ROLE' (e.g. the NEXT_AVAILABLE_ROLE shoudl always be the last role in the enum list).
     _BASE_ROLE = QtCore.Qt.UserRole + 100
     (
+        BUTTON_STATE_ROLE,
         NEXT_AVAILABLE_ROLE,  # Keep track of the next available custome role. Insert new roles above.
-    ) = range(_BASE_ROLE, _BASE_ROLE + 1)
+    ) = range(_BASE_ROLE, _BASE_ROLE + 2)
 
     def __init__(
         self, entity_type, filters, fields, sort_field, bg_task_manager, parent

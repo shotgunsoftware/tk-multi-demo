@@ -35,6 +35,8 @@ from .spinner_widget import SpinnerWidgetDemo
 from .filter_menu import FilterMenuDemo
 from .shotgun_widget import ShotgunWidgetDemo
 from .view_item_delegate import ViewItemDelegateDemo
+from .sg_qicons import SGQIconDemo
+from .sg_qwidgets import SGQWidgetsDemo
 
 # the default demo to display when the app starts up.
 DEMO_DEFAULT = HelpDemo
@@ -64,6 +66,8 @@ DEMOS_LIST = [
     FilterMenuDemo,
     SpinnerWidgetDemo,
     ShotgunWidgetDemo,
+    SGQIconDemo,
+    SGQWidgetsDemo,
     # TODO: view related classes
     "SG Utils Framework",
     # TODO: SG model
