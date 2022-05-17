@@ -94,9 +94,24 @@ class FilterMenuDemo(QtGui.QWidget):
                     "Field Name 3": "field name 3 value 2",
                 }
             ],
-            [{"Number Field": 1, "Bool Field": True,}],
-            [{"Number Field": 2, "Bool Field": False,}],
-            [{"Number Field": 2, "Bool Field": True,}],
+            [
+                {
+                    "Number Field": 1,
+                    "Bool Field": True,
+                }
+            ],
+            [
+                {
+                    "Number Field": 2,
+                    "Bool Field": False,
+                }
+            ],
+            [
+                {
+                    "Number Field": 2,
+                    "Bool Field": True,
+                }
+            ],
         ]
         self._basic_source_model = BasicModel()
         self._basic_source_model.set_internal_data(basic_model_data)
@@ -201,7 +216,10 @@ class FilterMenuDemo(QtGui.QWidget):
         # Load the data for the new entity type. The 'data_refreshed' signal from the SG model will
         # trigger the menu to update based on the new data.
         self._sg_source_model.load_data(
-            entity_type, fields=fields, columns=fields, limit=20,
+            entity_type,
+            fields=fields,
+            columns=fields,
+            limit=20,
         )
 
     def _set_model(self, state):
