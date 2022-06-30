@@ -1,0 +1,22 @@
+# Copyright (c) 2021 Autodesk, Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Autodesk, Inc.
+
+display_name: "Message Box"
+
+description:
+    The MessageBox class provides a more flexible dialog for message than the standard Qt
+    message box (QMessageBox). It allows ordering the buttons as desired, provides a
+    checkbox widget that can be used to remember the user selection, details can always
+    be shown or toggled by a button that is always left-aligned, and the toggle details
+    button text can be set.
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/message_box
+
+frameworks:
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.10.4"}
