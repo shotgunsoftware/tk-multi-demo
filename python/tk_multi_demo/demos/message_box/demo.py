@@ -104,8 +104,7 @@ class MessageBoxDemo(QtGui.QWidget):
         self.setLayout(vlayout)
 
     def _show_message_box(self):
-        """
-        """
+        """ """
 
         msg_box = MessageBox(self)
         msg_box.setWindowTitle("MessageBox Demo")
@@ -142,13 +141,11 @@ class MessageBoxDemo(QtGui.QWidget):
         )
 
     def _set_always_show_details(self, checked=False):
-        """
-        """
+        """ """
 
         self._always_show_details = not self._always_show_details
 
     def _set_show_remember_checkbox(self, checked=False):
-        """
-        """
+        """ """
 
         self._show_remember_checkbox = not self._show_remember_checkbox

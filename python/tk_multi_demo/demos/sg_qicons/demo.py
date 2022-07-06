@@ -28,21 +28,51 @@ class SGQIconDemo(QtGui.QWidget):
         super(SGQIconDemo, self).__init__(parent)
 
         self._icons = [
-            {"icon": SGQIcon.ValidationOk,},
-            {"icon": SGQIcon.ValidationError,},
-            {"icon": SGQIcon.ValidationWarning,},
-            {"icon": SGQIcon.RedRefresh,},
-            {"icon": SGQIcon.Lock,},
-            {"icon": SGQIcon.GreenCheckMark,},
-            {"icon": SGQIcon.RedCheckMark,},
-            {"icon": SGQIcon.RedBullet,},
-            {"icon": SGQIcon.Filter,},
-            {"icon": SGQIcon.Info,},
-            {"icon": SGQIcon.TreeArrow,},
-            {"icon": SGQIcon.ListViewMode,},
-            {"icon": SGQIcon.ThumbnailViewMode,},
-            {"icon": SGQIcon.GridViewMode,},
-            {"icon": SGQIcon.Toggle,},
+            {
+                "icon": SGQIcon.ValidationOk,
+            },
+            {
+                "icon": SGQIcon.ValidationError,
+            },
+            {
+                "icon": SGQIcon.ValidationWarning,
+            },
+            {
+                "icon": SGQIcon.RedRefresh,
+            },
+            {
+                "icon": SGQIcon.Lock,
+            },
+            {
+                "icon": SGQIcon.GreenCheckMark,
+            },
+            {
+                "icon": SGQIcon.RedCheckMark,
+            },
+            {
+                "icon": SGQIcon.RedBullet,
+            },
+            {
+                "icon": SGQIcon.Filter,
+            },
+            {
+                "icon": SGQIcon.Info,
+            },
+            {
+                "icon": SGQIcon.TreeArrow,
+            },
+            {
+                "icon": SGQIcon.ListViewMode,
+            },
+            {
+                "icon": SGQIcon.ThumbnailViewMode,
+            },
+            {
+                "icon": SGQIcon.GridViewMode,
+            },
+            {
+                "icon": SGQIcon.Toggle,
+            },
         ]
 
         # Build and layout the UI.
