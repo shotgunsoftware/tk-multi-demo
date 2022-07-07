@@ -83,7 +83,7 @@ class SGQIconDemo(QtGui.QWidget):
         Build the UI.
         """
 
-        vlayout = QtGui.QVBoxLayout(self)
+        vlayout = QtGui.QVBoxLayout()
 
         info = QtGui.QLabel(
             "Click the icons to toggle between inactive and active states (if available). Hover to see more information about each icon."
