@@ -106,7 +106,7 @@ class MessageBoxDemo(QtGui.QWidget):
     def _show_message_box(self):
         """ """
 
-        msg_box = MessageBox(self)
+        msg_box = MessageBox()
         msg_box.setWindowTitle("MessageBox Demo")
 
         msg_box.set_text("This is the message box text.")
