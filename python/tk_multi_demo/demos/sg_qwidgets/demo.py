@@ -93,7 +93,7 @@ class SGQWidgetsDemo(QtGui.QWidget):
         label = sg_qwidgets.SGQLabel("SGQLabel widget")
         checkbox = sg_qwidgets.SGQCheckBox("SGQCheckBox widget")
         push_button = sg_qwidgets.SGQPushButton("SGQPushButton widget")
-        tool_button = sg_qwidgets.SGQToolButton(self, sg_qicons.SGQIcon.Info())
+        tool_button = sg_qwidgets.SGQToolButton(self, sg_qicons.SGQIcon.info())
 
         # Widgets layout
         hlayout = QtGui.QHBoxLayout()

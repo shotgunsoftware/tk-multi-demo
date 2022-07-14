@@ -29,49 +29,49 @@ class SGQIconDemo(QtGui.QWidget):
 
         self._icons = [
             {
-                "icon": SGQIcon.ValidationOk,
+                "icon": SGQIcon.validation_ok,
             },
             {
-                "icon": SGQIcon.ValidationError,
+                "icon": SGQIcon.validation_error,
             },
             {
-                "icon": SGQIcon.ValidationWarning,
+                "icon": SGQIcon.validation_warning,
             },
             {
-                "icon": SGQIcon.RedRefresh,
+                "icon": SGQIcon.red_refresh,
             },
             {
-                "icon": SGQIcon.Lock,
+                "icon": SGQIcon.lock,
             },
             {
-                "icon": SGQIcon.GreenCheckMark,
+                "icon": SGQIcon.green_check_mark,
             },
             {
-                "icon": SGQIcon.RedCheckMark,
+                "icon": SGQIcon.red_check_mark,
             },
             {
-                "icon": SGQIcon.RedBullet,
+                "icon": SGQIcon.red_bullet,
             },
             {
-                "icon": SGQIcon.Filter,
+                "icon": SGQIcon.filter,
             },
             {
-                "icon": SGQIcon.Info,
+                "icon": SGQIcon.info,
             },
             {
-                "icon": SGQIcon.TreeArrow,
+                "icon": SGQIcon.tree_arrow,
             },
             {
-                "icon": SGQIcon.ListViewMode,
+                "icon": SGQIcon.list_view_mode,
             },
             {
-                "icon": SGQIcon.ThumbnailViewMode,
+                "icon": SGQIcon.thumbnaili_view_mode,
             },
             {
-                "icon": SGQIcon.GridViewMode,
+                "icon": SGQIcon.grid_view_mode,
             },
             {
-                "icon": SGQIcon.Toggle,
+                "icon": SGQIcon.toggle,
             },
         ]
 
