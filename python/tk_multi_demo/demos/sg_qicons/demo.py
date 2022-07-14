@@ -65,7 +65,7 @@ class SGQIconDemo(QtGui.QWidget):
                 "icon": SGQIcon.list_view_mode,
             },
             {
-                "icon": SGQIcon.thumbnaili_view_mode,
+                "icon": SGQIcon.thumbnail_view_mode,
             },
             {
                 "icon": SGQIcon.grid_view_mode,
