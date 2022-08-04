@@ -38,6 +38,12 @@ class SGQIconDemo(QtGui.QWidget):
                 "icon": SGQIcon.validation_warning,
             },
             {
+                "icon": SGQIcon.transparent_refresh,
+            },
+            {
+                "icon": SGQIcon.grey_refresh,
+            },
+            {
                 "icon": SGQIcon.red_refresh,
             },
             {
@@ -72,6 +78,9 @@ class SGQIconDemo(QtGui.QWidget):
             },
             {
                 "icon": SGQIcon.toggle,
+            },
+            {
+                "icon": SGQIcon.refresh,
             },
         ]
 
