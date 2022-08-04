@@ -20,6 +20,7 @@ from .basic_shotgun_model import BasicShotgunModel
 delegates = sgtk.platform.import_framework("tk-framework-qtwidgets", "delegates")
 ThumbnailViewItemDelegate = delegates.ThumbnailViewItemDelegate
 ViewItemDelegate = delegates.ViewItemDelegate
+ViewItemAction = delegates.ViewItemAction
 
 # import the task_manager and shotgun_model modules from shotgunutils framework
 task_manager = sgtk.platform.import_framework(
@@ -140,8 +141,27 @@ class ViewItemDelegateDemo(QtGui.QWidget):
 
             # Add a button action that will display a message box
             delegate.add_actions(
-                [{"name": "Menu", "padding": 2, "callback": self._show_menu}],
+                [
+                    {"name": "Menu", "padding": 2, "callback": self._show_menu},
+                    {
+                        "name": "Click to Disable Me",
+                        "show_always": True,
+                        "padding": 2,
+                        "callback": self._toggle_button_state,
+                        "get_data": self._get_button_data,
+                    },
+                ],
                 ViewItemDelegate.TOP_RIGHT,
+            )
+            delegate.add_actions(
+                [
+                    {
+                        "type": ViewItemAction.TYPE_CHECK_BOX,
+                        "show_always": True,
+                        "get_data": self._get_checkbox_data,
+                    },
+                ],
+                ViewItemDelegate.LEFT,
             )
 
         # Add some padding around the item rect
@@ -303,6 +323,73 @@ class ViewItemDelegateDemo(QtGui.QWidget):
                 "Each action button can have their own callback method to execute sepcifically for the action and current index."
             ).format(row=index.row(), col=index.column()),
         )
+
+    def _toggle_button_state(self, view, index, pos):
+        """
+        Callback triggered when the button is clicked.
+        """
+
+        current_state = index.data(index.model().BUTTON_STATE_ROLE) or True
+        index.model().setData(index, not current_state, index.model().BUTTON_STATE_ROLE)
+
+    def _get_button_data(self, parent, index):
+        """
+        Callback function triggered by the ViewItemDelegate.
+
+        Get the data for displaying the button.
+
+        :param parent: The parent of the ViewItemDelegate which triggered this callback
+        :type parent: QAbstractItemView
+        :param index: The index the action is for.
+        :type index: :class:`sgtk.platform.qt.QtCore.QModelIndex`
+
+        :return: The data for the action and index.
+        :rtype: dict (see the ViewItemAction class attribute `get_data` for more details)
+        """
+
+        button_state = index.data(index.model().BUTTON_STATE_ROLE)
+        is_enabled = button_state or button_state is None
+        state = QtGui.QStyle.State_Active
+        if is_enabled:
+            state |= QtGui.QStyle.State_Enabled
+
+        return {
+            "visible": True,
+            "state": state,
+            "name": "Click to Disable Me"
+            if is_enabled
+            else "I am forever Disabled now",
+        }
+
+    def _get_checkbox_data(self, parent, index):
+        """
+        Callback function triggered by the ViewItemDelegate.
+
+        Get the data for displaying the checkbox action.
+
+        :param parent: The parent of the ViewItemDelegate which triggered this callback
+        :type parent: QAbstractItemView
+        :param index: The index the action is for.
+        :type index: :class:`sgtk.platform.qt.QtCore.QModelIndex`
+
+        :return: The data for the action and index.
+        :rtype: dict (see the ViewItemAction class attribute `get_data` for more details)
+        """
+
+        checkbox_state = index.data(QtCore.Qt.CheckStateRole)
+
+        state = QtGui.QStyle.State_Active | QtGui.QStyle.State_Enabled
+        if checkbox_state == QtCore.Qt.Checked:
+            state |= QtGui.QStyle.State_On
+        elif checkbox_state == QtCore.Qt.PartiallyChecked:
+            state |= QtGui.QStyle.State_NoChange
+        else:
+            state |= QtGui.QStyle.State_Off
+
+        return {
+            "visible": True,
+            "state": state,
+        }
 
     ######################################################################################################
     # UI/Widget callbacks

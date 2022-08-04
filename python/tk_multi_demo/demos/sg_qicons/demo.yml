@@ -1,0 +1,24 @@
+# Copyright (c) 2021 Autodesk, Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Autodesk, Inc.
+
+display_name: "Qt Icons for ShotGrid Toolkit"
+
+description:
+    The SGQIcon class is meant to provide a library of icons for Toolkit Engines, Apps
+    and Frameworks to reuse. Methods are provided to create icons, which means that
+    you no longer need to include the icon file in your specific application code, nor
+    do you need to compile that icon into a resources file. Simply import this sg_qicons
+    module from this framework and call the SGQIcon classmethods to get the icons. This
+    also helps to s and creates consistency for icons in your Apps. The library of icons
+    is currently limited to only a handful, this will be extended in the future.
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/sgc_icons
+
+frameworks:
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.10.4"}

@@ -31,7 +31,8 @@ class BasicListItemModel(QtCore.QAbstractListModel):
         VIEW_ITEM_HEIGHT_ROLE,  # Item height int
         VIEW_ITEM_LOADING_ROLE,  # Item loading state flag
         VIEW_ITEM_SEPARATOR_ROLE,  # Item has separator flag
-    ) = range(QtCore.Qt.UserRole, QtCore.Qt.UserRole + 11)
+        BUTTON_STATE_ROLE,
+    ) = range(QtCore.Qt.UserRole, QtCore.Qt.UserRole + 12)
 
     def __init__(self, *args, **kwargs):
         """
@@ -58,6 +59,8 @@ class BasicListItemModel(QtCore.QAbstractListModel):
                 None,  # Column 8, height hint
                 False,  # Column 9, loading state
                 False,  # Column 10, has separator
+                QtCore.Qt.Unchecked,  # Column 11, checkstate
+                True,  # Column 11, button state where True is enabled and False is disabled
             ],
             # Item/Index 1
             [
@@ -83,6 +86,8 @@ class BasicListItemModel(QtCore.QAbstractListModel):
                 None,
                 False,
                 False,
+                QtCore.Qt.Unchecked,
+                True,
             ],
             # Item/Index 2
             [
@@ -110,6 +115,8 @@ class BasicListItemModel(QtCore.QAbstractListModel):
                 None,
                 False,
                 False,
+                QtCore.Qt.Unchecked,
+                True,
             ],
         ]
 
@@ -199,6 +206,37 @@ class BasicListItemModel(QtCore.QAbstractListModel):
 
         return value
 
+    def setData(self, index, value, role=QtCore.Qt.DisplayRole):
+        """
+        Override the base method.
+
+        Return the data for the index and role.
+        """
+
+        if not index.isValid():
+            return None
+
+        # Ensure the index is valid with the internal model data
+        if index.row() < 0 or index.row() >= len(self._data):
+            return None
+
+        # Get the model data for this index
+        row_value = self._data[index.row()]
+
+        # Get the column associated with this role to index into the data for this row.
+        column = self.get_role_column(role)
+
+        if column < 0:
+            return
+
+        if column >= len(row_value):
+            return None
+
+        # Get the speciifc data value for this role
+        row_value[column] = value
+
+        self.dataChanged.emit(index, index, [role])
+
     def get_role_column(self, role):
         """
         Return the index into the data structure for this role (e.g. the data for an item
@@ -240,6 +278,12 @@ class BasicListItemModel(QtCore.QAbstractListModel):
 
         if role == self.VIEW_ITEM_SEPARATOR_ROLE:
             return 10
+
+        if role == QtCore.Qt.CheckStateRole:
+            return 11
+
+        if role == self.BUTTON_STATE_ROLE:
+            return 12
 
         # Unsupported role
         return -1
