@@ -309,6 +309,7 @@ class FolderItemDelegate(ShotgunWidgetDelegate):
         widget.set_formatting(
             header=self._header, body=self._body, thumbnail=self._thumbnail
         )
+        widget._ui.thumbnail.setScaledContents(True)
         return widget
 
     def sizeHint(self, style_options, model_index):
