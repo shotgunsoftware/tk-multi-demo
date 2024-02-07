@@ -152,8 +152,8 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
         )
 
         # tell the delegates to get/set data via the display role rather than
-        # the default SG model's associated data role. This allows the delegate
-        # to be used with non-SG models.
+        # the default PTR model's associated data role. This allows the delegate
+        # to be used with non-PTR models.
         for delegate in [image_delegate, name_delegate, desc_delegate]:
             delegate.data_role = QtCore.Qt.DisplayRole
 

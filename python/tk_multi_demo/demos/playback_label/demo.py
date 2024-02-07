@@ -81,7 +81,7 @@ class PlaybackLabelDemo(QtGui.QWidget):
         layout.setAlignment(label, QtCore.Qt.AlignCenter)
 
     def _on_playback_requested(self, version):
-        """A Version was clicked in the stream. Open it up in SG."""
+        """A Version was clicked in the stream. Open it up in PTR."""
 
         # build a url for this version
         sg_url = "%s/detail/Version/%d" % (self._app.sgtk.shotgun_url, version["id"])

@@ -71,10 +71,10 @@ class CustomFieldWidgetDemo(QtGui.QWidget):
     def _populate_ui(self):
         """Populate the ui after the fields manager has been initialized."""
 
-        # create a SG model to retrieve our data
+        # create a PTR model to retrieve our data
         self._model = shotgun_model.SimpleShotgunModel(self, self._bg_task_manager)
 
-        # and a table view to display our SG model
+        # and a table view to display our PTR model
         table_view = views.ShotgunTableView(self._fields_manager, self)
         table_view.horizontalHeader().setStretchLastSection(True)
 
@@ -97,7 +97,7 @@ class CustomFieldWidgetDemo(QtGui.QWidget):
         # info label
         info_lbl = QtGui.QLabel(
             "The table below is showing a list of all <strong>Project</strong> "
-            "entities for the current SG site with a custom field widget in "
+            "entities for the current PTR site with a custom field widget in "
             "the <strong>Favorite</strong> column. The default widget is a "
             "standard <tt>QtGui.QCheckBox</tt>. Here you'll see a subclass of "
             "<tt>QCheckBox</tt> that uses images as the check indicator. This "
@@ -105,7 +105,7 @@ class CustomFieldWidgetDemo(QtGui.QWidget):
             "a specific field on a specific entity.<br><br>"
             "Double click a cell in the <strong>Favorite</strong> to make the "
             "entry editable. Then click on the icon to toggle the favorite "
-            "value. Note, this is not a live demo. SG will not be updated."
+            "value. Note, this is not a live demo. PTR will not be updated."
         )
         info_lbl.setWordWrap(True)
 

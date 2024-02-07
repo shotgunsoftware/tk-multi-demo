@@ -91,7 +91,7 @@ class ShotgunWidgetDemo(QtGui.QWidget):
 
             self.ui.view.setViewMode(QtGui.QListView.IconMode)
 
-            # configure the way we want to display the ShotGrid data
+            # configure the way we want to display the Flow Production Tracking data
             header = "<b>{name}<b>"
             body = "{sg_description}<br> {[Created by: ]created_by.HumanUser.name}"
 
@@ -118,8 +118,8 @@ class ShotgunWidgetDemo(QtGui.QWidget):
             fields += utils.resolve_sg_fields(right_corner)
             fields += utils.resolve_sg_fields(body)
 
-            # setup a delegate which will be using the ShotGrid Widget to display the information and tell him how we
-            # want to setup the data
+            # setup a delegate which will be using the Flow Production Tracking Widget
+            # to display the information and tell him how we want to setup the data
             self._sg_delegate = ListItemDelegate(self.ui.view)
             self._sg_delegate.set_formatting(
                 left_corner=left_corner,
@@ -194,11 +194,12 @@ class ShotgunWidgetDelegate(shotgun_view.EditSelectedWidgetDelegate):
         # get the shotgun data
         sg_item = shotgun_model.get_sg_data(model_index)
 
-        # fill the content of the widget with the data of the loaded ShotGrid
+        # fill the content of the widget with the data of the loaded Flow Production Tracking
         # item
         widget.set_text(sg_item)
 
-        # add an action to the widget toolbox to be able to open the ShotGrid Web page of the current item
+        # add an action to the widget toolbox to be able to open the Flow Production Tracking
+        # Web page of the current item
         sg_url = sgtk.platform.current_bundle().shotgun.base_url
         url = "%s/page/project_overview?project_id=%d" % (sg_url, sg_item["id"])
         fn = lambda: QtGui.QDesktopServices.openUrl(QtCore.QUrl(url))

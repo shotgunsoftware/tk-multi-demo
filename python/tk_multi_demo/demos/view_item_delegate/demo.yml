@@ -13,11 +13,11 @@ display_name: "View Item Delegate"
 description:
     A generic delegate designed to work with any model and view. This demo
     shows how to use a both a QStandardItemModel and QAbstractItemModel with
-    the delegate, and a single view. Toggle the models (Basic, ShotGrid) and
-    view modes (List, Thumbnail to see the different view modes and style.
-    Uncheck the expand checkbox to use the slider to dynamically change the
-    view item sizing. Hover over the items in the  view to see what actions
-    are available.
+    the delegate, and a single view. Toggle the models
+    (Basic, Flow Production Tracking) and view modes (List, Thumbnail to see
+    the different view modes and style. Uncheck the expand checkbox to use
+    the slider to dynamically change the view item sizing. Hover over the items
+    in the  view to see what actions are available.
 
 # TODO add documentation at this link
 documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/delegates

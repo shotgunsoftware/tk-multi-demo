@@ -15,7 +15,7 @@ description:
     Entity Type to load that data into a SimpleShotgunModel, and display it in the view. Click the "Filter"
     button on the top right to open the menu that provides the filtering interface. Select the "More Filters"
     submenu to see all available filter fields (all fields for the chosen entity will be available).  Uncheck
-    the "Filter on SG Entity" checkbox to load predefined basic data into a Qt list model. The filter menu
+    the "Filter on PTR Entity" checkbox to load predefined basic data into a Qt list model. The filter menu
     will then reflect the basic model data in its filter menu options.
 
 # TODO add documentation at this link

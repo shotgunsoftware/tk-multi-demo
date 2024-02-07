@@ -9,13 +9,13 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "ShotGrid Entity Model"
+display_name: "Flow Production Tracking Entity Model"
 
 description:
     A convenience wrapper around the ShotgunModel. This model is useful when you
     want to represent a tree view of Sequences, Shots or Assets. By default, the
-    model will associate standard dark-style ShotGrid entity type icons to items
-    in the list.
+    model will associate standard dark-style Flow Production Tracking entity type
+    icons to items in the list.
 
 documentation_url: "http://developer.shotgridsoftware.com/tk-framework-shotgunutils/shotgun_model.html#shotgunentitymodel"
 

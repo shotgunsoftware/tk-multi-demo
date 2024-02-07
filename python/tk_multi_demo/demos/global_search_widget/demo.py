@@ -36,7 +36,7 @@ class GlobalSearchWidgetDemo(QtGui.QWidget):
         # call the base class init
         super(GlobalSearchWidgetDemo, self).__init__(parent)
 
-        # create a bg task manager for pulling data from SG
+        # create a bg task manager for pulling data from PTR
         self._bg_task_manager = task_manager.BackgroundTaskManager(self)
 
         # create the widget
@@ -64,7 +64,7 @@ class GlobalSearchWidgetDemo(QtGui.QWidget):
 
         # display some instructions
         info_lbl = QtGui.QLabel(
-            "Click in the widget and type to search for SG entities. You "
+            "Click in the widget and type to search for PTR entities. You "
             "will need to type at least 3 characters before the search begins."
         )
 

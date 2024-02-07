@@ -60,7 +60,7 @@ class ActivityStreamWidgetDemo(QtGui.QWidget):
         # allow screenshots for note entry
         self._activity_stream.allow_screenshots = True
 
-        # show the button to navigate to SG
+        # show the button to navigate to PTR
         self._activity_stream.show_sg_stream_button = True
 
         # show 'play' buttons on playable versions.
@@ -71,8 +71,9 @@ class ActivityStreamWidgetDemo(QtGui.QWidget):
 
         info_lbl = QtGui.QLabel(
             "<strong>LIVE DEMO</strong>: If you click the checkmark to submit "
-            "a note, you will attach a new Note to the project in ShotGrid. "
-            "Just a heads up in case you want to clean up afterward."
+            "a note, you will attach a new Note to the project in "
+            "Flow Production Tracking. Just a heads up in case you want to "
+            "clean up afterward."
         )
         info_lbl.setWordWrap(True)
 
@@ -89,7 +90,7 @@ class ActivityStreamWidgetDemo(QtGui.QWidget):
         self._activity_stream.destroy()
 
     def _on_playback_requested(self, version):
-        """A Version was clicked in the stream. Open it up in SG."""
+        """A Version was clicked in the stream. Open it up in PTR."""
 
         # build a url for this version
         sg_url = "%s/detail/Version/%d" % (self._app.sgtk.shotgun_url, version["id"])

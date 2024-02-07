@@ -17,7 +17,7 @@ sg_qicons = sgtk.platform.import_framework("tk-framework-qtwidgets", "sg_qicons"
 
 class SGQWidgetsDemo(QtGui.QWidget):
     """
-    A demonstration of the ShotGrid widget wrapper classes.
+    A demonstration of the Flow Production Tracking widget wrapper classes.
     """
 
     def __init__(self, parent=None):

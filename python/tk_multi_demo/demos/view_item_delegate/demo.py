@@ -179,7 +179,9 @@ class ViewItemDelegateDemo(QtGui.QWidget):
         self._basic_model_button.setCheckable(True)
         self._basic_model_button.setFlat(True)
         self._basic_model_button.clicked.connect(self._toggle_view_model)
-        self._shotgun_model_button = QtGui.QPushButton("ShotGrid Model", self)
+        self._shotgun_model_button = QtGui.QPushButton(
+            "Flow Production Tracking Model", self
+        )
         self._shotgun_model_button.setCheckable(True)
         self._shotgun_model_button.setFlat(True)
         self._shotgun_model_button.clicked.connect(self._toggle_view_model)
