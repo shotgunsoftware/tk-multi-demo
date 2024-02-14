@@ -48,7 +48,7 @@ def show_dialog(app_instance):
     :param app_instance: The ``sgtk.platform.Application`` instance.
     """
     app_instance.engine.show_dialog(
-        "Flow Production Tracking Toolkit Demos", app_instance, DemoWidget
+        "Flow Production Tracking Demos", app_instance, DemoWidget
     )
 
 

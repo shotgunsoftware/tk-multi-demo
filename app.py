@@ -31,7 +31,7 @@ class FrameworkDemos(sgtk.platform.Application):
             payload.dialog.show_dialog(self)
 
         self.engine.register_command(
-            "Flow Production Tracking Toolkit Demos", callback, {"short_name": "demos"}
+            "Flow Production Tracking Demos", callback, {"short_name": "demos"}
         )
 
     def get_demo_entity(self, entity_type=None):

@@ -113,7 +113,7 @@ class AppDialogAppWrapper(object):
         :param root:
         """
         self.root = parent[
-            "Flow Production Tracking: Flow Production Tracking Toolkit Demos"
+            "Flow Production Tracking: Flow Production Tracking Demos"
         ].get()
 
     def exists(self):

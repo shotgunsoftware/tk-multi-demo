@@ -8,7 +8,7 @@
 # agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Autodesk, Inc.
 
-display_name: "Qt Widgets for Flow Production Tracking Toolkit"
+display_name: "Qt Widgets for Flow Production Tracking"
 
 description:
     The sg_qwidgets module is a set of Qt widget wrapper classes that provide some
