@@ -14,7 +14,7 @@
 display_name: "Note Editor"
 
 description:
-    The note editor widget makes it easy to attach Notes to SG entities. You can
+    The note editor widget makes it easy to attach Notes to PTR entities. You can
     use the widget either to create or reply to notes. The editor includes
     screen grabbing capabilities and a user name auto completer. If you start
     typing @xyz, an auto completer will kick in and show matching groups and

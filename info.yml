@@ -18,8 +18,8 @@ configuration: {}
 requires_shotgun_fields:
 
 # More verbose description of this item
-display_name: "ShotGrid Toolkit Demos"
-description: "An app for demonstrating ShotGrid Toolkit building blocks."
+display_name: "Flow Production Tracking Demos"
+description: "An app for demonstrating Flow Production Tracking building blocks."
 
 # Required minimum versions for this item to run
 requires_shotgun_version:

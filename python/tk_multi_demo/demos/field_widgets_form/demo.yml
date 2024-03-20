@@ -9,15 +9,15 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "ShotGrid Field Widgets Form"
+display_name: "Flow Production Tracking Field Widgets Form"
 
 description:
   The shotgun_fields module provides access to Qt widgets that correspond to the
-  field types available on ShotGrid entities. The purpose of these widgets is to
-  make it easier to build apps that interact with ShotGrid in a standardized way.
-  This demo shows an exaple of how to use these widgets directly to build a
-  form view for specific fields on an entity. Note that this is just a demo, and
-  editing the values in the form will not be pushed back to ShotGrid.
+  field types available on Flow Production Tracking entities. The purpose of these
+  widgets is to make it easier to build apps that interact with Flow Production Tracking
+  in a standardized way. This demo shows an exaple of how to use these widgets directly to
+  build a form view for specific fields on an entity. Note that this is just a demo, and
+  editing the values in the form will not be pushed back to Flow Production Tracking.
 
 documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/shotgun_fields.html
 

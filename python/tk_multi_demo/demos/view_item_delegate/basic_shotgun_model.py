@@ -23,7 +23,7 @@ ShotgunModel = shotgun_model.ShotgunModel
 
 class BasicShotgunModel(ShotgunModel, delegates.ViewItemRolesMixin):
     """
-    A subclass of the ShotgunModel to handle basic ShotGrid data.
+    A subclass of the ShotgunModel to handle basic Flow Production Tracking data.
     """
 
     # Custom user roles are key to using the ViewItemDelegate with the data model. The delegates.ViewItemRolesMixin
@@ -64,7 +64,7 @@ class BasicShotgunModel(ShotgunModel, delegates.ViewItemRolesMixin):
             bg_task_manager=bg_task_manager,
         )
 
-        # ShotGrid data query fields
+        # Flow Production Tracking data query fields
         self._entity_type = entity_type
         self._fields = fields
         self._filters = filters
@@ -97,7 +97,7 @@ class BasicShotgunModel(ShotgunModel, delegates.ViewItemRolesMixin):
     @classmethod
     def create_task_model(cls, task_manager, parent):
         """
-        Factory (and mostly a convenience) method to create a SG model with Task data.
+        Factory (and mostly a convenience) method to create a PTR model with Task data.
         """
 
         app = sgtk.platform.current_bundle()
@@ -155,7 +155,7 @@ class BasicShotgunModel(ShotgunModel, delegates.ViewItemRolesMixin):
 
         :param item: QStandardItem that is about to be added to the model. This has been primed
                      with the standard settings that the ShotgunModel handles.
-        :param sg_data: SG data dictionary that was received from SG given the fields
+        :param sg_data: PTR data dictionary that was received from PTR given the fields
                         and other settings specified in load_data()
         """
 

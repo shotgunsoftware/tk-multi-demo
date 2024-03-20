@@ -39,8 +39,8 @@ FilterItemTreeProxyModel = filtering.FilterItemTreeProxyModel
 
 class FilterMenuDemo(QtGui.QWidget):
     """
-    A demonstration of how the FilterMenu class works, and how to set it up with both ShotGrid
-    models and plain Qt models.
+    A demonstration of how the FilterMenu class works, and how to set it up with both
+    Flow Production Tracking models and plain Qt models.
     """
 
     def __init__(self, parent=None):
@@ -50,7 +50,7 @@ class FilterMenuDemo(QtGui.QWidget):
 
         super(FilterMenuDemo, self).__init__(parent)
 
-        # Set up the SG source/proxy models and menu.
+        # Set up the PTR source/proxy models and menu.
         self._bg_task_manager = task_manager.BackgroundTaskManager(self, True)
         self._sg_source_model = shotgun_model.SimpleShotgunModel(
             self, self._bg_task_manager
@@ -58,7 +58,8 @@ class FilterMenuDemo(QtGui.QWidget):
         self._sg_proxy_model = FilterItemTreeProxyModel()
         self._sg_proxy_model.setSourceModel(self._sg_source_model)
 
-        # Create a 'ShotGrid' specific filter menu since we are using a 'ShotGrid' model.
+        # Create a 'Flow Production Tracking' specific filter menu since we are using a
+        # 'Flow Production Tracking' model.
         self._sg_filter_menu = ShotgunFilterMenu(self)
 
         # Before initializing the menu, set the filter/proxy model on the menu.
@@ -74,8 +75,8 @@ class FilterMenuDemo(QtGui.QWidget):
         self._sg_filter_menu.initialize_menu()
 
         # Set up a basic model with predefined data to demonstrate how the filter menu can be used
-        # with non-SG data. The filter menu set up is the same, except that the non SG specific
-        # menu class is used, and a non-SG model is being used.
+        # with non-PTR data. The filter menu set up is the same, except that the non PTR specific
+        # menu class is used, and a non-PTR model is being used.
         basic_model_data = [
             ["one"],
             ["two"],
@@ -126,16 +127,16 @@ class FilterMenuDemo(QtGui.QWidget):
         )
         self._basic_filter_menu.initialize_menu()
 
-        # Initialize the view to display the SG model data to filter on.
+        # Initialize the view to display the PTR model data to filter on.
         self._view = QtGui.QTableView(self)
         self._view.horizontalHeader().setStretchLastSection(True)
         self._view.setModel(self._sg_proxy_model)
 
-        # Initialize the filter button to display the SG filter menu.
+        # Initialize the filter button to display the PTR filter menu.
         self._filter_menu_btn = FilterMenuButton(self)
         self._filter_menu_btn.setMenu(self._sg_filter_menu)
 
-        # Set up a combobox for the user to toggle the SG entity data to filter on.
+        # Set up a combobox for the user to toggle the PTR entity data to filter on.
         # A list of entity type examples to filter on. User may also type in other entity types
         # that do not appear in this list.
         self._entity_types = ["Project", "Task", "HumanUser", "Asset", "Version"]
@@ -171,9 +172,10 @@ class FilterMenuDemo(QtGui.QWidget):
         Build the UI. Should be called once on initialization.
         """
 
-        model_check_box = QtGui.QCheckBox("Filter on SG Entity:", self)
+        model_check_box = QtGui.QCheckBox("Filter on PTR Entity:", self)
         model_check_box.setToolTip(
-            "Check to populate the view with ShotGrid entity data. Uncheck to populate with plain basic data."
+            "Check to populate the view with Flow Production Tracking entity data. "
+            "Uncheck to populate with plain basic data."
         )
         model_check_box.setChecked(True)
         model_check_box.stateChanged.connect(self._set_model)
@@ -200,7 +202,7 @@ class FilterMenuDemo(QtGui.QWidget):
 
     def _entity_type_changed(self, entity_index):
         """
-        Update the UI based on the current SG entity type. Nothing to do if the model is set to the
+        Update the UI based on the current PTR entity type. Nothing to do if the model is set to the
         basic model data.
         """
 
@@ -213,7 +215,7 @@ class FilterMenuDemo(QtGui.QWidget):
         fields = shotgun_globals.get_entity_fields(entity_type)
         fields = self._fields_manager.supported_fields(entity_type, fields)
 
-        # Load the data for the new entity type. The 'data_refreshed' signal from the SG model will
+        # Load the data for the new entity type. The 'data_refreshed' signal from the PTR model will
         # trigger the menu to update based on the new data.
         self._sg_source_model.load_data(
             entity_type,
@@ -226,7 +228,7 @@ class FilterMenuDemo(QtGui.QWidget):
         """
         Slot triggered on the model checkbox state changed.
 
-        If the `_model_check_box` is checked, set up the filter menu to use SG Entity data.
+        If the `_model_check_box` is checked, set up the filter menu to use PTR Entity data.
 
         If the `_model_check_box` is unchecked, set up the filter menu to use the predefined
         basic model data.

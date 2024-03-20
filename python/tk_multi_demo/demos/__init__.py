@@ -71,8 +71,8 @@ DEMOS_LIST = [
     SGQIconDemo,
     SGQWidgetsDemo,
     # TODO: view related classes
-    "SG Utils Framework",
-    # TODO: SG model
+    "PTR Utils Framework",
+    # TODO: PTR model
     ShotgunEntityModelDemo,
     ShotgunHierarchyDemo,
     # TODO: data retriever

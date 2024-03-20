@@ -39,9 +39,10 @@ class MockViewConfigHook(object):
         Return the header data for the item.
 
         Notice that the return value is a tuple. The ViewItemDelegate will handle
-        a tuple that contains a templated string as the first item, and a ShotGrid
-        data dictionary as the second item. The delegate will process the template
-        and data provided to search and replace tokens before displaying the value.
+        a tuple that contains a templated string as the first item, and a
+        Flow Production Tracking data dictionary as the second item. The delegate
+        will process the template and data provided to search and replace tokens
+        before displaying the value.
 
         See tk-framework-qtwidgets utils.py method convert_token_string for more
         details on how string template resolution is done.
@@ -63,9 +64,10 @@ class MockViewConfigHook(object):
         Return the subtitle data for the item.
 
         Notice that the return value is a tuple. The ViewItemDelegate will handle
-        a tuple that contains a templated string as the first item, and a ShotGrid
-        data dictionary as the second item. The delegate will process the template
-        and data provided to search and replace tokens before displaying the value.
+        a tuple that contains a templated string as the first item, and a
+        Flow Production Tracking data dictionary as the second item. The delegate
+        will process the template and data provided to search and replace tokens
+        before displaying the value.
 
         See tk-framework-qtwidgets utils.py method convert_token_string for more
         details on how string template resolution is done.
@@ -89,9 +91,10 @@ class MockViewConfigHook(object):
         Return the detailed text data for the item.
 
         Notice that the return value is a tuple. The ViewItemDelegate will handle
-        a tuple that contains a templated string as the first item, and a ShotGrid
-        data dictionary as the second item. The delegate will process the template
-        and data provided to search and replace tokens before displaying the value.
+        a tuple that contains a templated string as the first item, and a
+        Flow Production Tracking data dictionary as the second item. The delegate
+        will process the template and data provided to search and replace tokens
+        before displaying the value.
 
         See tk-framework-qtwidgets utils.py method convert_token_string for more
         details on how string template resolution is done.
@@ -120,9 +123,10 @@ class MockViewConfigHook(object):
         Return the condensed text data for the item.
 
         Notice that the return value is a tuple. The ViewItemDelegate will handle
-        a tuple that contains a templated string as the first item, and a ShotGrid
-        data dictionary as the second item. The delegate will process the template
-        and data provided to search and replace tokens before displaying the value.
+        a tuple that contains a templated string as the first item, and a
+        Flow Production Tracking data dictionary as the second item. The delegate
+        will process the template and data provided to search and replace tokens
+        before displaying the value.
 
         See tk-framework-qtwidgets utils.py method convert_token_string for more
         details on how string template resolution is done.
