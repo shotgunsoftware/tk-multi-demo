@@ -21,7 +21,7 @@ class Ui_NavigationWidgetDemoUI(object):
         self.nav_widget_lbl = QtGui.QLabel(NavigationWidgetDemoUI)
         self.nav_widget_lbl.setStyleSheet("QLabel {\n"
 "    color: #999999;\n"
-"    font-family: \"Courier\";\n"
+"    font-family: \"Courier New\";\n"
 "}")
         self.nav_widget_lbl.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.nav_widget_lbl.setObjectName("nav_widget_lbl")
@@ -34,7 +34,7 @@ class Ui_NavigationWidgetDemoUI(object):
         self.breadcrumb_widget_lbl = QtGui.QLabel(NavigationWidgetDemoUI)
         self.breadcrumb_widget_lbl.setStyleSheet("QLabel {\n"
 "    color: #999999;\n"
-"    font-family: \"Courier\";\n"
+"    font-family: \"Courier New\";\n"
 "}")
         self.breadcrumb_widget_lbl.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.breadcrumb_widget_lbl.setObjectName("breadcrumb_widget_lbl")
@@ -65,6 +65,6 @@ class Ui_NavigationWidgetDemoUI(object):
         NavigationWidgetDemoUI.setWindowTitle(QtGui.QApplication.translate("NavigationWidgetDemoUI", "Form", None, QtGui.QApplication.UnicodeUTF8))
         self.nav_widget_lbl.setText(QtGui.QApplication.translate("NavigationWidgetDemoUI", "NavigationWidget:", None, QtGui.QApplication.UnicodeUTF8))
         self.breadcrumb_widget_lbl.setText(QtGui.QApplication.translate("NavigationWidgetDemoUI", "BreadcrumbWidget:", None, QtGui.QApplication.UnicodeUTF8))
-        self.info_lbl.setText(QtGui.QApplication.translate("NavigationWidgetDemoUI", "<html><head/><body><p>Select items in the tree view to the left to see the <span style=\" font-family:\'Courier New,courier\';\">NavigationWidget</span> and <span style=\" font-family:\'Courier New,courier\';\">BreadcrumbWidget</span> above update. Then use the navigation widgets themselves to traverse the selection history in the tree view. Clicking the <span style=\" font-weight:600;\">Home</span> button in the <span style=\" font-family:\'Courier New,courier\';\">NavigationWidget</span> will clear selection.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.info_lbl.setText(QtGui.QApplication.translate("NavigationWidgetDemoUI", "<html><head/><body><p>Select items in the tree view to the left to see the <span style=\" font-family:\'Courier New\';\">NavigationWidget</span> and <span style=\" font-family:\'Courier New\';\">BreadcrumbWidget</span> above update. Then use the navigation widgets themselves to traverse the selection history in the tree view. Clicking the <span style=\" font-weight:600;\">Home</span> button in the <span style=\" font-family:\'Courier New\';\">NavigationWidget</span> will clear selection.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
 
 from ..qtwidgets import NavigationWidget, BreadcrumbWidget

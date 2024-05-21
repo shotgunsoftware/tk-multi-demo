@@ -32,7 +32,7 @@
       <widget class="QPushButton" name="get_desktop_pixmap_btn">
        <property name="font">
         <font>
-         <family>Courier</family>
+         <family>Courier New</family>
         </font>
        </property>
        <property name="text">
@@ -124,7 +124,7 @@
       <widget class="QPushButton" name="screen_capture_btn">
        <property name="font">
         <font>
-         <family>Courier</family>
+         <family>Courier New</family>
         </font>
        </property>
        <property name="text">
@@ -143,7 +143,7 @@
       <widget class="QPushButton" name="screen_capture_file_btn">
        <property name="font">
         <font>
-         <family>Courier</family>
+         <family>Courier New</family>
         </font>
        </property>
        <property name="text">

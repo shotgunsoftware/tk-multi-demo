@@ -11,5 +11,5 @@ For more info about QT stylesheets, please see http://doc.qt.io/qt-4.8/styleshee
 ********************************************************************************************/
 
 OverlayButton {
-    font-family: "Courier";
+    font-family: "Courier New";
 }

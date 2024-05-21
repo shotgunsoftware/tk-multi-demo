@@ -24,7 +24,7 @@ class Ui_ShotgunWidgetDemoUI(object):
         sizePolicy.setHeightForWidth(self.view_mode_switch.sizePolicy().hasHeightForWidth())
         self.view_mode_switch.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setFamily("Courier")
+        font.setFamily("Courier New")
         self.view_mode_switch.setFont(font)
         self.view_mode_switch.setObjectName("view_mode_switch")
         self.verticalLayout.addWidget(self.view_mode_switch)
