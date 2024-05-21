@@ -17,8 +17,7 @@ from sgtk.platform.qt import QtCore, QtGui
 
 
 def _format(color, style=""):
-    """Return a QtGui.QTextCharFormat with the given attributes.
-    """
+    """Return a QtGui.QTextCharFormat with the given attributes."""
 
     _format = QtGui.QTextCharFormat()
     _format.setForeground(color)
@@ -190,8 +189,7 @@ class PythonSyntaxHighlighter(QtGui.QSyntaxHighlighter):
         return styles[style_type]
 
     def highlightBlock(self, text):
-        """Apply syntax highlighting to the given block of text.
-        """
+        """Apply syntax highlighting to the given block of text."""
         # Do other syntax formatting
         for expression, nth, format in self.rules:
             index = expression.indexIn(text, 0)

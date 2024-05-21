@@ -176,7 +176,7 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
             return
 
         # if we're here we have a hierarchy item. query the versions under
-        # the selected point in the SG hierarchy. the shotgun model will handle
+        # the selected point in the PTR hierarchy. the shotgun model will handle
         # caching as the user clicks a previously selected item in the hierarchy
         self._version_model.load_data(
             target_entities.get("type"),

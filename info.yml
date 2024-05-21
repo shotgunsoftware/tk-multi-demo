@@ -18,17 +18,17 @@ configuration: {}
 requires_shotgun_fields:
 
 # More verbose description of this item
-display_name: "ShotGrid Toolkit Demos"
-description: "An app for demonstrating ShotGrid Toolkit building blocks."
+display_name: "Flow Production Tracking Demos"
+description: "An app for demonstrating Flow Production Tracking building blocks."
 
 # Required minimum versions for this item to run
 requires_shotgun_version:
-requires_core_version: "v0.19.1"
+requires_core_version: "v0.20.5"
 requires_engine_version:
 
 frameworks:
-    - {"name": "tk-framework-shotgunutils", "version": "v5.x.x"}
-    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.8.0"}
+    - {"name": "tk-framework-shotgunutils", "version": "v5.x.x", "minimum_version": "v5.8.2"}
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.10.5"}
 
 # the engines that this app can operate in:
 supported_engines:

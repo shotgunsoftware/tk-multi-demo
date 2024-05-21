@@ -47,7 +47,9 @@ def show_dialog(app_instance):
 
     :param app_instance: The ``sgtk.platform.Application`` instance.
     """
-    app_instance.engine.show_dialog("SG Toolkit Demos", app_instance, DemoWidget)
+    app_instance.engine.show_dialog(
+        "Flow Production Tracking Demos", app_instance, DemoWidget
+    )
 
 
 class DemoWidget(QtGui.QSplitter):
@@ -460,7 +462,7 @@ class DemoWidget(QtGui.QSplitter):
 
         # now try to parse it
         try:
-            demo_info = yaml.load(fh)
+            demo_info = yaml.load(fh, Loader=yaml.FullLoader)
         except Exception as e:
             logger.error(
                 "Could not parse demo manifest file '%s'.\n"

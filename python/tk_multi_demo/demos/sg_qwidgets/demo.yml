@@ -1,0 +1,26 @@
+# Copyright (c) 2021 Autodesk, Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Autodesk, Inc.
+
+display_name: "Qt Widgets for Flow Production Tracking"
+
+description:
+    The sg_qwidgets module is a set of Qt widget wrapper classes that provide some
+    convenience to creating the widgets, but main purpose is to create widgets with the
+    Flow Production Tracking naming convention 'SG{Qt_WidgetName}', for example,
+    SGQToolButton. The benefit to having all your widgets using this Flow Production Tracking
+    naming convention is to help manage the style of your widgets. A .qss file can be used to
+    apply styles specifically to only the Flow Production Tracking widgets, without affecting
+    other Qt widgets. This is particularlyl useful if your Apps are running inside a DCC that
+    uses Qt, and you want to ensure the styles you apply to a QToolButton are only applied to
+    the Toolkit widgets, and not the widgets created by the DCC.
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/sgc_icons
+
+frameworks:
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.10.4"}

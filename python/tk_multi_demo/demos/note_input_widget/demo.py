@@ -54,20 +54,21 @@ class NoteInputWidgetDemo(QtGui.QWidget):
         if not demo_entity:
             raise Exception("Could not find suitable entity for this demo!")
 
-        # tell the input widget which SG entity to attach a note to
+        # tell the input widget which PTR entity to attach a note to
         self._note_input.set_current_entity(demo_entity["type"], demo_entity["id"])
 
         # start the editor open instead of requiring the user to click it
         self._note_input.open_editor()
 
         # since the widget doesn't work without an entity, make sure the user is
-        # aware that this will actually update SG.
+        # aware that this will actually update PTR.
         info_lbl = QtGui.QLabel(
             "<strong>LIVE DEMO</strong>: If you click the checkmark to submit "
-            "the input, you will attach a new Note to yourself in ShotGrid. "
-            "Just a heads up in case you want to delete it afterward.<br><br>"
+            "the input, you will attach a new Note to yourself in "
+            "Flow Production Tracking. Just a heads up in case you want to "
+            "delete it afterward.<br><br>"
             "It is worth pointing out that Note input on the "
-            "<tt>HumanUser</tt> entity in SG is typically not exposed."
+            "<tt>HumanUser</tt> entity in PTR is typically not exposed."
         )
         info_lbl.setWordWrap(True)
 

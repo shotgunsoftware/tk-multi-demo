@@ -1,0 +1,26 @@
+# Copyright (c) 2021 Autodesk, Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Autodesk, Inc.
+
+display_name: "Filter Menu"
+
+description:
+    A filter menu that can be used with any Qt model (including ShotgunModel subclasses). Select or enter the
+    Entity Type to load that data into a SimpleShotgunModel, and display it in the view. Click the "Filter"
+    button on the top right to open the menu that provides the filtering interface. Select the "More Filters"
+    submenu to see all available filter fields (all fields for the chosen entity will be available).  Uncheck
+    the "Filter on PTR Entity" checkbox to load predefined basic data into a Qt list model. The filter menu
+    will then reflect the basic model data in its filter menu options.
+
+# TODO add documentation at this link
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/filtering
+
+frameworks:
+# TODO ensure the minimum version is correct before releasing
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.10.1"}

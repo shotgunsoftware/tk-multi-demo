@@ -1,0 +1,25 @@
+# Copyright (c) 2020 Autodesk Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the ShotGrid Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the ShotGrid Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Autodesk Inc.
+
+# More verbose description of this item
+display_name: "Flow Production Tracking Widget"
+
+description:
+    A demonstration of the ShotgunListWidget and ShotgunFolderWidget classes. These widgets
+    are used in conjunction with a delegate to render PTR specific data in a view. The data
+    displayed in the top left, top right and main body of these widgets can be easily customized.
+
+# TODO add documentation at this link
+documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/shotgun_widget
+
+frameworks:
+# TODO ensure the minimum version is correct before releasing
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.10.1"}
+    - {"name": "tk-framework-shotgunutils", "version": "v5.x.x"}

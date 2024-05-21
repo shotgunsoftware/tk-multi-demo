@@ -12,11 +12,11 @@
 display_name: "Global Search"
 
 description:
-    The global search widget is similar to the search found in ShotGrid. It
-    returns a number of matches based on a text that is being typed in by the
-    user. Once a user selects an object, a signal fires to indicate the request.
-    The breadth of the search can be limited by specifying entity types and
-    filters to search against.
+    The global search widget is similar to the search found in
+    Flow Production Tracking. It returns a number of matches based on a text
+    that is being typed in by the user. Once a user selects an object, a signal
+    fires to indicate the request. The breadth of the search can be limited by
+    specifying entity types and filters to search against.
 
 documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/global_search_widget.html
 

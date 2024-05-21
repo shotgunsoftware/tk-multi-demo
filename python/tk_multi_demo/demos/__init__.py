@@ -32,6 +32,12 @@ from .shotgun_entity_model import ShotgunEntityModelDemo
 from .shotgun_hierarchy import ShotgunHierarchyDemo
 from .shotgun_globals import ShotgunGlobalsDemo
 from .spinner_widget import SpinnerWidgetDemo
+from .filter_menu import FilterMenuDemo
+from .shotgun_widget import ShotgunWidgetDemo
+from .view_item_delegate import ViewItemDelegateDemo
+from .sg_qicons import SGQIconDemo
+from .sg_qwidgets import SGQWidgetsDemo
+from .message_box import MessageBoxDemo
 
 # the default demo to display when the app starts up.
 DEMO_DEFAULT = HelpDemo
@@ -49,6 +55,8 @@ DEMOS_LIST = [
     NavigationDemo,
     NoteInputWidgetDemo,
     OverlayDemo,
+    ViewItemDelegateDemo,
+    MessageBoxDemo,
     # PlaybackLabelDemo,         # TODO: turn back on when we have a good lookup for Version with media
     ScreenCaptureWidgetDemo,
     SearchWidgetDemo,
@@ -57,10 +65,14 @@ DEMOS_LIST = [
     CustomFieldWidgetDemo,
     EntityFieldMenuDemo,
     ShotgunMenuDemo,
+    FilterMenuDemo,
     SpinnerWidgetDemo,
+    ShotgunWidgetDemo,
+    SGQIconDemo,
+    SGQWidgetsDemo,
     # TODO: view related classes
-    "SG Utils Framework",
-    # TODO: SG model
+    "PTR Utils Framework",
+    # TODO: PTR model
     ShotgunEntityModelDemo,
     ShotgunHierarchyDemo,
     # TODO: data retriever

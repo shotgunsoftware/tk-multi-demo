@@ -9,14 +9,14 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "ShotGrid Menu"
+display_name: "Flow Production Tracking Menu"
 
 description:
     The ShotgunMenu class provides a standardized interface, look and feel for
-    building menus that interact with ShotGrid. The makes it easy to add labels
-    and groups of actions to menus with a consistent styling. A toolkit app for
-    demo and QA of app building blocks available in shotgunutils and qtwidgets
-    frameworks
+    building menus that interact with Flow Production Tracking. The makes it easy
+    to add labels and groups of actions to menus with a consistent styling.
+    A toolkit app for demo and QA of app building blocks available in shotgunutils
+    and qtwidgets frameworks
 
 documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/shotgun_menus.html#shotgun-menu
 

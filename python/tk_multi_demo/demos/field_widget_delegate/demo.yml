@@ -9,14 +9,14 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "ShotGrid Field Delegate"
+display_name: "Flow Production Tracking Field Delegate"
 
 description:
-    A delegate for a given type of ShotGrid field.  This delegate is designed to
-    work with indexes from a ShotgunModel where the value of the field is stored
-    in the SG_ASSOCIATED_FIELD_ROLE role. To use this delegate with other types
-    of models, simply use the data_role property to identify the role in the
-    source model where data should be set and retrieved.
+    A delegate for a given type of Flow Production Tracking field.  This delegate
+    is designed to work with indexes from a ShotgunModel where the value of the
+    field is stored in the SG_ASSOCIATED_FIELD_ROLE role. To use this delegate with
+    other types of models, simply use the data_role property to identify the role in
+    the source model where data should be set and retrieved.
 
 documentation_url: http://developer.shotgridsoftware.com/tk-framework-qtwidgets/shotgun_fields.html#field-widget-delegates
 
