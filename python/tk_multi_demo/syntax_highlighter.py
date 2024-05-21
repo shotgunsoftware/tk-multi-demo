@@ -129,10 +129,11 @@ class PythonSyntaxHighlighter(QtGui.QSyntaxHighlighter):
         ]
 
         # Build a QtCore.QRegularExpression for each pattern
-        self.rules = [(QtCore.QRegularExpression(pat), index, fmt) for (pat, index, fmt) in rules]
+        self.rules = [
+            (QtCore.QRegularExpression(pat), index, fmt) for (pat, index, fmt) in rules
+        ]
 
     def _style(self, style_type):
-
         palette = self._palette
 
         styles = {
@@ -189,17 +190,22 @@ class PythonSyntaxHighlighter(QtGui.QSyntaxHighlighter):
         return styles[style_type]
 
     def highlightBlock(self, text):
-        """Apply syntax highlighting to the given block of text."""
-        # Do other syntax formatting
-        for expression, nth, format in self.rules:
-            index = expression.indexIn(text, 0)
+        """Apply syntax highlighting to the given block of text using QRegularExpression."""
 
-            while index >= 0:
+        # Do other syntax formatting
+        for expression, nth, fmt in self.rules:
+            match = expression.match(text)
+            offset = 0
+
+            while match.hasMatch():
                 # We actually want the index of the nth match
-                index = expression.pos(nth)
-                length = len(expression.cap(nth))
-                self.setFormat(index, length, format)
-                index = expression.indexIn(text, index + length)
+                index = match.capturedStart(nth)
+                length = match.capturedLength(nth)
+                self.setFormat(offset + index, length, fmt)
+
+                offset += match.capturedEnd(nth)
+                text_left_to_match = text[offset:]
+                match = expression.match(text_left_to_match)
 
         self.setCurrentBlockState(0)
 
@@ -207,7 +213,7 @@ class PythonSyntaxHighlighter(QtGui.QSyntaxHighlighter):
         in_multiline = self.match_multiline(text, *self.tri_single)
         if not in_multiline:
             in_multiline = self.match_multiline(text, *self.tri_double)
-        
+
     def match_multiline(self, text, delimiter, in_state, style):
         """
         Do highlighting of multi-line strings.
