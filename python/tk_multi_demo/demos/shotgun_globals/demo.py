@@ -164,12 +164,12 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         # ---- connect some signals
 
         # handle entity type changes
-        self._entity_type_combo.activated[str].connect(
+        self._entity_type_combo.activated[int].connect(
             self._on_entity_type_combo_activated
         )
 
         # handle field name changes
-        self._field_name_combo.activated[str].connect(
+        self._field_name_combo.activated[int].connect(
             self._on_field_name_combo_activated
         )
 
@@ -179,13 +179,13 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         entity_type_index = self._entity_type_combo.findText(DEFAULT_ENTITY_TYPE)
         if entity_type_index > -1:
             self._entity_type_combo.setCurrentIndex(entity_type_index)
-            self._on_entity_type_combo_activated(DEFAULT_ENTITY_TYPE)
+            self._on_entity_type_combo_activated(entity_type_index)
 
         # field
         field_name_index = self._field_name_combo.findText(DEFAULT_FIELD_NAME)
         if field_name_index > -1:
             self._field_name_combo.setCurrentIndex(field_name_index)
-            self._on_field_name_combo_activated(DEFAULT_FIELD_NAME)
+            self._on_field_name_combo_activated(field_name_index)
 
     def destroy(self):
         """
@@ -193,10 +193,11 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         """
         self._bg_task_manager.shut_down()
 
-    def _on_entity_type_combo_activated(self, entity_type):
+    def _on_entity_type_combo_activated(self, entity_type_index):
         """
         Handle a new entity type selection.
         """
+        entity_type = self._entity_type_combo.itemText(entity_type_index)
 
         # clear the field name combo and repopulate it with the new fields
         self._field_name_combo.clear()
@@ -220,14 +221,16 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         type_icon_url = shotgun_globals.get_entity_type_icon_url(entity_type)
         self._entity_type_icon_url.setText(type_icon_url)
 
-        self._on_field_name_combo_activated(self._field_name_combo.currentText())
+        field_name_index = self._field_name_combo.currentIndex()
+        self._on_field_name_combo_activated(field_name_index)
 
-    def _on_field_name_combo_activated(self, field_name):
+    def _on_field_name_combo_activated(self, field_name_index):
         """
         Handle a new field name selection.
         """
 
         entity_type = self._entity_type_combo.currentText()
+        field_name = self._field_name_combo.itemText(field_name_index)
 
         # --- update the labels for the various methods
 
