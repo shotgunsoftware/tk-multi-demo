@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Flow Production Tracking Field Delegate"
+display_name: "FPRT Field Delegate"
 
 description:
     A delegate for a given type of Flow Production Tracking field.  This delegate

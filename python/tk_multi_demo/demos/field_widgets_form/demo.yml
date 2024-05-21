@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Flow Production Tracking Field Widgets Form"
+display_name: "FPTR Field Widgets Form"
 
 description:
   The shotgun_fields module provides access to Qt widgets that correspond to the
