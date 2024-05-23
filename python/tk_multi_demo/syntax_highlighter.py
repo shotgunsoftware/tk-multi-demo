@@ -129,7 +129,9 @@ class PythonSyntaxHighlighter(QtGui.QSyntaxHighlighter):
         ]
 
         # Build a QtCore.QRegularExpression for each pattern
-        self.rules = [(QtCore.QRegularExpression(pat), index, fmt) for (pat, index, fmt) in rules]
+        self.rules = [
+            (QtCore.QRegularExpression(pat), index, fmt) for (pat, index, fmt) in rules
+        ]
 
     def _style(self, style_type):
 
