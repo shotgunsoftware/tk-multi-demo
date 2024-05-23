@@ -82,8 +82,8 @@ class PythonSyntaxHighlighter(QtGui.QSyntaxHighlighter):
         # Multi-line strings (expression, flag, style)
         # FIXME: The triple-quotes in these two lines will mess up the
         # syntax highlighting from this point onward
-        self.tri_single = (QtCore.QRegExp("'''"), 1, self._style("string2"))
-        self.tri_double = (QtCore.QRegExp('"""'), 2, self._style("string2"))
+        self.tri_single = (QtCore.QRegularExpression("'''"), 1, self._style("string2"))
+        self.tri_double = (QtCore.QRegularExpression('"""'), 2, self._style("string2"))
 
         rules = []
 
@@ -128,8 +128,8 @@ class PythonSyntaxHighlighter(QtGui.QSyntaxHighlighter):
             ),
         ]
 
-        # Build a QtCore.QRegExp for each pattern
-        self.rules = [(QtCore.QRegExp(pat), index, fmt) for (pat, index, fmt) in rules]
+        # Build a QtCore.QRegularExpression for each pattern
+        self.rules = [(QtCore.QRegularExpression(pat), index, fmt) for (pat, index, fmt) in rules]
 
     def _style(self, style_type):
 
