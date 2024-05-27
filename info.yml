@@ -23,12 +23,12 @@ description: "An app for demonstrating Flow Production Tracking building blocks.
 
 # Required minimum versions for this item to run
 requires_shotgun_version:
-requires_core_version: "v0.21.1"
+requires_core_version: "v0.21.4"
 requires_engine_version:
 
 frameworks:
     - {"name": "tk-framework-shotgunutils", "version": "v5.x.x", "minimum_version": "v5.9.0"}
-    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.11.2"}
+    - {"name": "tk-framework-qtwidgets", "version": "v2.x.x", "minimum_version": "v2.12.1"}
 
 # the engines that this app can operate in:
 supported_engines:
