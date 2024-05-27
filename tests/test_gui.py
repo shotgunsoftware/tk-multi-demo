@@ -19,7 +19,6 @@ from tk_toolchain.authentication import get_toolkit_user
 try:
     from MA.UI import topwindows
     from MA.UI import first
-    from MA.UI import close as ma_close
 except ImportError:
     pytestmark = pytest.mark.skip()
 
@@ -64,8 +63,7 @@ def host_application(context):
             context["type"],
             "--context-entity-id",
             str(context["id"]),
-        ],
-        stdout=subprocess.PIPE,
+        ]
     )
     try:
         yield
@@ -73,6 +71,9 @@ def host_application(context):
         # We're done. Grab all the output from the process
         # and print it so that is there was an error
         # we'll know about it.
+        stdout, stderr = process.communicate()
+        sys.stdout.write(stdout or "")
+        sys.stderr.write(stderr or "")
         process.poll()
         # If returncode is not set, then the process
         # was hung and we need to kill it
@@ -125,7 +126,7 @@ class AppDialogAppWrapper(object):
         self.root["Demo Tree View"][name].get().mouseClick()
 
     def close(self):
-        ma_close(self.root, 10)
+        self.root.buttons["Close"].get().mouseClick()
 
 
 def test_activity_stream(app_dialog):
