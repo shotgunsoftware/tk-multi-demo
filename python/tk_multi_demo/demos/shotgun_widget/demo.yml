@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Autodesk Inc.
 
 # More verbose description of this item
-display_name: "Flow Production Tracking Widget"
+display_name: "FPTR Widget"
 
 description:
     A demonstration of the ShotgunListWidget and ShotgunFolderWidget classes. These widgets

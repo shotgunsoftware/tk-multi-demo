@@ -11,7 +11,7 @@ For more info about QT stylesheets, please see http://doc.qt.io/qt-4.8/styleshee
 ********************************************************************************************/
 
 QPlainTextEdit#demo_code_edit {
-    font-family: "Courier";
+    font-family: "Courier New";
     font-size: 12px;
     border: none;
     border-radius: 0px;
@@ -25,7 +25,7 @@ QPushButton#demo_to_app {
 }
 
 QComboBox#demo_file_combo {
-    font-family: "Courier";
+    font-family: "Courier New";
 }
 
 QSplitter::handle {

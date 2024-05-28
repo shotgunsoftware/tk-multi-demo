@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Flow Production Tracking Hierarchy"
+display_name: "FPTR Hierarchy"
 
 description:
     The SimpleShotgunHierarchyModel in combination with the

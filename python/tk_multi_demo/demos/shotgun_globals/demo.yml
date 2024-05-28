@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Flow Production Tracking Globals"
+display_name: "FPTR Globals"
 
 description:
   A demonstration of the shotgun_globals module found in the toolkit shotgun

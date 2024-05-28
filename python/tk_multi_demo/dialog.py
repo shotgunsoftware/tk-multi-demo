@@ -182,7 +182,7 @@ class DemoWidget(QtGui.QSplitter):
         selection_model.selectionChanged.connect(self._on_selection_changed)
 
         # handle the user selecting a new file to display in the code widget
-        self._demo_file_combo.activated[str].connect(self._on_file_selected)
+        self._demo_file_combo.activated[int].connect(self._on_file_selected)
 
         # set the default demo
         self._set_default_demo()
@@ -274,7 +274,7 @@ class DemoWidget(QtGui.QSplitter):
         index = self._demo_file_combo.findText("demo.py")
         if index != -1:
             self._demo_file_combo.setCurrentIndex(index)
-            self._on_file_selected(self._demo_file_combo.currentText())
+            self._on_file_selected(index)
 
     def _get_file_model(self, demo_class):
         """
@@ -314,11 +314,11 @@ class DemoWidget(QtGui.QSplitter):
 
         return model
 
-    def _on_file_selected(self, file_name):
+    def _on_file_selected(self, index):
         """
         Handle selection of a python file in the code combo.
 
-        :param file_name: The display name of a file in the combo
+        :param index: The index of a file selected in the combo
         :return:
         """
 
@@ -326,6 +326,7 @@ class DemoWidget(QtGui.QSplitter):
         model = self._demo_file_combo.model()
 
         # locate the corresponding item
+        file_name = self._demo_file_combo.itemText(index)
         items = model.findItems(file_name)
         if not items:
             return

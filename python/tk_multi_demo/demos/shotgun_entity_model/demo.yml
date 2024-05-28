@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Flow Production Tracking Entity Model"
+display_name: "FPTR Entity Model"
 
 description:
     A convenience wrapper around the ShotgunModel. This model is useful when you

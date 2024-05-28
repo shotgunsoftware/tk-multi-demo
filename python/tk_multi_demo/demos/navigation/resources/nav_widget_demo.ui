@@ -27,7 +27,7 @@
        <property name="styleSheet">
         <string notr="true">QLabel {
     color: #999999;
-	font-family: &quot;Courier&quot;;
+	font-family: &quot;Courier New&quot;;
 }</string>
        </property>
        <property name="text">
@@ -59,7 +59,7 @@
        <property name="styleSheet">
         <string notr="true">QLabel {
     color: #999999;
-	font-family: &quot;Courier&quot;;
+	font-family: &quot;Courier New&quot;;
 }</string>
        </property>
        <property name="text">
@@ -83,7 +83,7 @@
      <item>
       <widget class="QLabel" name="info_lbl">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select items in the tree view to the left to see the &lt;span style=&quot; font-family:'Courier New,courier';&quot;&gt;NavigationWidget&lt;/span&gt; and &lt;span style=&quot; font-family:'Courier New,courier';&quot;&gt;BreadcrumbWidget&lt;/span&gt; above update. Then use the navigation widgets themselves to traverse the selection history in the tree view. Clicking the &lt;span style=&quot; font-weight:600;&quot;&gt;Home&lt;/span&gt; button in the &lt;span style=&quot; font-family:'Courier New,courier';&quot;&gt;NavigationWidget&lt;/span&gt; will clear selection.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select items in the tree view to the left to see the &lt;span style=&quot; font-family:'Courier New';&quot;&gt;NavigationWidget&lt;/span&gt; and &lt;span style=&quot; font-family:'Courier New';&quot;&gt;BreadcrumbWidget&lt;/span&gt; above update. Then use the navigation widgets themselves to traverse the selection history in the tree view. Clicking the &lt;span style=&quot; font-weight:600;&quot;&gt;Home&lt;/span&gt; button in the &lt;span style=&quot; font-family:'Courier New';&quot;&gt;NavigationWidget&lt;/span&gt; will clear selection.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

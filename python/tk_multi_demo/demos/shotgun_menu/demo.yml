@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 # More verbose description of this item
-display_name: "Flow Production Tracking Menu"
+display_name: "FPTR Menu"
 
 description:
     The ShotgunMenu class provides a standardized interface, look and feel for
