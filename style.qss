@@ -33,7 +33,7 @@ QSplitter::handle {
 }
 
 QTreeView#demo_tree_view {
-    background-color: none;
+    background-color: palette(base);
     selection-background-color: palette(highlight);
     selection-color: palette(dark);
     show-decoration-selected: 1;
@@ -83,4 +83,18 @@ QTabBar::tab:hover {
 QTabBar::tab:selected {
     color: {{SG_HIGHLIGHT_COLOR}};
     border-top: 2px solid {{SG_HIGHLIGHT_COLOR}};
+}
+
+/* Styles added to prevent unexpected colors in PySide6 */
+QPushButton {
+    background-color: palette(button);
+}
+
+QWidget {
+    background-color: palette(window);
+}
+
+QHeaderView::section {
+    color: white;
+    background-color: palette(button);
 }
