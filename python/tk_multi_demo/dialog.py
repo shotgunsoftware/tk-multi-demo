@@ -17,7 +17,6 @@ from sgtk.platform import constants
 
 # for reading each demo's demo.yml file
 from tank_vendor import yaml
-from tank_vendor import six
 
 # ensure the resources are available
 from .ui import resources_rc
@@ -382,7 +381,7 @@ class DemoWidget(QtGui.QSplitter):
         for d in DEMOS_LIST:
 
             # a group of demos to display in the UI
-            if isinstance(d, six.string_types):
+            if isinstance(d, str):
 
                 # create the item
                 group_item = QtGui.QStandardItem(d)
