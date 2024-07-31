@@ -1,0 +1,71 @@
+# YAML Configuration File for Qt Resource Building
+#
+# This YAML file defines the configuration for building Qt UI and resource files using the tk-build-qt-resources script.
+# Each entry in the file represents a separate build configuration, to know more about each field please visit
+# https://github.com/shotgunsoftware/tk-toolchain?tab=readme-ov-file#tk-build-qt-resources.
+
+- ui_src: resources
+  res_files:
+    - resources
+  py_dest: python/tk_multi_demo/ui
+  import_pattern: tank.platform.qt
+
+- ui_src: python/tk_multi_demo/demos/filter_menu/resources
+  res_files:
+    - resources
+  py_dest: python/tk_multi_demo/demos/filter_menu/ui
+  import_pattern: tank.platform.qt
+
+- ui_src: python/tk_multi_demo/demos/custom_field_widget/resources
+  res_files:
+    - resources
+  py_dest: python/tk_multi_demo/demos/custom_field_widget/ui
+  import_pattern: tank.platform.qt
+
+- ui_src: python/tk_multi_demo/demos/field_widget_delegate/resources
+  res_files:
+    - resources
+  py_dest: python/tk_multi_demo/demos/field_widget_delegate/ui
+  import_pattern: tank.platform.qt
+
+- ui_src: python/tk_multi_demo/demos/help/resources
+  res_files:
+    - resources
+  py_dest: python/tk_multi_demo/demos/help/ui
+  import_pattern: tank.platform.qt
+
+- ui_src: python/tk_multi_demo/demos/overlay/resources
+  res_files:
+    - resources
+  py_dest: python/tk_multi_demo/demos/overlay/ui
+  import_pattern: tank.platform.qt
+
+- ui_src: python/tk_multi_demo/demos/navigation/resources
+  ui_files:
+    - nav_widget_demo
+  py_dest: python/tk_multi_demo/demos/navigation/ui
+  import_pattern: tank.platform.qt
+
+- ui_src: python/tk_multi_demo/demos/shotgun_widget/resources
+  ui_files:
+    - shotgun_widget_demo
+  py_dest: python/tk_multi_demo/demos/shotgun_widget/ui
+  import_pattern: tank.platform.qt
+
+- ui_src: python/tk_multi_demo/demos/help_screen_popup/resources
+  res_files:
+    - resources
+  py_dest: python/tk_multi_demo/demos/help_screen_popup/ui
+  import_pattern: tank.platform.qt
+
+- ui_src: python/tk_multi_demo/demos/view_item_delegate/resources
+  res_files:
+    - resources
+  py_dest: python/tk_multi_demo/demos/view_item_delegate/ui
+  import_pattern: tank.platform.qt
+
+- ui_src: python/tk_multi_demo/demos/screen_capture_widget/resources
+  ui_files:
+    - screen_capture_widget_demo
+  py_dest: python/tk_multi_demo/demos/screen_capture_widget/ui
+  import_pattern: tank.platform.qt

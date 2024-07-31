@@ -1,38 +1,53 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screen_capture_widget_demo.ui'
-#
-#      by: pyside-uic 0.2.15 running on PySide 1.2.2
-#
-# WARNING! All changes made in this file will be lost!
+################################################################################
+## Form generated from reading UI file 'shotgun_widget_demo.ui'
+##
+## Created by: Qt User Interface Compiler version 5.15.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
 
-from tank.platform.qt import QtCore, QtGui
+from tank.platform.qt import QtCore
+for name, cls in QtCore.__dict__.items():
+    if isinstance(cls, type): globals()[name] = cls
+
+from tank.platform.qt import QtGui
+for name, cls in QtGui.__dict__.items():
+    if isinstance(cls, type): globals()[name] = cls
+
 
 class Ui_ShotgunWidgetDemoUI(object):
     def setupUi(self, ShotgunWidgetDemoUI):
-        ShotgunWidgetDemoUI.setObjectName("ShotgunWidgetDemoUI")
+        if not ShotgunWidgetDemoUI.objectName():
+            ShotgunWidgetDemoUI.setObjectName(u"ShotgunWidgetDemoUI")
         ShotgunWidgetDemoUI.resize(400, 340)
-        self.verticalLayout = QtGui.QVBoxLayout(ShotgunWidgetDemoUI)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.view = QtGui.QListView(ShotgunWidgetDemoUI)
-        self.view.setObjectName("view")
+        self.verticalLayout = QVBoxLayout(ShotgunWidgetDemoUI)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.view = QListView(ShotgunWidgetDemoUI)
+        self.view.setObjectName(u"view")
+
         self.verticalLayout.addWidget(self.view)
-        self.view_mode_switch = QtGui.QPushButton(ShotgunWidgetDemoUI)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Fixed)
+
+        self.view_mode_switch = QPushButton(ShotgunWidgetDemoUI)
+        self.view_mode_switch.setObjectName(u"view_mode_switch")
+        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.view_mode_switch.sizePolicy().hasHeightForWidth())
         self.view_mode_switch.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setFamily("Courier New")
+        font = QFont()
+        font.setFamily(u"Courier New")
         self.view_mode_switch.setFont(font)
-        self.view_mode_switch.setObjectName("view_mode_switch")
+
         self.verticalLayout.addWidget(self.view_mode_switch)
 
         self.retranslateUi(ShotgunWidgetDemoUI)
-        QtCore.QMetaObject.connectSlotsByName(ShotgunWidgetDemoUI)
+
+        QMetaObject.connectSlotsByName(ShotgunWidgetDemoUI)
+    # setupUi
 
     def retranslateUi(self, ShotgunWidgetDemoUI):
-        ShotgunWidgetDemoUI.setWindowTitle(QtGui.QApplication.translate("ShotgunWidgetDemoUI", "Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.view_mode_switch.setText(QtGui.QApplication.translate("ShotgunWidgetDemoUI", "Switch to Icon View", None, QtGui.QApplication.UnicodeUTF8))
-
+        ShotgunWidgetDemoUI.setWindowTitle(QCoreApplication.translate("ShotgunWidgetDemoUI", u"Form", None))
+        self.view_mode_switch.setText(QCoreApplication.translate("ShotgunWidgetDemoUI", u"Switch to Icon View", None))
+    # retranslateUi
