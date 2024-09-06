@@ -216,11 +216,3 @@ class Ui_ScreenCaptureWidgetDemoUI(object):
         self.results_pixmap.setText("")
         self.dummy_label.setText("")
     # retranslateUi
-
-Error: C:\Users\chaucae\Documents\projects\tk-multi-demo\python\tk_multi_demo\demos\screen_capture_widget\resources\screen_capture_widget_demo.ui: Warning: Z-order assignment: '' is not a valid widget.
-
-C:\Users\chaucae\Documents\projects\tk-multi-demo\python\tk_multi_demo\demos\screen_capture_widget\resources\screen_capture_widget_demo.ui: Warning: Z-order assignment: 'output_left_spacer' is not a valid widget.
-
-C:\Users\chaucae\Documents\projects\tk-multi-demo\python\tk_multi_demo\demos\screen_capture_widget\resources\screen_capture_widget_demo.ui: Warning: Z-order assignment: 'output_right_spacer' is not a valid widget.
-
-while executing 'c:\users\chaucae\documents\projects\tk-core\.venv\lib\site-packages\PySide2\uic -g python -g python --from-imports C:\Users\chaucae\Documents\projects\tk-multi-demo\python\tk_multi_demo\demos\screen_capture_widget\resources/screen_capture_widget_demo.ui'
