@@ -292,7 +292,7 @@ class DemoWidget(QtGui.QSplitter):
         parent = model.invisibleRootItem()
 
         # walk the directory and construct file paths
-        for (root, dirs, files) in os.walk(demo_dir):
+        for root, dirs, files in os.walk(demo_dir):
             for file_path in files:
 
                 # we only display the python files for now
@@ -537,7 +537,7 @@ class DemoWidget(QtGui.QSplitter):
         :returns: Stylesheet string with replacements applied
         """
         processed_style_sheet = style_sheet
-        for (token, value) in constants.SG_STYLESHEET_CONSTANTS.items():
+        for token, value in constants.SG_STYLESHEET_CONSTANTS.items():
             processed_style_sheet = processed_style_sheet.replace(
                 "{{%s}}" % token, value
             )

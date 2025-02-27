@@ -358,9 +358,9 @@ class ViewItemDelegateDemo(QtGui.QWidget):
         return {
             "visible": True,
             "state": state,
-            "name": "Click to Disable Me"
-            if is_enabled
-            else "I am forever Disabled now",
+            "name": (
+                "Click to Disable Me" if is_enabled else "I am forever Disabled now"
+            ),
         }
 
     def _get_checkbox_data(self, parent, index):
