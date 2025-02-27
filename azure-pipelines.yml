@@ -41,3 +41,4 @@ jobs:
 - template: build-pipeline.yml@templates
   parameters:
     has_unit_tests: false
+    release_repo_ref: ticket/SG-37190_core
