@@ -23,8 +23,7 @@ DefaultCheckBoxWidget = shotgun_fields.checkbox_widget.CheckBoxWidget
 # field manager widget factory. the simple act of importing this class
 # will be enough to register it and apply it to the project favorite field.
 class MyProjectFavoritesWidget(
-    DefaultCheckBoxWidget,
-    metaclass=shotgun_fields.ShotgunFieldMeta
+    DefaultCheckBoxWidget, metaclass=shotgun_fields.ShotgunFieldMeta
 ):
     """
     A custom display widget for the Project entity's "favorite" field.
