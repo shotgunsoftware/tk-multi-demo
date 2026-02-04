@@ -71,13 +71,11 @@ class GlobalSearchWidgetDemo(QtGui.QWidget):
         # create a label to show when an entity is activated
         self._activated_label = QtGui.QLabel()
         self._activated_label.setWordWrap(True)
-        self._activated_label.setStyleSheet(
-            """
+        self._activated_label.setStyleSheet("""
             QLabel {
                 color: #18A7E3;
             }
-            """
-        )
+            """)
 
         # lay out the UI
         layout = QtGui.QVBoxLayout(self)
