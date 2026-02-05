@@ -49,30 +49,30 @@ class PythonSyntaxHighlighter(QtGui.QSyntaxHighlighter):
         ">",
         ">=",
         # Arithmetic
-        "\+",
+        r"\+",
         "-",
-        "\*",
+        r"\*",
         "/",
         "//",
-        "\%",
-        "\*\*",
+        r"\%",
+        r"\*\*",
         # In-place
-        "\+=",
+        r"\+=",
         "-=",
-        "\*=",
+        r"\*=",
         "/=",
-        "\%=",
+        r"\%=",
         # Bitwise
-        "\^",
-        "\|",
-        "\&",
-        "\~",
+        r"\^",
+        r"\|",
+        r"\&",
+        r"\~",
         ">>",
         "<<",
     ]
 
     # Python braces
-    braces = ["\{", "\}", "\(", "\)", "\[", "\]"]
+    braces = [r"\{", r"\}", r"\(", r"\)", r"\[", r"\]"]
 
     def __init__(self, document, palette):
         QtGui.QSyntaxHighlighter.__init__(self, document)

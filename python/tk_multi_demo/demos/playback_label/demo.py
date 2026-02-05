@@ -11,7 +11,6 @@
 import sgtk
 from sgtk.platform.qt import QtCore, QtGui
 
-
 # import the shotgun_menus module from the framework
 playback_label = sgtk.platform.import_framework(
     "tk-framework-qtwidgets", "playback_label"
