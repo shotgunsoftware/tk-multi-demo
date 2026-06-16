@@ -26,7 +26,7 @@ class HelpDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(HelpDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # --- add some helper labels with arrows and text...
 

@@ -29,7 +29,7 @@ class SearchWidgetDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(SearchWidgetDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # create the search widget instance
         search = search_widget.SearchWidget(self)

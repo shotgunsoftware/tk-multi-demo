@@ -27,7 +27,7 @@ class ShotgunEntityModelDemo(QtGui.QWidget):
         Return the ``QtGui.QWidget`` instance for this demo.
         """
 
-        super(ShotgunEntityModelDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # see if we can determine the current project. if we can, only show the
         # assets for this project.

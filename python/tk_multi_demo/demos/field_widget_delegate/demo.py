@@ -49,7 +49,7 @@ class FieldWidgetDelegateDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(FieldWidgetDelegateDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # the fields manager is used to query which fields are supported
         # for display. it can also be used to find out which fields are

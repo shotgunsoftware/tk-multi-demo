@@ -39,7 +39,7 @@ class BasicListItemModel(QtCore.QAbstractListModel):
         BasicListItemModel constructor.
         """
 
-        super(BasicListItemModel, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         # The underlying data structure. Just hard code some data to display.
         # The data structure is stored as a list, where each item in the list represents

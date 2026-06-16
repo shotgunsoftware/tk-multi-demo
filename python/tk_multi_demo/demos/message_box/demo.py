@@ -25,7 +25,7 @@ class MessageBoxDemo(QtGui.QWidget):
         Initialize the demo widget.
         """
 
-        super(MessageBoxDemo, self).__init__(parent)
+        super().__init__(parent)
 
         self._always_show_details = False
         self._show_remember_checkbox = True

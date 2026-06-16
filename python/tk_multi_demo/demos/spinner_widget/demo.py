@@ -29,7 +29,7 @@ class SpinnerWidgetDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(SpinnerWidgetDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # create the spinner
         spinner = spinner_widget.SpinnerWidget(self)

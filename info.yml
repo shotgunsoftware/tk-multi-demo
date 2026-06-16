@@ -25,6 +25,7 @@ description: "An app for demonstrating Flow Production Tracking building blocks.
 requires_shotgun_version:
 requires_core_version: "v0.21.4"
 requires_engine_version:
+minimum_python_version: "3.9"
 
 frameworks:
     - {"name": "tk-framework-shotgunutils", "version": "v5.x.x", "minimum_version": "v5.9.0"}

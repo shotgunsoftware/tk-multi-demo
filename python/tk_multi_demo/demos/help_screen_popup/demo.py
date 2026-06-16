@@ -29,7 +29,7 @@ class HelpScreenPopupDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(HelpScreenPopupDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # get a handle on the current toolkit bundle (the demo app). the help
         # screen popup dialog uses this to link back to documentation as well as

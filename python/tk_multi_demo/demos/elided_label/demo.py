@@ -27,7 +27,7 @@ class ElidedLabelDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(ElidedLabelDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # some text to display in the label
         start_text = (

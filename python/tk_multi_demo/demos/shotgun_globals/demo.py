@@ -42,7 +42,7 @@ class ShotgunGlobalsDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(ShotgunGlobalsDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # the app (current bundle) from the parent widget
         self._app = sgtk.platform.current_bundle()

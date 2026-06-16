@@ -44,7 +44,7 @@ class ShotgunHierarchyDemo(QtGui.QWidget):
         Return the ``QtGui.QWidget`` instance for this demo.
         """
 
-        super(ShotgunHierarchyDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # create a background task manager for each of our components to use
         # for threading
