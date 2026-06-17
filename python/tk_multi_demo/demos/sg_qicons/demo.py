@@ -25,7 +25,7 @@ class SGQIconDemo(QtGui.QWidget):
         Initialize the demo widget.
         """
 
-        super(SGQIconDemo, self).__init__(parent)
+        super().__init__(parent)
 
         self._icons = [
             {

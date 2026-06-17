@@ -34,7 +34,7 @@ class ActivityStreamWidgetDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(ActivityStreamWidgetDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # get a handle on the current toolkit bundle (the demo app).
         self._app = sgtk.platform.current_bundle()

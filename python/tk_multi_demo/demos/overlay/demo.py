@@ -30,7 +30,7 @@ class OverlayDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(OverlayDemo, self).__init__(parent)
+        super().__init__(parent)
 
         parent_widget = self._create_overlay_parent_widget()
 

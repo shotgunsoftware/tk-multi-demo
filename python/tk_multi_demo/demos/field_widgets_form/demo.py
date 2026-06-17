@@ -39,7 +39,7 @@ class FieldWidgetsFormDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(FieldWidgetsFormDemo, self).__init__(parent)
+        super().__init__(parent)
 
         self._bundle = sgtk.platform.current_bundle()
 

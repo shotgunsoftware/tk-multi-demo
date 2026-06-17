@@ -27,7 +27,7 @@ class ScreenCaptureWidgetDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(ScreenCaptureWidgetDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # setup the ui
         self.ui = Ui_ScreenCaptureWidgetDemoUI()

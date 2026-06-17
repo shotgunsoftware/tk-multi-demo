@@ -48,7 +48,7 @@ class FilterMenuDemo(QtGui.QWidget):
         Initialize the demo widget.
         """
 
-        super(FilterMenuDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # Set up the PTR source/proxy models and menu.
         self._bg_task_manager = task_manager.BackgroundTaskManager(self, True)
@@ -265,7 +265,7 @@ class BasicModel(QtCore.QAbstractListModel):
         Constructor.
         """
 
-        super(BasicModel, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self._data = []
 

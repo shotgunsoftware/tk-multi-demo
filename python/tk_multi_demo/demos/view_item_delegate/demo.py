@@ -48,7 +48,7 @@ class ViewItemDelegateDemo(QtGui.QWidget):
         Initialize the widget.
         """
 
-        super(ViewItemDelegateDemo, self).__init__(parent)
+        super().__init__(parent)
 
         self._bg_task_manager = task_manager.BackgroundTaskManager(self, True)
         shotgun_globals.register_bg_task_manager(self._bg_task_manager)

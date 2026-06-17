@@ -25,7 +25,7 @@ class SGQWidgetsDemo(QtGui.QWidget):
         Initialize the demo widget.
         """
 
-        super(SGQWidgetsDemo, self).__init__(parent)
+        super().__init__(parent)
 
         self._example_qss = "<br/>".join(
             [

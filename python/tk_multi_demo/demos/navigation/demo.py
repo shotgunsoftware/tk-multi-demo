@@ -39,7 +39,7 @@ class NavigationDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(NavigationDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # get a handle on the current toolkit bundle (the demo app).
         self._app = sgtk.platform.current_bundle()
@@ -162,7 +162,7 @@ class _HierarchyItemBreadcrumb(navigation.Breadcrumb):
         label = _get_item_label(item)
 
         # call the base class and supply a label
-        super(_HierarchyItemBreadcrumb, self).__init__(label)
+        super().__init__(label)
 
     def item(self):
         """The item this breadcrumb represents."""

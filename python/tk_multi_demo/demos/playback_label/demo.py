@@ -30,7 +30,7 @@ class PlaybackLabelDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(PlaybackLabelDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # construct label object
         label = playback_label.ShotgunPlaybackLabel(self)

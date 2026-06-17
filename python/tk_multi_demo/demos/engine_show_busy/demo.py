@@ -23,7 +23,7 @@ class EngineShowBusyDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(EngineShowBusyDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # a button that will show a busy dialog with a title and some text
         show_btn = QtGui.QPushButton("show_busy(title, details)")

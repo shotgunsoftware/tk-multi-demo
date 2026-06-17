@@ -48,7 +48,7 @@ class ShotgunWidgetDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(ShotgunWidgetDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # create a single instance of the task manager that manages all
         # asynchronous work/tasks

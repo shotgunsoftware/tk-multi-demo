@@ -34,7 +34,7 @@ class GlobalSearchWidgetDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(GlobalSearchWidgetDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # create a bg task manager for pulling data from PTR
         self._bg_task_manager = task_manager.BackgroundTaskManager(self)

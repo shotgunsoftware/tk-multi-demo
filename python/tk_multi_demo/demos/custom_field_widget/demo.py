@@ -52,7 +52,7 @@ class CustomFieldWidgetDemo(QtGui.QWidget):
         """
 
         # call the base class init
-        super(CustomFieldWidgetDemo, self).__init__(parent)
+        super().__init__(parent)
 
         # create a background task manager for each of our components to use
         self._bg_task_manager = task_manager.BackgroundTaskManager(self)

@@ -63,7 +63,7 @@ class DemoWidget(QtGui.QSplitter):
 
         self._current_demo_info = None
 
-        super(DemoWidget, self).__init__()
+        super().__init__()
 
         # easy access to the app instance
         self.app = sgtk.platform.current_bundle()
